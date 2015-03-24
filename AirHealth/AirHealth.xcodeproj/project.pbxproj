@@ -14,6 +14,12 @@
 		17F3C24D1AC17D3E009590F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17F3C24C1AC17D3E009590F8 /* Images.xcassets */; };
 		17F3C2501AC17D3E009590F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F3C24E1AC17D3E009590F8 /* LaunchScreen.xib */; };
 		17F3C25C1AC17D3E009590F8 /* AirHealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F3C25B1AC17D3E009590F8 /* AirHealthTests.m */; };
+		5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */; };
+		5E9C62681AC1A52800E9486E /* sinchronize.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62671AC1A52800E9486E /* sinchronize.png */; };
+		5E9C626A1AC1A54A00E9486E /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62691AC1A54A00E9486E /* profile.png */; };
+		5E9C62701AC1A5FE00E9486E /* initial.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C626F1AC1A5FE00E9486E /* initial.png */; };
+		5E9C62741AC1A6CF00E9486E /* config.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62731AC1A6CF00E9486E /* config.png */; };
+		5E9C62761AC1A73000E9486E /* medical.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62751AC1A73000E9486E /* medical.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,13 @@
 		17F3C2551AC17D3E009590F8 /* AirHealthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirHealthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17F3C25A1AC17D3E009590F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17F3C25B1AC17D3E009590F8 /* AirHealthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirHealthTests.m; sourceTree = "<group>"; };
+		5E9C62611AC19B8100E9486E /* MainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarViewController.h; sourceTree = "<group>"; };
+		5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarViewController.m; sourceTree = "<group>"; };
+		5E9C62671AC1A52800E9486E /* sinchronize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sinchronize.png; sourceTree = "<group>"; };
+		5E9C62691AC1A54A00E9486E /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
+		5E9C626F1AC1A5FE00E9486E /* initial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = initial.png; sourceTree = "<group>"; };
+		5E9C62731AC1A6CF00E9486E /* config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config.png; sourceTree = "<group>"; };
+		5E9C62751AC1A73000E9486E /* medical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medical.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +94,7 @@
 		17F3C23E1AC17D3E009590F8 /* AirHealth */ = {
 			isa = PBXGroup;
 			children = (
+				5E9C62641AC1A33B00E9486E /* iconsTab */,
 				17F3C2431AC17D3E009590F8 /* AppDelegate.h */,
 				17F3C2441AC17D3E009590F8 /* AppDelegate.m */,
 				17F3C2461AC17D3E009590F8 /* ViewController.h */,
@@ -88,6 +102,8 @@
 				17F3C2491AC17D3E009590F8 /* Main.storyboard */,
 				17F3C24C1AC17D3E009590F8 /* Images.xcassets */,
 				17F3C24E1AC17D3E009590F8 /* LaunchScreen.xib */,
+				5E9C62611AC19B8100E9486E /* MainTabBarViewController.h */,
+				5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */,
 				17F3C23F1AC17D3E009590F8 /* Supporting Files */,
 			);
 			path = AirHealth;
@@ -117,6 +133,18 @@
 				17F3C25A1AC17D3E009590F8 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5E9C62641AC1A33B00E9486E /* iconsTab */ = {
+			isa = PBXGroup;
+			children = (
+				5E9C62671AC1A52800E9486E /* sinchronize.png */,
+				5E9C62731AC1A6CF00E9486E /* config.png */,
+				5E9C62751AC1A73000E9486E /* medical.png */,
+				5E9C626F1AC1A5FE00E9486E /* initial.png */,
+				5E9C62691AC1A54A00E9486E /* profile.png */,
+			);
+			name = iconsTab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,8 +227,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E9C62701AC1A5FE00E9486E /* initial.png in Resources */,
 				17F3C24B1AC17D3E009590F8 /* Main.storyboard in Resources */,
+				5E9C626A1AC1A54A00E9486E /* profile.png in Resources */,
+				5E9C62761AC1A73000E9486E /* medical.png in Resources */,
+				5E9C62741AC1A6CF00E9486E /* config.png in Resources */,
 				17F3C2501AC17D3E009590F8 /* LaunchScreen.xib in Resources */,
+				5E9C62681AC1A52800E9486E /* sinchronize.png in Resources */,
 				17F3C24D1AC17D3E009590F8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				17F3C2481AC17D3E009590F8 /* ViewController.m in Sources */,
+				5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */,
 				17F3C2451AC17D3E009590F8 /* AppDelegate.m in Sources */,
 				17F3C2421AC17D3E009590F8 /* main.m in Sources */,
 			);
@@ -412,6 +446,7 @@
 				17F3C2611AC17D3E009590F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		17F3C2621AC17D3E009590F8 /* Build configuration list for PBXNativeTarget "AirHealthTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +455,7 @@
 				17F3C2641AC17D3E009590F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
