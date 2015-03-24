@@ -20,6 +20,8 @@
 		5E9C62701AC1A5FE00E9486E /* initial.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C626F1AC1A5FE00E9486E /* initial.png */; };
 		5E9C62741AC1A6CF00E9486E /* config.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62731AC1A6CF00E9486E /* config.png */; };
 		5E9C62761AC1A73000E9486E /* medical.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62751AC1A73000E9486E /* medical.png */; };
+		5E9C62791AC1AE3D00E9486E /* DadosPessoaisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */; };
+		5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		5E9C626F1AC1A5FE00E9486E /* initial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = initial.png; sourceTree = "<group>"; };
 		5E9C62731AC1A6CF00E9486E /* config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config.png; sourceTree = "<group>"; };
 		5E9C62751AC1A73000E9486E /* medical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medical.png; sourceTree = "<group>"; };
+		5E9C62771AC1AE3D00E9486E /* DadosPessoaisCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DadosPessoaisCell.h; sourceTree = "<group>"; };
+		5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisCell.m; sourceTree = "<group>"; };
+		5E9C627D1AC1B0B700E9486E /* DadosPessoaisTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DadosPessoaisTableViewController.h; sourceTree = "<group>"; };
+		5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,10 @@
 				17F3C2491AC17D3E009590F8 /* Main.storyboard */,
 				17F3C24C1AC17D3E009590F8 /* Images.xcassets */,
 				17F3C24E1AC17D3E009590F8 /* LaunchScreen.xib */,
+				5E9C62771AC1AE3D00E9486E /* DadosPessoaisCell.h */,
+				5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */,
+				5E9C627D1AC1B0B700E9486E /* DadosPessoaisTableViewController.h */,
+				5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */,
 				5E9C62611AC19B8100E9486E /* MainTabBarViewController.h */,
 				5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */,
 				17F3C23F1AC17D3E009590F8 /* Supporting Files */,
@@ -252,7 +262,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E9C62791AC1AE3D00E9486E /* DadosPessoaisCell.m in Sources */,
 				17F3C2481AC17D3E009590F8 /* ViewController.m in Sources */,
+				5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */,
 				5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */,
 				17F3C2451AC17D3E009590F8 /* AppDelegate.m in Sources */,
 				17F3C2421AC17D3E009590F8 /* main.m in Sources */,
