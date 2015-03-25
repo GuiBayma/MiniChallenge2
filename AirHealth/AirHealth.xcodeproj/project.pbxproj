@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17A2C2FA1AC2DF75005C7CE2 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2C2F71AC2DF75005C7CE2 /* PageViewController.m */; };
+		17A2C2FB1AC2DF75005C7CE2 /* PageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2C2F91AC2DF75005C7CE2 /* PageContentViewController.m */; };
+		17A2C2FE1AC2DF80005C7CE2 /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A2C2FC1AC2DF80005C7CE2 /* img1.png */; };
+		17A2C2FF1AC2DF80005C7CE2 /* img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A2C2FD1AC2DF80005C7CE2 /* img2.png */; };
 		17F3C2421AC17D3E009590F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F3C2411AC17D3E009590F8 /* main.m */; };
 		17F3C2451AC17D3E009590F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F3C2441AC17D3E009590F8 /* AppDelegate.m */; };
 		17F3C2481AC17D3E009590F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F3C2471AC17D3E009590F8 /* ViewController.m */; };
@@ -35,6 +39,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		17A2C2F61AC2DF75005C7CE2 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		17A2C2F71AC2DF75005C7CE2 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		17A2C2F81AC2DF75005C7CE2 /* PageContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageContentViewController.h; sourceTree = "<group>"; };
+		17A2C2F91AC2DF75005C7CE2 /* PageContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageContentViewController.m; sourceTree = "<group>"; };
+		17A2C2FC1AC2DF80005C7CE2 /* img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img1.png; sourceTree = "<group>"; };
+		17A2C2FD1AC2DF80005C7CE2 /* img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img2.png; sourceTree = "<group>"; };
 		17F3C23C1AC17D3E009590F8 /* AirHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17F3C2401AC17D3E009590F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17F3C2411AC17D3E009590F8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -79,6 +89,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17A2C2F51AC2DF42005C7CE2 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				17A2C2FC1AC2DF80005C7CE2 /* img1.png */,
+				17A2C2FD1AC2DF80005C7CE2 /* img2.png */,
+				17A2C2F61AC2DF75005C7CE2 /* PageViewController.h */,
+				17A2C2F71AC2DF75005C7CE2 /* PageViewController.m */,
+				17A2C2F81AC2DF75005C7CE2 /* PageContentViewController.h */,
+				17A2C2F91AC2DF75005C7CE2 /* PageContentViewController.m */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
 		17F3C2331AC17D3E009590F8 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +123,7 @@
 		17F3C23E1AC17D3E009590F8 /* AirHealth */ = {
 			isa = PBXGroup;
 			children = (
+				17A2C2F51AC2DF42005C7CE2 /* Tutorial */,
 				5E9C62641AC1A33B00E9486E /* iconsTab */,
 				17F3C2431AC17D3E009590F8 /* AppDelegate.h */,
 				17F3C2441AC17D3E009590F8 /* AppDelegate.m */,
@@ -239,9 +263,11 @@
 			files = (
 				5E9C62701AC1A5FE00E9486E /* initial.png in Resources */,
 				17F3C24B1AC17D3E009590F8 /* Main.storyboard in Resources */,
+				17A2C2FE1AC2DF80005C7CE2 /* img1.png in Resources */,
 				5E9C626A1AC1A54A00E9486E /* profile.png in Resources */,
 				5E9C62761AC1A73000E9486E /* medical.png in Resources */,
 				5E9C62741AC1A6CF00E9486E /* config.png in Resources */,
+				17A2C2FF1AC2DF80005C7CE2 /* img2.png in Resources */,
 				17F3C2501AC17D3E009590F8 /* LaunchScreen.xib in Resources */,
 				5E9C62681AC1A52800E9486E /* sinchronize.png in Resources */,
 				17F3C24D1AC17D3E009590F8 /* Images.xcassets in Resources */,
@@ -267,7 +293,9 @@
 				5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */,
 				5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */,
 				17F3C2451AC17D3E009590F8 /* AppDelegate.m in Sources */,
+				17A2C2FB1AC2DF75005C7CE2 /* PageContentViewController.m in Sources */,
 				17F3C2421AC17D3E009590F8 /* main.m in Sources */,
+				17A2C2FA1AC2DF75005C7CE2 /* PageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
