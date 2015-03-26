@@ -22,6 +22,8 @@
 		5E9C62761AC1A73000E9486E /* medical.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62751AC1A73000E9486E /* medical.png */; };
 		5E9C62791AC1AE3D00E9486E /* DadosPessoaisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */; };
 		5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */; };
+		ECB4CEDE1AC2E9EE00AFB5FB /* FichaMedicaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CEDD1AC2E9EE00AFB5FB /* FichaMedicaViewController.m */; };
+		ECB4CEE11AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CEE01AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,10 @@
 		5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisCell.m; sourceTree = "<group>"; };
 		5E9C627D1AC1B0B700E9486E /* DadosPessoaisTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DadosPessoaisTableViewController.h; sourceTree = "<group>"; };
 		5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisTableViewController.m; sourceTree = "<group>"; };
+		ECB4CEDC1AC2E9EE00AFB5FB /* FichaMedicaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FichaMedicaViewController.h; sourceTree = "<group>"; };
+		ECB4CEDD1AC2E9EE00AFB5FB /* FichaMedicaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FichaMedicaViewController.m; sourceTree = "<group>"; };
+		ECB4CEDF1AC2F0D200AFB5FB /* ConfiguracoesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfiguracoesTableViewController.h; sourceTree = "<group>"; };
+		ECB4CEE01AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfiguracoesTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +116,10 @@
 				17F3C24E1AC17D3E009590F8 /* LaunchScreen.xib */,
 				5E9C62771AC1AE3D00E9486E /* DadosPessoaisCell.h */,
 				5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */,
+				ECB4CEDC1AC2E9EE00AFB5FB /* FichaMedicaViewController.h */,
+				ECB4CEDD1AC2E9EE00AFB5FB /* FichaMedicaViewController.m */,
+				ECB4CEDF1AC2F0D200AFB5FB /* ConfiguracoesTableViewController.h */,
+				ECB4CEE01AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m */,
 				5E9C627D1AC1B0B700E9486E /* DadosPessoaisTableViewController.h */,
 				5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */,
 				5E9C62611AC19B8100E9486E /* MainTabBarViewController.h */,
@@ -266,8 +276,10 @@
 				17F3C2481AC17D3E009590F8 /* ViewController.m in Sources */,
 				5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */,
 				5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */,
+				ECB4CEE11AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m in Sources */,
 				17F3C2451AC17D3E009590F8 /* AppDelegate.m in Sources */,
 				17F3C2421AC17D3E009590F8 /* main.m in Sources */,
+				ECB4CEDE1AC2E9EE00AFB5FB /* FichaMedicaViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
