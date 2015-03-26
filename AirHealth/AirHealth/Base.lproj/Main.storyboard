@@ -29,7 +29,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rQy-Q1-LEn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1307" y="1139"/>
+            <point key="canvasLocation" x="804" y="1138.5"/>
         </scene>
         <!--Configurações-->
         <scene sceneID="lnG-VG-GAM">
@@ -56,7 +56,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gTg-bQ-Wj1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1961" y="1139"/>
+            <point key="canvasLocation" x="1512" y="1138.5"/>
         </scene>
         <!--Dados Pessoais-->
         <scene sceneID="lJX-eh-0qa">
@@ -96,7 +96,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zzy-Pb-LJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="634.5" y="1138.5"/>
+            <point key="canvasLocation" x="75" y="1138.5"/>
         </scene>
         <!--Sincronizar-->
         <scene sceneID="6lX-QS-xlH">
@@ -119,97 +119,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Sincronizar" image="sinchronize.png" id="nnn-z0-Tbt"/>
+                    <tabBarItem key="tabBarItem" title="Sincronização" image="sinchronize.png" id="nnn-z0-Tbt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9gX-lJ-b46" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-35" y="1139"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="j0R-eU-7Ee">
-            <objects>
-                <viewController id="mPk-kA-5gE" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="d8W-ew-hCj"/>
-                        <viewControllerLayoutGuide type="bottom" id="uGR-MH-udg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Dzl-2C-NGn" customClass="LoginController">
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AEf-Qn-jqC">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="56" y="392" width="289" height="30"/>
-                                </variation>
-                            </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="l3O-nx-KzY">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="107" y="173" width="186" height="186"/>
-                                </variation>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Senha" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IhN-HJ-l8U">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="56" y="435" width="289" height="30"/>
-                                </variation>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="headTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bmE-eU-2XC">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <inset key="titleEdgeInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Entrar">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="90" y="553" width="220" height="30"/>
-                                </variation>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YjC-KW-rKP">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Inscreva-se">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="90" y="597" width="220" height="30"/>
-                                </variation>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="AEf-Qn-jqC"/>
-                                <exclude reference="l3O-nx-KzY"/>
-                                <exclude reference="IhN-HJ-l8U"/>
-                                <exclude reference="bmE-eU-2XC"/>
-                                <exclude reference="YjC-KW-rKP"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="AEf-Qn-jqC"/>
-                                <include reference="l3O-nx-KzY"/>
-                                <include reference="IhN-HJ-l8U"/>
-                                <include reference="bmE-eU-2XC"/>
-                                <include reference="YjC-KW-rKP"/>
-                            </mask>
-                        </variation>
-                        <connections>
-                            <outlet property="buttonCadastro" destination="YjC-KW-rKP" id="7mY-hr-ikS"/>
-                            <outlet property="buttonEntrar" destination="bmE-eU-2XC" id="4Hh-T4-NgM"/>
-                            <outlet property="textSenha" destination="IhN-HJ-l8U" id="cG8-jX-Xzy"/>
-                            <outlet property="textUser" destination="AEf-Qn-jqC" id="sxK-w7-qct"/>
-                        </connections>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KdW-9U-K8p" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-556.5" y="421.5"/>
+            <point key="canvasLocation" x="-654" y="1138.5"/>
         </scene>
         <!--Main Tab Bar View Controller-->
         <scene sceneID="RoT-ZJ-iDA">
@@ -222,7 +136,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Sue-xo-AbL" kind="relationship" relationship="viewControllers" id="6xg-WR-jia"/>
                         <segue destination="BXW-SW-hAc" kind="relationship" relationship="viewControllers" id="H0a-sX-5m4"/>
                         <segue destination="2Eo-FY-Abc" kind="relationship" relationship="viewControllers" id="oNb-OL-wJc"/>
                         <segue destination="6we-Aq-jP5" kind="relationship" relationship="viewControllers" id="uYT-uQ-h3D"/>
@@ -233,29 +146,9 @@
             </objects>
             <point key="canvasLocation" x="371" y="381"/>
         </scene>
-        <!--Início-->
-        <scene sceneID="XfY-7O-fvb">
-            <objects>
-                <viewController title="Início" id="Sue-xo-AbL" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jP6-rt-0or"/>
-                        <viewControllerLayoutGuide type="bottom" id="Nqv-Nk-QzL"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="JzL-pb-Pz4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Início" image="initial.png" id="91s-R9-ojQ"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hxB-jc-e9n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-717" y="1139"/>
-        </scene>
     </scenes>
     <resources>
         <image name="config.png" width="32" height="31"/>
-        <image name="initial.png" width="32" height="32"/>
         <image name="medical.png" width="64" height="64"/>
         <image name="profile.png" width="32" height="32"/>
         <image name="sinchronize.png" width="32" height="32"/>
