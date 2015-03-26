@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "PageContentViewController.h"
 
-@interface PageViewController : UIViewController <UIPageViewControllerDataSource>
+@interface PageViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (strong, nonatomic) NSArray *Titulos;
 @property (strong, nonatomic) NSArray *Imagens;
+@property (strong, nonatomic) NSArray *textos;
 
 @end

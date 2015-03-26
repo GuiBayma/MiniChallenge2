@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PageViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,21 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL primeiroUso = [defaults boolForKey:@"primeiroUso"];
+    
+    if (primeiroUso) {
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.window.rootViewController = (UITabBarController *)[story instantiateViewControllerWithIdentifier:@"TabBarController"];
+    }
+    else {
+        self.window.rootViewController = [[PageViewController alloc] init];
+    }
+    
     return YES;
 }
 
