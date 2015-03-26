@@ -107,7 +107,7 @@
         [defaults setBool:usoInicial forKey:@"primeiroUso"];
         [defaults synchronize];
         
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UITabBarController *tbc = [story instantiateViewControllerWithIdentifier:@"TabBarController"];
         //tbc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [self presentViewController:tbc animated:YES completion:nil];
