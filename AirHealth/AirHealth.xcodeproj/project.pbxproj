@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		17A2C2FA1AC2DF75005C7CE2 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2C2F71AC2DF75005C7CE2 /* PageViewController.m */; };
+       
 		17A2C2FB1AC2DF75005C7CE2 /* PageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2C2F91AC2DF75005C7CE2 /* PageContentViewController.m */; };
 		17A2C2FE1AC2DF80005C7CE2 /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A2C2FC1AC2DF80005C7CE2 /* img1.png */; };
 		17A2C2FF1AC2DF80005C7CE2 /* img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A2C2FD1AC2DF80005C7CE2 /* img2.png */; };
