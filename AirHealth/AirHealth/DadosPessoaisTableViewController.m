@@ -77,6 +77,7 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    
     return cell;
 
 }
@@ -134,5 +135,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+}
 
 @end

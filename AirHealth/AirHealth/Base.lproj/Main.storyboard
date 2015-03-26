@@ -134,7 +134,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zzy-Pb-LJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="634.5" y="1138.5"/>
+            <point key="canvasLocation" x="75" y="1138.5"/>
         </scene>
         <!--Sincronizar-->
         <scene sceneID="6lX-QS-xlH">
@@ -157,11 +157,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Sincronizar" image="sinchronize.png" id="nnn-z0-Tbt"/>
+                    <tabBarItem key="tabBarItem" title="Sincronização" image="sinchronize.png" id="nnn-z0-Tbt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9gX-lJ-b46" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-35" y="1139"/>
+            <point key="canvasLocation" x="-654" y="1138.5"/>
         </scene>
         <!--Main Tab Bar View Controller-->
         <scene sceneID="RoT-ZJ-iDA">
@@ -174,7 +174,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Sue-xo-AbL" kind="relationship" relationship="viewControllers" id="6xg-WR-jia"/>
                         <segue destination="BXW-SW-hAc" kind="relationship" relationship="viewControllers" id="H0a-sX-5m4"/>
                         <segue destination="2Eo-FY-Abc" kind="relationship" relationship="viewControllers" id="oNb-OL-wJc"/>
                         <segue destination="lb0-VD-t7Q" kind="relationship" relationship="viewControllers" id="8mF-Kx-s0R"/>
@@ -185,29 +184,9 @@
             </objects>
             <point key="canvasLocation" x="371" y="381"/>
         </scene>
-        <!--Início-->
-        <scene sceneID="XfY-7O-fvb">
-            <objects>
-                <viewController title="Início" id="Sue-xo-AbL" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jP6-rt-0or"/>
-                        <viewControllerLayoutGuide type="bottom" id="Nqv-Nk-QzL"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="JzL-pb-Pz4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Início" image="initial.png" id="91s-R9-ojQ"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hxB-jc-e9n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-717" y="1139"/>
-        </scene>
     </scenes>
     <resources>
         <image name="config.png" width="32" height="31"/>
-        <image name="initial.png" width="32" height="32"/>
         <image name="medical.png" width="64" height="64"/>
         <image name="profile.png" width="32" height="32"/>
         <image name="sinchronize.png" width="32" height="32"/>
