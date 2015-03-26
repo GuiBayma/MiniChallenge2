@@ -57,6 +57,7 @@
     }
     
     // Create a new view controller and pass suitable data.
+    //comment
     PageContentViewController *pageContentViewController = [[PageContentViewController alloc] init];
     pageContentViewController.imageFile = self.Imagens[index];
     pageContentViewController.titleText = self.Titulos[index];
