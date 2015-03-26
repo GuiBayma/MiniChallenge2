@@ -23,7 +23,7 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL primeiroUso = [defaults boolForKey:@"primeiroUso"];
-    
+    //BOOL primeiroUso = NO;
     if (primeiroUso) {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.window.rootViewController = (UITabBarController *)[story instantiateViewControllerWithIdentifier:@"TabBarController"];

@@ -7,6 +7,7 @@
 //
 
 #import "ConfiguracoesTableViewController.h"
+#import "PageViewController.h"
 
 @interface ConfiguracoesTableViewController ()
 
@@ -29,29 +30,38 @@
     // Dispose of any resources that can be recreated.
 }
 
-//#pragma mark - Table view data source
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Potentially incomplete method implementation.
-//    // Return the number of sections.
-//    return 1;
-//}
+#pragma mark - Table view data source
 
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete method implementation.
-//    // Return the number of rows in the section.
-//    return 0;
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
 
-/*
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 3;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"celulaPadrao"];
+    if (indexPath.row == 0) {
+        cell.textLabel.text = @"Tutorial";
+    }
+    else if (indexPath.row == 1) {
+        cell.textLabel.text = @"Permissões";
+    }
+    else {
+        cell.textLabel.text = @"Sobre o AirHealth";
+    }
     
     return cell;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        PageViewController *pvc = [[PageViewController alloc] init];
+        [self presentViewController:pvc animated:YES completion:nil];
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.
