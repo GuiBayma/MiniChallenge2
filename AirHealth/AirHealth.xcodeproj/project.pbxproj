@@ -18,7 +18,6 @@
 		17F3C24D1AC17D3E009590F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17F3C24C1AC17D3E009590F8 /* Images.xcassets */; };
 		17F3C2501AC17D3E009590F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F3C24E1AC17D3E009590F8 /* LaunchScreen.xib */; };
 		17F3C25C1AC17D3E009590F8 /* AirHealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F3C25B1AC17D3E009590F8 /* AirHealthTests.m */; };
-		25B33BCC1AC48DA900958DB4 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B33BCB1AC48DA900958DB4 /* HealthKit.framework */; };
 		5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */; };
 		5E9C62681AC1A52800E9486E /* sinchronize.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62671AC1A52800E9486E /* sinchronize.png */; };
 		5E9C626A1AC1A54A00E9486E /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62691AC1A54A00E9486E /* profile.png */; };
@@ -28,6 +27,7 @@
 		5E9C62791AC1AE3D00E9486E /* DadosPessoaisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */; };
 		5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */; };
 		ECB4CEE11AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CEE01AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m */; };
+		ECB90FCC1AC47892009D7F18 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB90FCB1AC47892009D7F18 /* HealthKit.framework */; };
 		ECB90FD01AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB90FCF1AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.m */; };
 		ECB90FD31AC47D09009D7F18 /* FichaMedicaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB90FD21AC47D09009D7F18 /* FichaMedicaTableViewController.m */; };
 /* End PBXBuildFile section */
@@ -62,8 +62,6 @@
 		17F3C2551AC17D3E009590F8 /* AirHealthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirHealthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17F3C25A1AC17D3E009590F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17F3C25B1AC17D3E009590F8 /* AirHealthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirHealthTests.m; sourceTree = "<group>"; };
-		25B33BC81AC488A400958DB4 /* AirHealth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AirHealth.entitlements; sourceTree = "<group>"; };
-		25B33BCB1AC48DA900958DB4 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		5E9C62611AC19B8100E9486E /* MainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarViewController.h; sourceTree = "<group>"; };
 		5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarViewController.m; sourceTree = "<group>"; };
 		5E9C62671AC1A52800E9486E /* sinchronize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sinchronize.png; sourceTree = "<group>"; };
@@ -77,6 +75,8 @@
 		5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisTableViewController.m; sourceTree = "<group>"; };
 		ECB4CEDF1AC2F0D200AFB5FB /* ConfiguracoesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfiguracoesTableViewController.h; sourceTree = "<group>"; };
 		ECB4CEE01AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfiguracoesTableViewController.m; sourceTree = "<group>"; };
+		ECB90FCB1AC47892009D7F18 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		ECB90FCD1AC47893009D7F18 /* AirHealth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AirHealth.entitlements; sourceTree = "<group>"; };
 		ECB90FCE1AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HKHealthStore+AAPLExtensions.h"; sourceTree = "<group>"; };
 		ECB90FCF1AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HKHealthStore+AAPLExtensions.m"; sourceTree = "<group>"; };
 		ECB90FD11AC47D09009D7F18 /* FichaMedicaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FichaMedicaTableViewController.h; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25B33BCC1AC48DA900958DB4 /* HealthKit.framework in Frameworks */,
+				ECB90FCC1AC47892009D7F18 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +118,7 @@
 		17F3C2331AC17D3E009590F8 = {
 			isa = PBXGroup;
 			children = (
-				25B33BCB1AC48DA900958DB4 /* HealthKit.framework */,
+				ECB90FCB1AC47892009D7F18 /* HealthKit.framework */,
 				17F3C23E1AC17D3E009590F8 /* AirHealth */,
 				17F3C2581AC17D3E009590F8 /* AirHealthTests */,
 				17F3C23D1AC17D3E009590F8 /* Products */,
@@ -137,7 +137,7 @@
 		17F3C23E1AC17D3E009590F8 /* AirHealth */ = {
 			isa = PBXGroup;
 			children = (
-				25B33BC81AC488A400958DB4 /* AirHealth.entitlements */,
+				ECB90FCD1AC47893009D7F18 /* AirHealth.entitlements */,
 				17DE0B631AC4765D00F58531 /* Tutorial */,
 				5E9C62641AC1A33B00E9486E /* iconsTab */,
 				17F3C2431AC17D3E009590F8 /* AppDelegate.h */,
@@ -251,7 +251,7 @@
 				TargetAttributes = {
 					17F3C23B1AC17D3E009590F8 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = JURUK94VC4;
+						DevelopmentTeam = 66BPT5DT27;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
 								enabled = 1;
@@ -448,12 +448,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AirHealth/AirHealth.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AirHealth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -462,12 +459,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AirHealth/AirHealth.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AirHealth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
