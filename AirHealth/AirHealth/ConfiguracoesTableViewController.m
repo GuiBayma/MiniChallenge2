@@ -35,33 +35,47 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 2;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"celulaPadrao"];
-    if (indexPath.row == 0) {
-        cell.textLabel.text = @"Tutorial";
+    if(indexPath.section==0){
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"Tutorial";
+        }
+        else {
+            cell.textLabel.text = @"Sobre o AirHealth";
+        }
     }
-    else if (indexPath.row == 1) {
-        cell.textLabel.text = @"Permissões";
-    }
-    else {
-        cell.textLabel.text = @"Sobre o AirHealth";
+    else{
+        if(indexPath.row == 0){
+            cell.textLabel.text = @"Permitir o Health";
+        }
+        else{
+            cell.textLabel.text = @"Apagar todos os dados";
+        }
     }
     
     return cell;
 }
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 2;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        PageViewController *pvc = [[PageViewController alloc] init];
-        [self presentViewController:pvc animated:YES completion:nil];
+    if(indexPath.row == 0){
+        if (indexPath.section == 0) {
+            PageViewController *pvc = [[PageViewController alloc] init];
+            [self presentViewController:pvc animated:YES completion:nil];
+        }
+    }
+    else{
+        if(indexPath.section == 1){
+            
+        }
     }
 }
 
