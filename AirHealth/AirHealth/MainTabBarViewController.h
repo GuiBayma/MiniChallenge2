@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PageViewController.h"
 
 @interface MainTabBarViewController : UITabBarController
 

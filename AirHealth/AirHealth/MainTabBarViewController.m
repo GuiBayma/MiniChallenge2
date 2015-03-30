@@ -24,7 +24,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+-(void)viewDidAppear:(BOOL)animated {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL primeiroUso = [defaults boolForKey:@"primeiroUso"];
+    //BOOL primeiroUso = NO;
+    if (!primeiroUso) {
+        PageViewController *pvc = [[PageViewController alloc] init];
+        [self presentViewController:pvc animated:YES completion:nil];
+    }
+}
 
 /*
 #pragma mark - Navigation

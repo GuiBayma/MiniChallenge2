@@ -10,6 +10,8 @@
 
 @interface DadosPessoaisCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UITextField *textPessoais;
+@property (weak, nonatomic) IBOutlet UILabel *dado;
+@property (weak, nonatomic) IBOutlet UILabel *valor;
+
 
 @end

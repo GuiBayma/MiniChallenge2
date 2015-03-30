@@ -39,7 +39,7 @@
     if (primeiroUso) {
         UIButton *fecha = [UIButton buttonWithType:UIButtonTypeCustom];
         [fecha addTarget:self action:@selector(fechar) forControlEvents:UIControlEventTouchUpInside];
-        fecha.frame = CGRectMake(self.view.bounds.size.width -50, 30, 30, 30);
+        fecha.frame = CGRectMake(self.view.bounds.size.width -50, 50, 30, 30);
         [fecha setImage:[UIImage imageNamed:@"cancel-25.png"] forState:UIControlStateNormal];
         [self.view addSubview:fecha];
     }
@@ -108,18 +108,13 @@
         [defaults setBool:usoInicial forKey:@"primeiroUso"];
         [defaults synchronize];
         
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UITabBarController *tbc = [story instantiateViewControllerWithIdentifier:@"TabBarController"];
         //tbc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:tbc animated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
 -(void) fechar {
-    NSLog(@"botao");
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UITabBarController *tbc = [story instantiateViewControllerWithIdentifier:@"TabBarController"];
-    [self presentViewController:tbc animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
