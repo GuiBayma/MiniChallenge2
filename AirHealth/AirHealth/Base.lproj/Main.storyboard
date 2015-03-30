@@ -129,7 +129,7 @@
                         <sections>
                             <tableViewSection id="PgX-mo-KoX">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="n8Y-Gh-YpF">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="n8Y-Gh-YpF">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n8Y-Gh-YpF" id="pcd-Ul-QLZ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -182,7 +182,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="LD4-3D-xjq">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="LD4-3D-xjq">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LD4-3D-xjq" id="L5Y-nU-E88">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -265,7 +265,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tM1-46-gxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1539" y="1138.5"/>
+            <point key="canvasLocation" x="1539" y="1138"/>
         </scene>
         <!--Dados Pessoais-->
         <scene sceneID="lJX-eh-0qa">
@@ -282,13 +282,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GiG-pI-jo7">
-                                            <rect key="frame" x="535" y="8" width="42" height="45.5"/>
+                                            <rect key="frame" x="535" y="8" width="42" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AnN-M6-hya">
-                                            <rect key="frame" x="23" y="8" width="42" height="45.5"/>
+                                            <rect key="frame" x="23" y="8" width="42" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -323,7 +323,7 @@
         <!--Sincronizar-->
         <scene sceneID="6lX-QS-xlH">
             <objects>
-                <viewController title="Sincronizar" id="BXW-SW-hAc" sceneMemberID="viewController">
+                <viewController title="Sincronizar" id="BXW-SW-hAc" customClass="SincronizarViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qhf-28-N3D"/>
                         <viewControllerLayoutGuide type="bottom" id="P4s-Eb-pEc"/>
@@ -332,24 +332,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4C0-cM-Rud">
-                                <rect key="frame" x="277" y="235" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4C0-cM-Rud">
+                                <rect key="frame" x="172" y="122" width="256" height="256"/>
+                                <state key="normal" backgroundImage="cloud">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cruz" translatesAutoresizingMaskIntoConstraints="NO" id="rOB-Y9-CJ8">
+                                <rect key="frame" x="272" y="234" width="68" height="63"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="63" id="fjy-H8-urv"/>
+                                    <constraint firstAttribute="width" constant="68" id="h4V-rU-mzK"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="fjy-H8-urv"/>
+                                        <exclude reference="h4V-rU-mzK"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="fjy-H8-urv"/>
+                                        <include reference="h4V-rU-mzK"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="4C0-cM-Rud" secondAttribute="centerX" id="4qY-G4-4E4"/>
-                            <constraint firstAttribute="centerY" secondItem="4C0-cM-Rud" secondAttribute="centerY" constant="50" id="6KI-aX-Ox5"/>
+                            <constraint firstItem="4C0-cM-Rud" firstAttribute="top" secondItem="Qhf-28-N3D" secondAttribute="bottom" constant="114" id="9wE-bt-TFS"/>
+                            <constraint firstItem="rOB-Y9-CJ8" firstAttribute="top" secondItem="Qhf-28-N3D" secondAttribute="bottom" constant="227" id="TIe-Lg-3Ff"/>
+                            <constraint firstAttribute="centerX" secondItem="4C0-cM-Rud" secondAttribute="centerX" id="Zdz-tn-h7j"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rOB-Y9-CJ8" secondAttribute="trailing" constant="136" id="hKa-fU-gue"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9wE-bt-TFS"/>
+                                <exclude reference="Zdz-tn-h7j"/>
+                                <exclude reference="TIe-Lg-3Ff"/>
+                                <exclude reference="hKa-fU-gue"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="9wE-bt-TFS"/>
+                                <include reference="Zdz-tn-h7j"/>
+                                <include reference="TIe-Lg-3Ff"/>
+                                <include reference="hKa-fU-gue"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Sincronização" image="sinchronize.png" id="nnn-z0-Tbt"/>
+                    <connections>
+                        <outlet property="buttonSincronizar" destination="4C0-cM-Rud" id="dh3-7r-7aM"/>
+                        <outlet property="imageCruz" destination="rOB-Y9-CJ8" id="7rT-r7-MxP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9gX-lJ-b46" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-654" y="1138.5"/>
+            <point key="canvasLocation" x="-654" y="1138"/>
         </scene>
         <!--Main Tab Bar View Controller-->
         <scene sceneID="RoT-ZJ-iDA">
@@ -374,7 +415,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cloud" width="256" height="256"/>
         <image name="config.png" width="32" height="31"/>
+        <image name="cruz" width="166" height="156"/>
         <image name="medical.png" width="64" height="64"/>
         <image name="profile.png" width="32" height="32"/>
         <image name="sinchronize.png" width="32" height="32"/>

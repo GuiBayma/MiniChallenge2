@@ -27,6 +27,7 @@
 		5E9C62761AC1A73000E9486E /* medical.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62751AC1A73000E9486E /* medical.png */; };
 		5E9C62791AC1AE3D00E9486E /* DadosPessoaisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */; };
 		5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */; };
+		5EBC4D8E1AC99328008BB4D7 /* SincronizarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBC4D8D1AC99328008BB4D7 /* SincronizarViewController.m */; };
 		ECB4CEE11AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CEE01AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m */; };
 		ECB90FD01AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB90FCF1AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.m */; };
 		ECB90FD31AC47D09009D7F18 /* FichaMedicaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB90FD21AC47D09009D7F18 /* FichaMedicaTableViewController.m */; };
@@ -75,6 +76,8 @@
 		5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisCell.m; sourceTree = "<group>"; };
 		5E9C627D1AC1B0B700E9486E /* DadosPessoaisTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DadosPessoaisTableViewController.h; sourceTree = "<group>"; };
 		5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisTableViewController.m; sourceTree = "<group>"; };
+		5EBC4D8C1AC99328008BB4D7 /* SincronizarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SincronizarViewController.h; sourceTree = "<group>"; };
+		5EBC4D8D1AC99328008BB4D7 /* SincronizarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SincronizarViewController.m; sourceTree = "<group>"; };
 		ECB4CEDF1AC2F0D200AFB5FB /* ConfiguracoesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfiguracoesTableViewController.h; sourceTree = "<group>"; };
 		ECB4CEE01AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfiguracoesTableViewController.m; sourceTree = "<group>"; };
 		ECB90FCE1AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HKHealthStore+AAPLExtensions.h"; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				5E9C627D1AC1B0B700E9486E /* DadosPessoaisTableViewController.h */,
 				5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */,
 				5E9C62611AC19B8100E9486E /* MainTabBarViewController.h */,
+				5EBC4D8C1AC99328008BB4D7 /* SincronizarViewController.h */,
+				5EBC4D8D1AC99328008BB4D7 /* SincronizarViewController.m */,
 				5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */,
 				17F3C23F1AC17D3E009590F8 /* Supporting Files */,
 			);
@@ -318,6 +323,7 @@
 				5E9C62791AC1AE3D00E9486E /* DadosPessoaisCell.m in Sources */,
 				ECB90FD31AC47D09009D7F18 /* FichaMedicaTableViewController.m in Sources */,
 				17F3C2481AC17D3E009590F8 /* ViewController.m in Sources */,
+				5EBC4D8E1AC99328008BB4D7 /* SincronizarViewController.m in Sources */,
 				17DE0B681AC4767C00F58531 /* PageViewController.m in Sources */,
 				5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */,
 				5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */,
