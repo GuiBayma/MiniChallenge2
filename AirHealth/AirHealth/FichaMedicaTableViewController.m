@@ -11,16 +11,30 @@
 
 typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     AAPLProfileViewControllerTableViewIndexHeight = 0,
-    AAPLProfileViewControllerTableViewIndexWeight
+    AAPLProfileViewControllerTableViewIndexWeight,
+    AAPLProfileViewControllerTableViewIndexIMC
+    
 };
 
 @interface FichaMedicaTableViewController ()
+
+@property (weak, nonatomic) IBOutlet UILabel *idadeUnidadeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *idadeValorLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *sexoUnidadeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sexoValorLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *grupoSanguineoUnidadeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *grupoSanguineoValorLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *alturaUnidadeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *alturaValorLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *pesoUnidadeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pesoValorLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *imcUnidadeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *imcValorLabel;
 
 @end
 
@@ -61,80 +75,147 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 // Update the user interface based on the current user's health information.
-                [self updateUsersHeightLabel];
-                [self updateUsersWeightLabel];
+                [self atualizaIdade];
+                [self atualizaSexo];
+                [self atualizaGrupoSanguineo];
+                [self atualizaAlturaDoUsuario];
+                [self atualizaPesoDoUsuario];
+                [self atualizaImcDoUsuario];
+                
+                
             });
         }];
     }
 }
 
-#pragma mark - HealthKit Permissions
+#pragma mark - Permissões do HealthKit
 
-// Returns the types of data that Fit wishes to write to HealthKit.
+// Retorna os tipos de dados que desejamos atualizar no HealthKit.
 - (NSSet *)dadosParaEscrever {
-    HKQuantityType *heightType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
-    HKQuantityType *weightType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    HKQuantityType *altura = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    HKQuantityType *peso = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    HKQuantityType *imc = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
     
-    return [NSSet setWithObjects:heightType, weightType, nil];
+    return [NSSet setWithObjects:altura, peso, imc,nil];
 }
 
-// Returns the types of data that Fit wishes to read from HealthKit.
+// Retorna os tipos de dados que desejamos ler do HealthKit.
 - (NSSet *)dadosParaLer {
-    HKQuantityType *heightType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
-    HKQuantityType *weightType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    HKCharacteristicType *dataNascimento = [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth];
+    HKCharacteristicType *sexo = [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex];
+    HKCharacteristicType *tipoSanguineo = [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType];
+    HKQuantityType *altura = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    HKQuantityType *peso = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    HKQuantityType *imc = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
     
-    return [NSSet setWithObjects:heightType, weightType, nil];
+    return [NSSet setWithObjects:altura, peso, imc, dataNascimento, tipoSanguineo, sexo, nil];
 }
 
-#pragma mark - Reading HealthKit Data
+#pragma mark - Lendo os dados do HealthKit
 
-- (void)updateUsersHeightLabel {
-    // Fetch user's default height unit in inches.
+- (void)atualizaIdade {
+    self.idadeUnidadeLabel.text = NSLocalizedString(@"Idade", nil);
+    
+    NSError *error;
+    NSDate *dateOfBirth = [self.healthStore dateOfBirthWithError:&error];
+    
+    if (!dateOfBirth) {
+        NSLog(@"Either an error occured fetching the user's age information or none has been stored yet. In your app, try to handle this gracefully.");
+        
+        self.idadeValorLabel.text = NSLocalizedString(@"Não Disponível", nil);
+    }
+    else {
+        // Calcula a idade do usuário
+        NSDate *now = [NSDate date];
+        
+        NSDateComponents *ageComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:dateOfBirth toDate:now options:NSCalendarWrapComponents];
+        
+        NSUInteger usersAge = [ageComponents year];
+        
+        self.idadeValorLabel.text = [NSNumberFormatter localizedStringFromNumber:@(usersAge) numberStyle:NSNumberFormatterNoStyle];
+    }
+}
+
+- (void)atualizaSexo {
+    self.sexoUnidadeLabel.text = NSLocalizedString(@"Sexo", nil);
+    
+    NSError *error;
+    HKBiologicalSexObject *sexo = [self.healthStore biologicalSexWithError:&error];
+    
+    if (!sexo) {
+        NSLog(@"Either an error occured fetching the user's age information or none has been stored yet. In your app, try to handle this gracefully.");
+        
+        self.sexoUnidadeLabel.text = NSLocalizedString(@"Não Disponível", nil);
+    }
+    else {
+        // Calcula a idade do usuário
+        int determinaSexo = [sexo biologicalSex];
+        self.sexoValorLabel.text = [NSString stringWithFormat:@"%@", [self determinaSexo:determinaSexo]];
+    }
+    
+}
+
+- (void)atualizaGrupoSanguineo {
+    self.grupoSanguineoUnidadeLabel.text = @"Grupo Sanguíneo";
+    
+    //Query para pegar o grupo sanguíneo do usuário, se existir;
+    NSError *error;
+    HKBloodTypeObject * grupoSanguineo = [self.healthStore bloodTypeWithError:&error];
+    
+    if (!grupoSanguineo) {
+        NSLog(@"Either an error occured fetching the user's age information or none has been stored yet. In your app, try to handle this gracefully.");
+        
+        self.grupoSanguineoUnidadeLabel.text = @"Não Disponível";
+    } else {
+        int num = [grupoSanguineo bloodType];
+        
+        self.grupoSanguineoValorLabel.text = [NSString stringWithFormat:@"%@",[self bloodType:num]];
+    }
+}
+
+- (void)atualizaAlturaDoUsuario {
+    // Formatando a altura do usuário em centímetros.
     NSLengthFormatter *lengthFormatter = [[NSLengthFormatter alloc] init];
     lengthFormatter.unitStyle = NSFormattingUnitStyleLong;
     
-    NSLengthFormatterUnit heightFormatterUnit = NSLengthFormatterUnitInch;
-    NSString *heightUnitString = [lengthFormatter unitStringFromValue:10 unit:heightFormatterUnit];
-    NSString *localizedHeightUnitDescriptionFormat = NSLocalizedString(@"Height (%@)", nil);
+    NSString *localizedHeightUnitDescriptionFormat = NSLocalizedString(@"Altura (%@)", nil);
     
-    self.alturaUnidadeLabel.text = [NSString stringWithFormat:localizedHeightUnitDescriptionFormat, heightUnitString];
+    self.alturaUnidadeLabel.text = [NSString stringWithFormat:localizedHeightUnitDescriptionFormat, @"cm"];
     
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
     
-    // Query to get the user's latest height, if it exists.
+    // Query para pegar a última altura do usuário, se existir.
     [self.healthStore aapl_mostRecentQuantitySampleOfType:heightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
         if (!mostRecentQuantity) {
             NSLog(@"Either an error occured fetching the user's height information or none has been stored yet. In your app, try to handle this gracefully.");
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.alturaValorLabel.text = NSLocalizedString(@"Not available", nil);
+                self.alturaValorLabel.text = NSLocalizedString(@"Não Disponível", nil);
             });
         }
         else {
-            // Determine the height in the required unit.
-            HKUnit *heightUnit = [HKUnit inchUnit];
+            // Determina a unidade de medida da altura do usuário
+            HKUnit *heightUnit = [HKUnit meterUnitWithMetricPrefix:HKMetricPrefixCenti];
             double usersHeight = [mostRecentQuantity doubleValueForUnit:heightUnit];
             
-            // Update the user interface.
+            // Atualize a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.alturaValorLabel.text = [NSNumberFormatter localizedStringFromNumber:@(usersHeight) numberStyle:NSNumberFormatterNoStyle];
+                self.alturaValorLabel.text = [NSString stringWithFormat:@"%.2f", usersHeight];
             });
         }
     }];
 }
 
-- (void)updateUsersWeightLabel {
-    // Fetch the user's default weight unit in pounds.
+- (void)atualizaPesoDoUsuario {
+    // Formatando o peso do usuário em quilos.
     NSMassFormatter *massFormatter = [[NSMassFormatter alloc] init];
     massFormatter.unitStyle = NSFormattingUnitStyleLong;
     
-    NSMassFormatterUnit weightFormatterUnit = NSMassFormatterUnitPound;
-    NSString *weightUnitString = [massFormatter unitStringFromValue:10 unit:weightFormatterUnit];
-    NSString *localizedWeightUnitDescriptionFormat = NSLocalizedString(@"Weight (%@)", nil);
+    NSString *localizedWeightUnitDescriptionFormat = NSLocalizedString(@"Peso (%@)", nil);
     
-    self.pesoUnidadeLabel.text = [NSString stringWithFormat:localizedWeightUnitDescriptionFormat, weightUnitString];
+    self.pesoUnidadeLabel.text = [NSString stringWithFormat:localizedWeightUnitDescriptionFormat, @"kg"];
     
-    // Query to get the user's latest weight, if it exists.
+    // Query para pegar o último peso do usuário, se existir.
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
     
     [self.healthStore aapl_mostRecentQuantitySampleOfType:weightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
@@ -142,28 +223,116 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             NSLog(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.");
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.pesoValorLabel.text = NSLocalizedString(@"Not available", nil);
+                self.pesoValorLabel.text = NSLocalizedString(@"Não disponível", nil);
             });
         }
         else {
-            // Determine the weight in the required unit.
-            HKUnit *weightUnit = [HKUnit poundUnit];
+            // Determina  a unidade de medida do peso do usuário
+            HKUnit *weightUnit = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
             double usersWeight = [mostRecentQuantity doubleValueForUnit:weightUnit];
             
-            // Update the user interface.
+            // Atualiza a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.pesoValorLabel.text = [NSNumberFormatter localizedStringFromNumber:@(usersWeight) numberStyle:NSNumberFormatterNoStyle];
+                self.pesoValorLabel.text = [NSString stringWithFormat:@"%.2f", usersWeight];
             });
         }
     }];
 }
 
-#pragma mark - Writing HealthKit Data
+- (void)atualizaImcDoUsuario {
+    self.imcUnidadeLabel.text = @"IMC";
+    
+    //Query para pegar o imc do usuário, se existir.
+    HKQuantityType *imc = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+    
+    [self.healthStore aapl_mostRecentQuantitySampleOfType:imc predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+        if (!mostRecentQuantity) {
+            NSLog(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.pesoValorLabel.text = NSLocalizedString(@"Não disponível", nil);
+            });
+        } else {
+            HKUnit *imcUnit = [HKUnit countUnit];
+            double userImc = [mostRecentQuantity doubleValueForUnit:imcUnit];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.imcValorLabel.text = [NSString stringWithFormat:@"%.2f", userImc];
+            });
+        }
+    }];
+}
 
-- (void)saveHeightIntoHealthStore:(double)height {
-    // Save the user's height into HealthKit.
-    HKUnit *inchUnit = [HKUnit inchUnit];
-    HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:inchUnit doubleValue:height];
+- (NSString *)bloodType:(int)bloodType {
+    NSString *tipoSangue;
+    switch (bloodType) {
+        case 1:
+            tipoSangue = @"A+";
+            break;
+            
+        case 2:
+            tipoSangue = @"A-";
+            break;
+            
+        case 3:
+            tipoSangue = @"B+";
+            break;
+            
+        case 4:
+            tipoSangue = @"B-";
+            break;
+            
+        case 5:
+            tipoSangue = @"AB+";
+            break;
+            
+        case 6:
+            tipoSangue = @"AB-";
+            break;
+            
+        case 7:
+            tipoSangue = @"O+";
+            break;
+            
+        case 8:
+            tipoSangue = @"O-";
+            break;
+            
+        default:
+            tipoSangue = @"Não Definido";
+            break;
+    }
+    return tipoSangue;
+}
+
+- (NSString *)determinaSexo:(int)sexo {
+    NSString *tipoSexo;
+    switch (sexo) {
+        case 1:
+            tipoSexo = @"Feminino";
+            break;
+            
+        case 2:
+            tipoSexo = @"Masculino";
+            break;
+            
+        case 3:
+            tipoSexo = @"Outro";
+            break;
+            
+        default:
+            tipoSexo = @"Não Definido";
+            break;
+    }
+    return tipoSexo;
+}
+
+#pragma mark - Escrevendo dados no HealthKit
+
+- (void)salvaAlturaNoHealthStore:(double)altura {
+    // Salve a altura do usuário no HeathKit.
+    HKUnit *metros = [HKUnit meterUnit];
+    HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:metros doubleValue:altura];
     
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
     NSDate *now = [NSDate date];
@@ -176,14 +345,14 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             abort();
         }
         
-        [self updateUsersHeightLabel];
+        [self atualizaAlturaDoUsuario];
     }];
 }
 
-- (void)saveWeightIntoHealthStore:(double)weight {
-    // Save the user's weight into HealthKit.
-    HKUnit *poundUnit = [HKUnit poundUnit];
-    HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:poundUnit doubleValue:weight];
+- (void)salvaPesoNoHealthStore:(double)peso {
+    // Salve o peso do usuário no HealthKit.
+    HKUnit *gramas = [HKUnit gramUnit];
+    HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:gramas doubleValue:peso];
     
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
     NSDate *now = [NSDate date];
@@ -196,8 +365,12 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             abort();
         }
         
-        [self updateUsersWeightLabel];
+        [self atualizaPesoDoUsuario];
     }];
+}
+
+- (void)salvaImcNoHealthSotre:(double)imc {
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -211,31 +384,37 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     NSString *title;
     void (^valueChangedHandler)(double value);
     
-    if (index == AAPLProfileViewControllerTableViewIndexHeight) {
-        title = NSLocalizedString(@"Your Height", nil);
+    if (index == AAPLProfileViewControllerTableViewIndexHeight && indexPath.section == 1) {
+        title = NSLocalizedString(@"Digite sua altura", nil);
         
         valueChangedHandler = ^(double value) {
-            [self saveHeightIntoHealthStore:value];
+            [self salvaAlturaNoHealthStore:value];
         };
     }
-    else if (index == AAPLProfileViewControllerTableViewIndexWeight) {
-        title = NSLocalizedString(@"Your Weight", nil);
+    else if (index == AAPLProfileViewControllerTableViewIndexWeight && indexPath.section == 1) {
+        title = NSLocalizedString(@"Digite seu peso", nil);
         
         valueChangedHandler = ^(double value) {
-            [self saveWeightIntoHealthStore:value];
+            [self salvaPesoNoHealthStore:value];
+        };
+    } else if (index == AAPLProfileViewControllerTableViewIndexIMC && indexPath.section == 1) {
+        title = NSLocalizedString(@"Seu IMC é", nil);
+        
+        valueChangedHandler = ^(double value) {
+            [self salvaImcNoHealthSotre:value];
         };
     }
     
-    // Create an alert controller to present.
+    // Criando um alerta para ser apresentado
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    // Add the text field to let the user enter a numeric value.
+    // Adicionando um textField para que o usuário possa colocar um valor numérico
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        // Only allow the user to enter a valid number.
+        // Só permite que o usuário entre com um valor válido
         textField.keyboardType = UIKeyboardTypeDecimalPad;
     }];
     
-    // Create the "OK" button.
+    // Criando o botão "OK"
     NSString *okTitle = NSLocalizedString(@"OK", nil);
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UITextField *textField = alertController.textFields.firstObject;
@@ -249,7 +428,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     
     [alertController addAction:okAction];
     
-    // Create the "Cancel" button.
+    // Criando o botão "Cancelar"
     NSString *cancelTitle = NSLocalizedString(@"Cancel", nil);
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -257,7 +436,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     
     [alertController addAction:cancelAction];
     
-    // Present the alert controller.
+    // Apresentando o alerta
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
