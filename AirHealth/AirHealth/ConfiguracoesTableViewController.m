@@ -49,18 +49,19 @@
             cell.textLabel.text = @"Sobre o AirHealth";
         }
     }
-    else{
-        [cell.textLabel setFrame:CGRectMake(cell.textLabel.frame.origin.x,cell.textLabel.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        if(indexPath.row == 0){
-            cell.textLabel.text = @"Permitir o Health";
-            cell.textLabel.textColor = [UIColor blueColor];
-        }
-        else{
-            cell.textLabel.text = @"Apagar todos os dados";
-            cell.textLabel.textColor = [UIColor redColor];
-        }
-    }
+//    else{
+//        //[cell.textLabel setFrame:CGRectMake(cell.frame.size.width/2,cell.textLabel.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
+//        //cell.textLabel.textAlignment = NSTextAlignmentCenter;
+//        if(indexPath.row == 0){
+//            cell.textLabel.text = @"Permitir o Health";
+//            cell.textLabel.textColor = [UIColor blueColor];
+//            [cell.textLabel setFrame:CGRectMake(cell.frame.size.width/2, 20, 100, 20)];
+//        }
+//        else{
+//            cell.textLabel.text = @"Apagar todos os dados";
+//            cell.textLabel.textColor = [UIColor redColor];
+//        }
+//    }
     
     return cell;
 }

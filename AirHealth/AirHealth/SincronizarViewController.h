@@ -11,5 +11,6 @@
 @interface SincronizarViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIImageView *imageCruz;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSincronizar;
+- (IBAction)sincronizar:(id)sender;
 
 @end

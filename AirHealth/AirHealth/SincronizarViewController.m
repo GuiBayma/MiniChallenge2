@@ -18,6 +18,7 @@
     [super viewDidLoad];
     [imageCruz setUserInteractionEnabled:YES];
     [buttonSincronizar setUserInteractionEnabled:YES];
+    buttonSincronizar.highlighted = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,60 +30,34 @@
     UITouch *toque = [[event allTouches]anyObject];
     
     if([toque view] == imageCruz || [toque view] == buttonSincronizar){
-        //for(int i=0; i<5; i++){
         [self scaleImageView];
         [self rotateImageView];
-        
-        //}
     }
-}
+    }
 
 -(void)scaleImageView{
-//    float buttonWidth = buttonSincronizar.frame.size.width;
-//    float buttonHeight = buttonSincronizar.frame.size.height;
-//    float buttonX = buttonSincronizar.frame.origin.x;
-//    float buttonY = buttonSincronizar.frame.origin.y;
-//    
-//    buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
-//    
-//    buttonSincronizar.transform = CGAffineTransformMakeScale(1.15, 1.15);
-//    
-//    [UIView animateWithDuration:0.75
-//                          delay:0.0
-//                        options:UIViewAnimationOptionCurveEaseOut
-//                     animations:^{
-//                         buttonSincronizar.transform = CGAffineTransformIdentity;
-//                         buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
-//                         
-//                     }
-//                     completion:^(BOOL finished){
-//                         if(finished){
-//                             [self scaleImageView];
-//                         }
-//     }];
-
-        float buttonWidth = buttonSincronizar.frame.size.width;
-        float buttonHeight = buttonSincronizar.frame.size.height;
-        float buttonX = buttonSincronizar.frame.origin.x;
-        float buttonY = buttonSincronizar.frame.origin.y;
+    float buttonWidth = buttonSincronizar.frame.size.width;
+    float buttonHeight = buttonSincronizar.frame.size.height;
+    float buttonX = buttonSincronizar.frame.origin.x;
+    float buttonY = buttonSincronizar.frame.origin.y;
     
-        buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
+    buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
     
-        buttonSincronizar.transform = CGAffineTransformMakeScale(1.15, 1.15);
+    buttonSincronizar.transform = CGAffineTransformMakeScale(1.15, 1.15);
     
-        [UIView animateWithDuration:0.75
-                              delay:0.0
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             buttonSincronizar.transform = CGAffineTransformIdentity;
-                             buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
-    
+    [UIView animateWithDuration:0.75
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         buttonSincronizar.transform = CGAffineTransformIdentity;
+                         buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
+                         
+                     }
+                     completion:^(BOOL finished){
+                         if(finished){
+                             [self scaleImageView];
                          }
-                         completion:^(BOOL finished){
-                             if(finished){
-                                 [self scaleImageView];
-                             }
-         }];
+     }];
     
 }
 
@@ -97,7 +72,10 @@
     }];
 }
 
-
+-(void)sincronizar:(id)sender{
+    [self scaleImageView];
+    [self rotateImageView];
+}
 
 /*
 #pragma mark - Navigation
