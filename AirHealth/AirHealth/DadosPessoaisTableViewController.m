@@ -8,12 +8,16 @@
 
 #import "DadosPessoaisTableViewController.h"
 #import "DadosPessoaisCell.h"
+#import "Persistencia.h"
+#import "Usuario.h"
 
 @interface DadosPessoaisTableViewController ()
 
 @end
 
-@implementation DadosPessoaisTableViewController
+@implementation DadosPessoaisTableViewController {
+    Persistencia *persistencia;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,6 +27,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.contentInset = UIEdgeInsetsMake(20.0, 0, 0, 0);
+    
+    persistencia = [Persistencia sharedInstance];
     
 }
 
@@ -48,34 +54,41 @@
     
     if(indexPath.row == 0){
         cell.dado.text = @"Nome";
+        cell.valor .text = [persistencia.usuario nome];
     }
     else if(indexPath.row == 1){
         cell.dado.text = @"CPF";
+        cell.valor.text = [persistencia.usuario cpf];
     }
     else if(indexPath.row == 2){
         cell.dado.text = @"RG";
+        cell.valor.text = [persistencia.usuario rg];
     }
     else if(indexPath.row == 3){
         cell.dado.text = @"Endereço";
+        cell.valor.text = [persistencia.usuario endereco];
     }
     else if(indexPath.row == 4){
         cell.dado.text = @"CEP";
+        cell.valor.text = [persistencia.usuario cep];
     }
     else if(indexPath.row == 5){
         cell.dado.text = @"Cidade";
+        cell.valor.text = [persistencia.usuario cidade];
     }
     else if(indexPath.row == 6){
         cell.dado.text = @"Estado";
+        cell.valor.text = [persistencia.usuario estado];
     }
     else if(indexPath.row == 7){
         cell.dado.text = @"Plano de Saúde";
+        cell.valor.text = [persistencia.infoConvenio nomePlanodeSaude];
     }
     else if(indexPath.row == 8){
         cell.dado.text = @"Número Carteira";
+        cell.valor.text = [persistencia.infoConvenio numCartao];
     }
     
-    //    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    //    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     return cell;
 }
@@ -125,6 +138,44 @@
         UITextField *textField = alertController.textFields.firstObject;
         NSString *value = textField.text;
         cell.valor.text = value;
+        
+        if (![value isEqualToString:@""]) {
+            
+            //usuario = [persistencia carregarUsuarioLocal];
+            //infoConvenio = [persistencia carregarInfoConvenioLocal];
+            switch (indexPath.row) {
+                case 0:
+                    [persistencia.usuario setNome: value];
+                    break;
+                case 1:
+                    [persistencia.usuario setCpf:value];
+                    break;
+                case 2:
+                    [persistencia.usuario setRg:value];
+                    break;
+//                case 3:
+//                    
+//                case 4:
+//                case 5:
+//                case 6:
+//                case 7:
+                case 8:
+                    [persistencia.infoConvenio setNumCartao:value];
+                default:
+                    break;
+            }
+            
+            [persistencia salvarUsuarioLocal];
+            [persistencia salvarInfoConvenioLocal];
+            
+            //antes de reabilitar a interface novamente devo salvar o usuario
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            BOOL usuarioCadastrado = YES;
+            [defaults setBool:usuarioCadastrado forKey:@"usuarioCadastrado"];
+            [defaults synchronize];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"HabilitarItensTabBar" object:nil];
+        }
+        
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }];
     
