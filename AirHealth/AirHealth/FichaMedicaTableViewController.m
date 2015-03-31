@@ -10,10 +10,9 @@
 #import "HKHealthStore+AAPLExtensions.h"
 
 typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
-    AAPLProfileViewControllerTableViewIndexHeight = 0,
-    AAPLProfileViewControllerTableViewIndexWeight,
-    AAPLProfileViewControllerTableViewIndexIMC
-    
+    AAPLProfileViewControllerTableViewIndex0 = 0,
+    AAPLProfileViewControllerTableViewIndex1,
+    AAPLProfileViewControllerTableViewIndex2,
 };
 
 @interface FichaMedicaTableViewController ()
@@ -43,6 +42,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(salvaImcNoHealthSotre) name:@"CalcularImc" object:nil];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -81,8 +81,6 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
                 [self atualizaAlturaDoUsuario];
                 [self atualizaPesoDoUsuario];
                 [self atualizaImcDoUsuario];
-                
-                
             });
         }];
     }
@@ -201,6 +199,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             // Atualize a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.alturaValorLabel.text = [NSString stringWithFormat:@"%.2f", usersHeight];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
             });
         }
     }];
@@ -234,6 +233,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             // Atualiza a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.pesoValorLabel.text = [NSString stringWithFormat:@"%.2f", usersWeight];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
             });
         }
     }];
@@ -331,8 +331,8 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
 
 - (void)salvaAlturaNoHealthStore:(double)altura {
     // Salve a altura do usuário no HeathKit.
-    HKUnit *metros = [HKUnit meterUnit];
-    HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:metros doubleValue:altura];
+    HKUnit *heightUnit = [HKUnit meterUnitWithMetricPrefix:HKMetricPrefixCenti];
+    HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:heightUnit doubleValue:altura];
     
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
     NSDate *now = [NSDate date];
@@ -351,8 +351,8 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
 
 - (void)salvaPesoNoHealthStore:(double)peso {
     // Salve o peso do usuário no HealthKit.
-    HKUnit *gramas = [HKUnit gramUnit];
-    HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:gramas doubleValue:peso];
+    HKUnit *weightUnit = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
+    HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:weightUnit doubleValue:peso];
     
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
     NSDate *now = [NSDate date];
@@ -364,13 +364,31 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", weightSample, error);
             abort();
         }
-        
         [self atualizaPesoDoUsuario];
     }];
 }
 
-- (void)salvaImcNoHealthSotre:(double)imc {
+- (void)salvaImcNoHealthSotre {
+    double altura = [self.alturaValorLabel.text floatValue];
+    double peso = [self.pesoValorLabel.text floatValue];
     
+    double imc = (peso/((altura/100)*(altura/100)));
+    
+    HKUnit *imcUnit = [HKUnit countUnit];
+    HKQuantity *imcQuantity = [HKQuantity quantityWithUnit:imcUnit doubleValue:imc];
+    
+    HKQuantityType *imcType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *imcSample = [HKQuantitySample quantitySampleWithType:imcType quantity:imcQuantity startDate:now endDate:now];
+    
+    [self.healthStore saveObject:imcSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", imcSample, error);
+            abort();
+        }
+        [self atualizaImcDoUsuario];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -384,25 +402,26 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     NSString *title;
     void (^valueChangedHandler)(double value);
     
-    if (index == AAPLProfileViewControllerTableViewIndexHeight && indexPath.section == 1) {
+    if (index == AAPLProfileViewControllerTableViewIndex0 && indexPath.section == 0) {
+        title = NSLocalizedString(@"Esse campo só pode ser alterado no HealthKit", nil);
+    } else if (index == AAPLProfileViewControllerTableViewIndex1 && indexPath.section == 0) {
+        title = NSLocalizedString(@"Esse campo só pode ser alterado no HealthKit", nil);
+    } else if (index == AAPLProfileViewControllerTableViewIndex2 && indexPath.section == 0) {
+        title = NSLocalizedString(@"Esse campo só pode ser alterado no HealthKit", nil);
+    } else if (index == AAPLProfileViewControllerTableViewIndex0 && indexPath.section == 1) {
         title = NSLocalizedString(@"Digite sua altura", nil);
         
         valueChangedHandler = ^(double value) {
             [self salvaAlturaNoHealthStore:value];
         };
-    }
-    else if (index == AAPLProfileViewControllerTableViewIndexWeight && indexPath.section == 1) {
+    } else if (index == AAPLProfileViewControllerTableViewIndex1 && indexPath.section == 1) {
         title = NSLocalizedString(@"Digite seu peso", nil);
         
         valueChangedHandler = ^(double value) {
             [self salvaPesoNoHealthStore:value];
         };
-    } else if (index == AAPLProfileViewControllerTableViewIndexIMC && indexPath.section == 1) {
-        title = NSLocalizedString(@"Seu IMC é", nil);
-        
-        valueChangedHandler = ^(double value) {
-            [self salvaImcNoHealthSotre:value];
-        };
+    } else if (index == AAPLProfileViewControllerTableViewIndex2 && indexPath.section == 1) {
+        title = NSLocalizedString(@"Digite seu IMC", nil);
     }
     
     // Criando um alerta para ser apresentado

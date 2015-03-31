@@ -42,11 +42,6 @@
 		25833DDA1AC9B8A3002702B3 /* InfoConvenio.m in Sources */ = {isa = PBXBuildFile; fileRef = 25833DD51AC9B8A3002702B3 /* InfoConvenio.m */; };
 		25833DDB1AC9B8A3002702B3 /* Persistencia.m in Sources */ = {isa = PBXBuildFile; fileRef = 25833DD71AC9B8A3002702B3 /* Persistencia.m */; };
 		5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */; };
-		5E9C62681AC1A52800E9486E /* sinchronize.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62671AC1A52800E9486E /* sinchronize.png */; };
-		5E9C626A1AC1A54A00E9486E /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62691AC1A54A00E9486E /* profile.png */; };
-		5E9C62701AC1A5FE00E9486E /* initial.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C626F1AC1A5FE00E9486E /* initial.png */; };
-		5E9C62741AC1A6CF00E9486E /* config.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62731AC1A6CF00E9486E /* config.png */; };
-		5E9C62761AC1A73000E9486E /* medical.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C62751AC1A73000E9486E /* medical.png */; };
 		5E9C62791AC1AE3D00E9486E /* DadosPessoaisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */; };
 		5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */; };
 		5EBC4D8E1AC99328008BB4D7 /* SincronizarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBC4D8D1AC99328008BB4D7 /* SincronizarViewController.m */; };
@@ -116,11 +111,6 @@
 		25833DD71AC9B8A3002702B3 /* Persistencia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persistencia.m; sourceTree = "<group>"; };
 		5E9C62611AC19B8100E9486E /* MainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarViewController.h; sourceTree = "<group>"; };
 		5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarViewController.m; sourceTree = "<group>"; };
-		5E9C62671AC1A52800E9486E /* sinchronize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sinchronize.png; sourceTree = "<group>"; };
-		5E9C62691AC1A54A00E9486E /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
-		5E9C626F1AC1A5FE00E9486E /* initial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = initial.png; sourceTree = "<group>"; };
-		5E9C62731AC1A6CF00E9486E /* config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config.png; sourceTree = "<group>"; };
-		5E9C62751AC1A73000E9486E /* medical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medical.png; sourceTree = "<group>"; };
 		5E9C62771AC1AE3D00E9486E /* DadosPessoaisCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DadosPessoaisCell.h; sourceTree = "<group>"; };
 		5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisCell.m; sourceTree = "<group>"; };
 		5E9C627D1AC1B0B700E9486E /* DadosPessoaisTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DadosPessoaisTableViewController.h; sourceTree = "<group>"; };
@@ -305,11 +295,6 @@
 		5E9C62641AC1A33B00E9486E /* iconsTab */ = {
 			isa = PBXGroup;
 			children = (
-				5E9C62671AC1A52800E9486E /* sinchronize.png */,
-				5E9C62731AC1A6CF00E9486E /* config.png */,
-				5E9C62751AC1A73000E9486E /* medical.png */,
-				5E9C626F1AC1A5FE00E9486E /* initial.png */,
-				5E9C62691AC1A54A00E9486E /* profile.png */,
 				ECB90FCE1AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.h */,
 				ECB90FCF1AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.m */,
 			);
@@ -402,14 +387,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E9C62701AC1A5FE00E9486E /* initial.png in Resources */,
 				17DE0B6D1AC4769100F58531 /* background.png in Resources */,
 				17F3C24B1AC17D3E009590F8 /* Main.storyboard in Resources */,
-				5E9C626A1AC1A54A00E9486E /* profile.png in Resources */,
-				5E9C62761AC1A73000E9486E /* medical.png in Resources */,
-				5E9C62741AC1A6CF00E9486E /* config.png in Resources */,
 				17F3C2501AC17D3E009590F8 /* LaunchScreen.xib in Resources */,
-				5E9C62681AC1A52800E9486E /* sinchronize.png in Resources */,
 				17DE0B6C1AC4769100F58531 /* cancel-25.png in Resources */,
 				17F3C24D1AC17D3E009590F8 /* Images.xcassets in Resources */,
 			);
@@ -575,6 +555,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AirHealth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -597,6 +578,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AirHealth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
