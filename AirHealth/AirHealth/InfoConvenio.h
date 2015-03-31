@@ -13,6 +13,7 @@
 
 @property (nonatomic, retain) NSString *objectID;
 
+@property NSString *nomePlanodeSaude;
 @property NSString *numCartao;
 @property NSString *beneficiario;
 @property NSString *titular;

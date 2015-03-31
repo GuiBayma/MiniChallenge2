@@ -58,32 +58,37 @@
     }
     else if(indexPath.row == 1){
         cell.dado.text = @"CPF";
+        cell.valor.text = [persistencia.usuario cpf];
     }
     else if(indexPath.row == 2){
         cell.dado.text = @"RG";
+        cell.valor.text = [persistencia.usuario rg];
     }
     else if(indexPath.row == 3){
         cell.dado.text = @"Endereço";
+        cell.valor.text = [persistencia.usuario endereco];
     }
     else if(indexPath.row == 4){
         cell.dado.text = @"CEP";
+        cell.valor.text = [persistencia.usuario cep];
     }
     else if(indexPath.row == 5){
         cell.dado.text = @"Cidade";
+        cell.valor.text = [persistencia.usuario cidade];
     }
     else if(indexPath.row == 6){
         cell.dado.text = @"Estado";
+        cell.valor.text = [persistencia.usuario estado];
     }
     else if(indexPath.row == 7){
         cell.dado.text = @"Plano de Saúde";
+        cell.valor.text = [persistencia.infoConvenio nomePlanodeSaude];
     }
     else if(indexPath.row == 8){
         cell.dado.text = @"Número Carteira";
         cell.valor.text = [persistencia.infoConvenio numCartao];
     }
     
-    //    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    //    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     return cell;
 }

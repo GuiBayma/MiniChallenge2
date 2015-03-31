@@ -12,6 +12,7 @@
 
 
 - (InfoConvenio *)initWithCoder:(NSCoder *)decoder {
+    self.nomePlanodeSaude = [decoder decodeObjectForKey:@"nomePlano"];
     self.numCartao = [decoder decodeObjectForKey:@"numCartao"];
     self.titular = [decoder decodeObjectForKey:@"titular"];
     self.beneficiario = [decoder decodeObjectForKey:@"beneficiario"];
@@ -22,6 +23,7 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:self.nomePlanodeSaude forKey:@"nomePlano"];
     [coder encodeObject:self.numCartao forKey:@"numCartao"];
     [coder encodeObject:self.titular forKey:@"titular"];
     [coder encodeObject:self.beneficiario forKey:@"beneficiario"];
