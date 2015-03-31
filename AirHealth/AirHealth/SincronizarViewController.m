@@ -18,7 +18,7 @@
     [super viewDidLoad];
     [imageCruz setUserInteractionEnabled:YES];
     [buttonSincronizar setUserInteractionEnabled:YES];
-    buttonSincronizar.highlighted = NO;
+    buttonSincronizar.adjustsImageWhenHighlighted = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,7 +33,8 @@
         [self scaleImageView];
         [self rotateImageView];
     }
-    }
+    
+}
 
 -(void)scaleImageView{
     float buttonWidth = buttonSincronizar.frame.size.width;
@@ -42,8 +43,7 @@
     float buttonY = buttonSincronizar.frame.origin.y;
     
     buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
-    
-    buttonSincronizar.transform = CGAffineTransformMakeScale(1.15, 1.15);
+    buttonSincronizar.transform = CGAffineTransformMakeScale(1.25, 1.25);
     
     [UIView animateWithDuration:0.75
                           delay:0.0

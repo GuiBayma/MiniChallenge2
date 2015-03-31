@@ -19,7 +19,6 @@
 		17F3C24D1AC17D3E009590F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17F3C24C1AC17D3E009590F8 /* Images.xcassets */; };
 		17F3C2501AC17D3E009590F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F3C24E1AC17D3E009590F8 /* LaunchScreen.xib */; };
 		17F3C25C1AC17D3E009590F8 /* AirHealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F3C25B1AC17D3E009590F8 /* AirHealthTests.m */; };
-		2576CC781AC9D79E00E4E812 /* CadastroTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2576CC771AC9D79E00E4E812 /* CadastroTableViewController.m */; };
 		25833DB31AC9B7AF002702B3 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25833DAD1AC9B7AF002702B3 /* Bolts.framework */; };
 		25833DB41AC9B7AF002702B3 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25833DAE1AC9B7AF002702B3 /* Parse.framework */; };
 		25833DB51AC9B7AF002702B3 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25833DAF1AC9B7AF002702B3 /* ParseCrashReporting.framework */; };
@@ -87,8 +86,6 @@
 		17F3C2551AC17D3E009590F8 /* AirHealthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirHealthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17F3C25A1AC17D3E009590F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17F3C25B1AC17D3E009590F8 /* AirHealthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirHealthTests.m; sourceTree = "<group>"; };
-		2576CC761AC9D79E00E4E812 /* CadastroTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CadastroTableViewController.h; sourceTree = "<group>"; };
-		2576CC771AC9D79E00E4E812 /* CadastroTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CadastroTableViewController.m; sourceTree = "<group>"; };
 		25833DAD1AC9B7AF002702B3 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		25833DAE1AC9B7AF002702B3 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		25833DAF1AC9B7AF002702B3 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -230,8 +227,6 @@
 				5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */,
 				5EBC4D8C1AC99328008BB4D7 /* SincronizarViewController.h */,
 				5EBC4D8D1AC99328008BB4D7 /* SincronizarViewController.m */,
-				2576CC761AC9D79E00E4E812 /* CadastroTableViewController.h */,
-				2576CC771AC9D79E00E4E812 /* CadastroTableViewController.m */,
 				17F3C23F1AC17D3E009590F8 /* Supporting Files */,
 			);
 			path = AirHealth;
@@ -440,7 +435,6 @@
 				5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */,
 				5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */,
 				ECB4CEE11AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m in Sources */,
-				2576CC781AC9D79E00E4E812 /* CadastroTableViewController.m in Sources */,
 				17F3C2451AC17D3E009590F8 /* AppDelegate.m in Sources */,
 				25833DD81AC9B8A3002702B3 /* Usuario.m in Sources */,
 				17DE0B691AC4767C00F58531 /* PageContentViewController.m in Sources */,
