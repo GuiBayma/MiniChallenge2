@@ -215,7 +215,7 @@
                             <outlet property="delegate" destination="lb0-VD-t7Q" id="3WB-Sk-nvP"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Ficha Médica" image="medical.png" id="CQY-m8-kpY"/>
+                    <tabBarItem key="tabBarItem" title="Ficha Médica" image="fichaMedica" id="CQY-m8-kpY"/>
                     <connections>
                         <outlet property="alturaUnidadeLabel" destination="Wkq-80-b6y" id="b2O-oR-i2X"/>
                         <outlet property="alturaValorLabel" destination="T7U-bC-H8m" id="z7N-fQ-zG9"/>
@@ -378,7 +378,7 @@
                             <outlet property="delegate" destination="r5J-cB-4zn" id="OjR-kW-Fdh"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Configurações" image="config.png" id="egJ-9g-4Ly"/>
+                    <tabBarItem key="tabBarItem" title="Configurações" image="configuracoes" id="egJ-9g-4Ly"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tM1-46-gxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -431,7 +431,7 @@
                             <outlet property="delegate" destination="2Eo-FY-Abc" id="I6D-PV-SQ3"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Dados Pessoais" image="profile.png" id="FW8-Zu-Z19"/>
+                    <tabBarItem key="tabBarItem" systemItem="contacts" id="FW8-Zu-Z19"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zzy-Pb-LJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -499,7 +499,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Sincronização" image="sinchronize.png" id="nnn-z0-Tbt"/>
+                    <tabBarItem key="tabBarItem" title="Sincronização" image="sincronizacao" id="nnn-z0-Tbt"/>
                     <connections>
                         <outlet property="buttonSincronizar" destination="4C0-cM-Rud" id="dh3-7r-7aM"/>
                         <outlet property="imageCruz" destination="rOB-Y9-CJ8" id="7rT-r7-MxP"/>
@@ -533,10 +533,9 @@
     </scenes>
     <resources>
         <image name="cloud" width="256" height="256"/>
-        <image name="config.png" width="32" height="31"/>
+        <image name="configuracoes" width="64" height="64"/>
         <image name="cruz" width="166" height="156"/>
-        <image name="medical.png" width="64" height="64"/>
-        <image name="profile.png" width="32" height="32"/>
-        <image name="sinchronize.png" width="32" height="32"/>
+        <image name="fichaMedica" width="64" height="64"/>
+        <image name="sincronizacao" width="64" height="64"/>
     </resources>
 </document>
