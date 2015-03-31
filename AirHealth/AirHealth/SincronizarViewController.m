@@ -38,32 +38,62 @@
 }
 
 -(void)scaleImageView{
-    float buttonWidth = buttonSincronizar.frame.size.width;
-    float buttonHeight = buttonSincronizar.frame.size.height;
-    float buttonX = buttonSincronizar.frame.origin.x;
-    float buttonY = buttonSincronizar.frame.origin.y;
+//    float buttonWidth = buttonSincronizar.frame.size.width;
+//    float buttonHeight = buttonSincronizar.frame.size.height;
+//    float buttonX = buttonSincronizar.frame.origin.x;
+//    float buttonY = buttonSincronizar.frame.origin.y;
+//    
+//    buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
+//    
+//    buttonSincronizar.transform = CGAffineTransformMakeScale(1.15, 1.15);
+//    
+//    [UIView animateWithDuration:0.75
+//                          delay:0.0
+//                        options:UIViewAnimationOptionCurveEaseOut
+//                     animations:^{
+//                         buttonSincronizar.transform = CGAffineTransformIdentity;
+//                         buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
+//                         
+//                     }
+//                     completion:^(BOOL finished){
+//                         if(finished){
+//                             [self scaleImageView];
+//                         }
+//     }];
+
+        float buttonWidth = buttonSincronizar.frame.size.width;
+        float buttonHeight = buttonSincronizar.frame.size.height;
+        float buttonX = buttonSincronizar.frame.origin.x;
+        float buttonY = buttonSincronizar.frame.origin.y;
     
-    buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
+        buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
     
-    buttonSincronizar.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        buttonSincronizar.transform = CGAffineTransformMakeScale(1.15, 1.15);
     
-    [UIView animateWithDuration:0.25
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         buttonSincronizar.transform = CGAffineTransformIdentity;
-                         buttonSincronizar.frame = CGRectMake(buttonSincronizar.frame.origin.x, buttonSincronizar.frame.origin.y, buttonWidth+0.1, buttonHeight+0.1);
-                         
-                     }
-                     completion:nil];
+        [UIView animateWithDuration:0.75
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             buttonSincronizar.transform = CGAffineTransformIdentity;
+                             buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
+    
+                         }
+                         completion:^(BOOL finished){
+                             if(finished){
+                                 [self scaleImageView];
+                             }
+         }];
+    
 }
 
 - (void)rotateImageView
 {
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.35 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         [imageCruz setTransform:CGAffineTransformRotate(imageCruz.transform, M_PI_2)];
     }completion:^(BOOL finished){
-
+        if(finished){
+            [self rotateImageView];
+        }
     }];
 }
 

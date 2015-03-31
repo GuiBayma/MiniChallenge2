@@ -256,7 +256,7 @@
 				TargetAttributes = {
 					17F3C23B1AC17D3E009590F8 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = LNGFCK45YW;
+						DevelopmentTeam = U5QFCQU39B;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
 								enabled = 1;
