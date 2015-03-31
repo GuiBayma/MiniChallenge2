@@ -109,12 +109,21 @@
         [defaults synchronize];
         
         //tbc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"ValidacaoCadastro" object:nil];
+        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
--(void) fechar {
+- (void)fechar {
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"ValidacaoCadastro" object:nil];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
+
 }
+
+
 
 @end

@@ -17,6 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificarUsuarioNaoCadastrado) name:@"ValidacaoCadastro" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(habilitarItens) name:@"HabilitarItensTabBar" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,7 +35,43 @@
         PageViewController *pvc = [[PageViewController alloc] init];
         [self presentViewController:pvc animated:YES completion:nil];
     }
+//    else {
+//        bool usuarioCadastrado = [defaults boolForKey:@"usuarioCadastrado"];
+//        if (!usuarioCadastrado)
+//            [self notificarUsuarioNaoCadastrado];
+//    }
+    
 }
+
+//- (void)notificarUsuarioNaoCadastrado {
+//    
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    bool usuarioCadastrado = [defaults boolForKey:@"usuarioCadastrado"];
+//    
+//    if (!usuarioCadastrado) {
+//        
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cadastro necessário"
+//                                                        message:@"Para usar o app é necessário que você efetue o cadastro de seus dados pessoais."
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil];
+//        [alert show];
+//        
+//        
+//        [self setSelectedViewController:self.viewControllers[1]];
+//        [self.tabBar.items[0] setEnabled:NO];
+//        [self.tabBar.items[2] setEnabled:NO];
+//        [self.tabBar.items[3] setEnabled:NO];
+//        
+//    }
+//    
+//}
+//
+//- (void)habilitarItens {
+//    [self.tabBar.items[0] setEnabled:YES];
+//    [self.tabBar.items[2] setEnabled:YES];
+//    [self.tabBar.items[3] setEnabled:YES];
+//}
 
 /*
 #pragma mark - Navigation
