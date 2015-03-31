@@ -27,11 +27,11 @@
 
 - (Usuario *)carregarUsuarioNuvem;
 - (FichaMedica *)carregarFichaNuvem;
-- (InfoConvenio *)carregarInfoConvNuvem;
+- (InfoConvenio *)carregarInfoConvenioNuvem;
 
-+ (void)salvarUsuarioNuvem:(Usuario *)usu;
-+ (void)salvarFichaNuvem:(FichaMedica *)ficha;
-+ (void)salvarInfoConvenioNuvem:(InfoConvenio *)infoConv;
+- (void)salvarUsuarioNuvem;
+- (void)salvarFichaNuvem;
+- (void)salvarInfoConvenioNuvem;
 
 
 
