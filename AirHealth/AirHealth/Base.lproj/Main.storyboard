@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7519.1" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f6f-PN-QUO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f6f-PN-QUO">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7513.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -524,13 +524,13 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y7Y-76-lN4" id="AYy-ea-EWC">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GiG-pI-jo7">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GiG-pI-jo7">
                                             <rect key="frame" x="535" y="8" width="42" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AnN-M6-hya">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AnN-M6-hya">
                                             <rect key="frame" x="23" y="8" width="42" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -575,63 +575,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4C0-cM-Rud">
-                                <rect key="frame" x="172" y="122" width="256" height="256"/>
+                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4C0-cM-Rud">
+                                <rect key="frame" x="172" y="172" width="256" height="256"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="B1o-Mi-p9f"/>
+                                    <constraint firstAttribute="width" constant="256" id="yyq-eY-Pza"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="cloud">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="72" y="134" width="256" height="256"/>
+                                </variation>
                                 <connections>
                                     <action selector="sincronizar:" destination="BXW-SW-hAc" eventType="touchUpInside" id="qwh-dJ-btc"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="cruz" translatesAutoresizingMaskIntoConstraints="NO" id="rOB-Y9-CJ8">
-                                <rect key="frame" x="272" y="234" width="68" height="63"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cruz" translatesAutoresizingMaskIntoConstraints="NO" id="rOB-Y9-CJ8">
+                                <rect key="frame" x="270" y="289" width="68" height="63"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="63" id="fjy-H8-urv"/>
-                                    <constraint firstAttribute="width" constant="68" id="h4V-rU-mzK"/>
+                                    <constraint firstAttribute="height" constant="63" id="8Yi-x9-sEf"/>
+                                    <constraint firstAttribute="width" constant="68" id="OJR-4i-7op"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="fjy-H8-urv"/>
-                                        <exclude reference="h4V-rU-mzK"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="fjy-H8-urv"/>
-                                        <include reference="h4V-rU-mzK"/>
-                                    </mask>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="180" y="247" width="68" height="63"/>
                                 </variation>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sincronizando..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfH-ID-FDn">
+                                <rect key="frame" x="226" y="65" width="149" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="8eY-2f-bL9"/>
+                                    <constraint firstAttribute="width" constant="149" id="cSt-Ys-HXA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="4C0-cM-Rud" firstAttribute="top" secondItem="Qhf-28-N3D" secondAttribute="bottom" constant="114" id="9wE-bt-TFS"/>
-                            <constraint firstItem="rOB-Y9-CJ8" firstAttribute="top" secondItem="Qhf-28-N3D" secondAttribute="bottom" constant="227" id="TIe-Lg-3Ff"/>
-                            <constraint firstAttribute="centerX" secondItem="4C0-cM-Rud" secondAttribute="centerX" id="Zdz-tn-h7j"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rOB-Y9-CJ8" secondAttribute="trailing" constant="136" id="hKa-fU-gue"/>
+                            <constraint firstAttribute="centerX" secondItem="4C0-cM-Rud" secondAttribute="centerX" id="6WG-Gh-yEh"/>
+                            <constraint firstItem="rOB-Y9-CJ8" firstAttribute="top" secondItem="4C0-cM-Rud" secondAttribute="top" constant="117" id="Omb-pb-Ilw"/>
+                            <constraint firstItem="KfH-ID-FDn" firstAttribute="top" secondItem="Qhf-28-N3D" secondAttribute="bottom" constant="45" id="fjQ-RH-oB4"/>
+                            <constraint firstAttribute="centerY" secondItem="4C0-cM-Rud" secondAttribute="centerY" id="mPh-c8-G8l"/>
+                            <constraint firstAttribute="centerX" secondItem="KfH-ID-FDn" secondAttribute="centerX" id="pEU-pb-8XX"/>
+                            <constraint firstItem="rOB-Y9-CJ8" firstAttribute="leading" secondItem="4C0-cM-Rud" secondAttribute="leading" constant="98" id="x0F-ba-ykc"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="9wE-bt-TFS"/>
-                                <exclude reference="Zdz-tn-h7j"/>
-                                <exclude reference="TIe-Lg-3Ff"/>
-                                <exclude reference="hKa-fU-gue"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="9wE-bt-TFS"/>
-                                <include reference="Zdz-tn-h7j"/>
-                                <include reference="TIe-Lg-3Ff"/>
-                                <include reference="hKa-fU-gue"/>
-                            </mask>
-                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Sincronização" image="sincronizacao" id="nnn-z0-Tbt"/>
                     <connections>
                         <outlet property="buttonSincronizar" destination="4C0-cM-Rud" id="dh3-7r-7aM"/>
                         <outlet property="imageCruz" destination="rOB-Y9-CJ8" id="7rT-r7-MxP"/>
+                        <outlet property="labelSincronizando" destination="KfH-ID-FDn" id="z4w-D4-XF8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9gX-lJ-b46" userLabel="First Responder" sceneMemberID="firstResponder"/>

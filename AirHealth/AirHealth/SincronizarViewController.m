@@ -8,17 +8,20 @@
 
 #import "SincronizarViewController.h"
 
-@interface SincronizarViewController ()
+@interface SincronizarViewController (){
+    int contAnimacao;
+}
 
 @end
 
 @implementation SincronizarViewController
-@synthesize imageCruz, buttonSincronizar;
+@synthesize imageCruz, buttonSincronizar, labelSincronizando;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [imageCruz setUserInteractionEnabled:YES];
     [buttonSincronizar setUserInteractionEnabled:YES];
     buttonSincronizar.adjustsImageWhenHighlighted = NO;
+    [labelSincronizando setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,6 +33,7 @@
     UITouch *toque = [[event allTouches]anyObject];
     
     if([toque view] == imageCruz || [toque view] == buttonSincronizar){
+        [labelSincronizando setHidden:NO];
         [self scaleImageView];
         [self rotateImageView];
     }
@@ -45,12 +49,25 @@
     buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
     buttonSincronizar.transform = CGAffineTransformMakeScale(1.25, 1.25);
     
-    [UIView animateWithDuration:0.75
+    [UIView animateWithDuration:1
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          buttonSincronizar.transform = CGAffineTransformIdentity;
                          buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
+                         
+                         if(contAnimacao == 0){
+                            labelSincronizando.text = @"Sincronizando";
+                         }
+                         else if (contAnimacao == 1){
+                             labelSincronizando.text = @"Sincronizando.";
+                         }
+                         else if(contAnimacao == 2){
+                             labelSincronizando.text = @"Sincronizando..";
+                         }
+                         else if(contAnimacao == 3){
+                             labelSincronizando.text = @"Sincronizando...";
+                         }
                          
                      }
                      completion:^(BOOL finished){
@@ -58,12 +75,16 @@
                              [self scaleImageView];
                          }
      }];
-    
+    contAnimacao++;
+    if(contAnimacao==4){
+        contAnimacao=0;
+    }
+    NSLog(@"%i",contAnimacao);
 }
 
 - (void)rotateImageView
 {
-    [UIView animateWithDuration:0.35 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         [imageCruz setTransform:CGAffineTransformRotate(imageCruz.transform, M_PI_2)];
     }completion:^(BOOL finished){
         if(finished){
@@ -75,6 +96,15 @@
 -(void)sincronizar:(id)sender{
     [self scaleImageView];
     [self rotateImageView];
+}
+
+-(void)showSenha{
+    [buttonSincronizar setHidden:YES];
+    [imageCruz setHidden:YES];
+    [labelSincronizando setHidden:YES];
+    UILabel *label = [[UILabel alloc]init];
+    [label setText:@"Senha: 1234"];
+    [self.view addSubview:label];
 }
 
 /*
