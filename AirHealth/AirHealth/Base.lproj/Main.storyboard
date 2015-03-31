@@ -557,7 +557,7 @@
                             <outlet property="delegate" destination="2Eo-FY-Abc" id="I6D-PV-SQ3"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" image="dadosPessoais" id="FW8-Zu-Z19"/>
+                    <tabBarItem key="tabBarItem" title="Dados Pessoais" image="dadosPessoais" id="FW8-Zu-Z19"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zzy-Pb-LJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
