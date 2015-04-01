@@ -22,6 +22,7 @@
     [buttonSincronizar setUserInteractionEnabled:YES];
     buttonSincronizar.adjustsImageWhenHighlighted = NO;
     [labelSincronizando setHidden:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,7 +34,6 @@
     UITouch *toque = [[event allTouches]anyObject];
     
     if([toque view] == imageCruz || [toque view] == buttonSincronizar){
-        [labelSincronizando setHidden:NO];
         [self scaleImageView];
         [self rotateImageView];
     }
@@ -48,6 +48,8 @@
     
     buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
     buttonSincronizar.transform = CGAffineTransformMakeScale(1.25, 1.25);
+    
+    [labelSincronizando setHidden:NO];
     
     [UIView animateWithDuration:1
                           delay:0.0
@@ -68,7 +70,6 @@
                          else if(contAnimacao == 3){
                              labelSincronizando.text = @"Sincronizando...";
                          }
-                         
                      }
                      completion:^(BOOL finished){
                          if(finished){
@@ -79,7 +80,6 @@
     if(contAnimacao==4){
         contAnimacao=0;
     }
-    NSLog(@"%i",contAnimacao);
 }
 
 - (void)rotateImageView
@@ -96,15 +96,6 @@
 -(void)sincronizar:(id)sender{
     [self scaleImageView];
     [self rotateImageView];
-}
-
--(void)showSenha{
-    [buttonSincronizar setHidden:YES];
-    [imageCruz setHidden:YES];
-    [labelSincronizando setHidden:YES];
-    UILabel *label = [[UILabel alloc]init];
-    [label setText:@"Senha: 1234"];
-    [self.view addSubview:label];
 }
 
 /*
