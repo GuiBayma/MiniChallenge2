@@ -10,12 +10,17 @@
 
 @interface SincronizarViewController (){
     int contAnimacao;
+    float buttonWidth;
+    float buttonHeight;
+    float buttonX;
+    float buttonY;
 }
 
 @end
 
 @implementation SincronizarViewController
 @synthesize imageCruz, buttonSincronizar, labelSincronizando;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [imageCruz setUserInteractionEnabled:YES];
@@ -41,10 +46,10 @@
 }
 
 -(void)scaleImageView{
-    float buttonWidth = buttonSincronizar.frame.size.width;
-    float buttonHeight = buttonSincronizar.frame.size.height;
-    float buttonX = buttonSincronizar.frame.origin.x;
-    float buttonY = buttonSincronizar.frame.origin.y;
+    buttonWidth = buttonSincronizar.frame.size.width;
+    buttonHeight = buttonSincronizar.frame.size.height;
+    buttonX = buttonSincronizar.frame.origin.x;
+    buttonY = buttonSincronizar.frame.origin.y;
     
     buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
     buttonSincronizar.transform = CGAffineTransformMakeScale(1.25, 1.25);
@@ -80,7 +85,10 @@
     if(contAnimacao==4){
         contAnimacao=0;
     }
+    
 }
+
+
 
 - (void)rotateImageView
 {
@@ -97,6 +105,21 @@
     [self scaleImageView];
     [self rotateImageView];
 }
+
+- (void)stopAnimation{
+    imageCruz = nil;
+    buttonSincronizar = nil;
+    [labelSincronizando setHidden:YES];
+    labelSincronizando = nil;
+    
+}
+
+//- (void)teste {
+//    imageCruz = nil;
+//    buttonSincronizar = nil;
+//}
+
+
 
 /*
 #pragma mark - Navigation
