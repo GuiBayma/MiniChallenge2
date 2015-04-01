@@ -83,4 +83,14 @@
 }
 */
 
+- (BOOL)shouldAutorotate {
+    
+    if(self.selectedIndex == 0 || self.selectedIndex == 1 || self.selectedIndex == 2 || self.selectedIndex == 3)
+    {
+        return NO;
+    }
+    
+    return [self.viewControllers.lastObject shouldAutorotate];
+}
+
 @end

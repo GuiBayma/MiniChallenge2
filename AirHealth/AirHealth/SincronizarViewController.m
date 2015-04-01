@@ -8,16 +8,21 @@
 
 #import "SincronizarViewController.h"
 
-@interface SincronizarViewController ()
+@interface SincronizarViewController (){
+    int contAnimacao;
+}
 
 @end
 
 @implementation SincronizarViewController
-@synthesize imageCruz, buttonSincronizar;
+@synthesize imageCruz, buttonSincronizar, labelSincronizando;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [imageCruz setUserInteractionEnabled:YES];
     [buttonSincronizar setUserInteractionEnabled:YES];
+    buttonSincronizar.adjustsImageWhenHighlighted = NO;
+    [labelSincronizando setHidden:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,12 +34,10 @@
     UITouch *toque = [[event allTouches]anyObject];
     
     if([toque view] == imageCruz || [toque view] == buttonSincronizar){
-        //for(int i=0; i<5; i++){
         [self scaleImageView];
         [self rotateImageView];
-        
-        //}
     }
+    
 }
 
 -(void)scaleImageView{
@@ -44,30 +47,56 @@
     float buttonY = buttonSincronizar.frame.origin.y;
     
     buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
+    buttonSincronizar.transform = CGAffineTransformMakeScale(1.25, 1.25);
     
-    buttonSincronizar.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    [labelSincronizando setHidden:NO];
     
-    [UIView animateWithDuration:0.25
+    [UIView animateWithDuration:1
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          buttonSincronizar.transform = CGAffineTransformIdentity;
-                         buttonSincronizar.frame = CGRectMake(buttonSincronizar.frame.origin.x, buttonSincronizar.frame.origin.y, buttonWidth+0.1, buttonHeight+0.1);
+                         buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
                          
+                         if(contAnimacao == 0){
+                            labelSincronizando.text = @"Sincronizando";
+                         }
+                         else if (contAnimacao == 1){
+                             labelSincronizando.text = @"Sincronizando.";
+                         }
+                         else if(contAnimacao == 2){
+                             labelSincronizando.text = @"Sincronizando..";
+                         }
+                         else if(contAnimacao == 3){
+                             labelSincronizando.text = @"Sincronizando...";
+                         }
                      }
-                     completion:nil];
+                     completion:^(BOOL finished){
+                         if(finished){
+                             [self scaleImageView];
+                         }
+     }];
+    contAnimacao++;
+    if(contAnimacao==4){
+        contAnimacao=0;
+    }
 }
 
 - (void)rotateImageView
 {
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         [imageCruz setTransform:CGAffineTransformRotate(imageCruz.transform, M_PI_2)];
     }completion:^(BOOL finished){
-
+        if(finished){
+            [self rotateImageView];
+        }
     }];
 }
 
-
+-(void)sincronizar:(id)sender{
+    [self scaleImageView];
+    [self rotateImageView];
+}
 
 /*
 #pragma mark - Navigation
