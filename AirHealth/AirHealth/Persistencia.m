@@ -87,6 +87,8 @@
             [_usuario setCidade:object[@"cidade"]];
             [_usuario setEstado:object[@"estado"]];
             [_usuario setEmail:object[@"email"]];
+            [_usuario setSenha:[NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)]];
+            
             
         }];
     }
