@@ -8,6 +8,7 @@
 
 #import "FichaMedicaTableViewController.h"
 #import "HKHealthStore+AAPLExtensions.h"
+#import "Persistencia.h"
 
 typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     AAPLProfileViewControllerTableViewIndex0 = 0,
@@ -37,7 +38,9 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
 
 @end
 
-@implementation FichaMedicaTableViewController
+@implementation FichaMedicaTableViewController {
+    Persistencia *persistencia;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +51,9 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    persistencia = [Persistencia sharedInstance];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,6 +87,18 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
                 [self atualizaAlturaDoUsuario];
                 [self atualizaPesoDoUsuario];
                 [self atualizaImcDoUsuario];
+                
+                NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
+                numFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+                
+                //a data de nascimento é setada dentro do método atualizaIdade
+                [persistencia.fichaMedica setSexo:self.sexoValorLabel.text];
+                [persistencia.fichaMedica setGrupoSanguineo:self.grupoSanguineoValorLabel.text];
+                [persistencia.fichaMedica setAltura:[numFormatter numberFromString:self.alturaValorLabel.text]];
+                [persistencia.fichaMedica setPeso:[numFormatter numberFromString:self.pesoValorLabel.text]];
+                //persistencia.fichaMedica setPressaoArterialSistolica:[numFormatter numberFromString:self.]
+                
+                
             });
         }];
     }
@@ -131,6 +149,11 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
         NSUInteger usersAge = [ageComponents year];
         
         self.idadeValorLabel.text = [NSNumberFormatter localizedStringFromNumber:@(usersAge) numberStyle:NSNumberFormatterNoStyle];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        
+        [persistencia.fichaMedica setDataNascimento:dateOfBirth];
+        
     }
 }
 

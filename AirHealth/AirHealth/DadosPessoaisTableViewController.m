@@ -143,4 +143,51 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy"];
+    
+    if ([textField isEqual:nomeTextField])
+        [persistencia.usuario setNome:textField.text];
+    
+    else if ([textField isEqual:cpfTextField])
+        [persistencia.usuario setCpf:textField.text];
+    
+    else if ([textField isEqual:rgTextField])
+        [persistencia.usuario setRg:textField.text];
+    
+    else if ([textField isEqual:emailTextField])
+        [persistencia.usuario setEmail:textField.text];
+    
+    else if([textField isEqual:telefoneTextField])
+        [persistencia.usuario setTelefone:textField.text];
+    
+    else if ([textField isEqual:enderecoTextField])
+        [persistencia.usuario setEndereco:textField.text];
+    
+    else if ([textField isEqual:cepTextField])
+        [persistencia.usuario setCep:textField.text];
+    
+    else if ([textField isEqual:cidadeTextField])
+        [persistencia.usuario setCidade:textField.text];
+    
+    else if ([textField isEqual:estadoTextField])
+        [persistencia.usuario setEstado:textField.text];
+    
+    else if ([textField isEqual:nomePlanoTextField])
+        [persistencia.infoConvenio setNomePlanodeSaude:textField.text];
+    
+    else if ([textField isEqual:numeroPlanoTextField])
+        [persistencia.infoConvenio setNumCartao:textField.text];
+    
+    else if ([textField isEqual:validadeInicioTextField])
+        [persistencia.infoConvenio setInicioValidade:[dateFormat dateFromString:textField.text]];
+    
+    else if ([textField isEqual:validadeFimTextField])
+        [persistencia.infoConvenio setTerminoValidade:[dateFormat dateFromString:textField.text]];
+            
+    
+}
+
 @end
