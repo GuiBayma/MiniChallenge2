@@ -24,6 +24,7 @@
         _cidade = @"";
         _estado = @"";
         _email = @"";
+        _telefone = @"";
     }
     
     return self;
@@ -40,6 +41,7 @@
     [coder encodeObject:self.cidade forKey:@"cidadeUsu"];
     [coder encodeObject:self.estado forKey:@"estadoUsu"];
     [coder encodeObject:self.email forKey:@"emailUsu"];
+    [coder encodeObject:self.telefone forKey:@"telefoneUsu"];
     
 }
 
@@ -54,6 +56,7 @@
     self.cidade = [decoder decodeObjectForKey:@"cidadeUsu"];
     self.estado = [decoder decodeObjectForKey:@"estadoUsu"];
     self.email = [decoder decodeObjectForKey:@"emailUsu"];
+    self.telefone = [decoder decodeObjectForKey:@"telefoneUsu"];
     
     return self;
 }

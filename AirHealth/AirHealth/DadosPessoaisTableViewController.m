@@ -81,25 +81,31 @@
         numeroPlanoTextField.text = [persistencia.infoConvenio numCartao];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 9;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    DadosPessoaisCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dadosPessoaisCell" forIndexPath:indexPath];
-    
-    if(indexPath.row == 0){
-        cell.dado.text = @"Nome";
-        cell.valor.text = [persistencia.usuario nome];
-    }
-    else if(indexPath.row == 1){
-        cell.dado.text = @"CPF";
-        cell.valor.text = [persistencia.usuario cpf];
-    }
-    else if(indexPath.row == 2){
-        cell.dado.text = @"RG";
-        cell.valor.text = [persistencia.usuario rg];
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == nomeTextField) {
+        [cpfTextField becomeFirstResponder];
+    } else if (textField == cpfTextField) {
+        [rgTextField becomeFirstResponder];
+    } else if (textField == rgTextField) {
+        [emailTextField becomeFirstResponder];
+    } else if (textField == emailTextField) {
+        [telefoneTextField becomeFirstResponder];
+    } else if (textField == telefoneTextField) {
+        [enderecoTextField becomeFirstResponder];
+    } else if (textField == enderecoTextField) {
+        [cepTextField becomeFirstResponder];
+    } else if (textField  == cepTextField) {
+        [cidadeTextField becomeFirstResponder];
+    } else if (textField == cidadeTextField) {
+        [estadoTextField becomeFirstResponder];
+    } else if (textField == estadoTextField) {
+        [nomePlanoTextField becomeFirstResponder];
+    } else if (textField == nomePlanoTextField) {
+        [numeroPlanoTextField becomeFirstResponder];
+    } else if (textField == numeroPlanoTextField) {
+        [validadeInicioTextField becomeFirstResponder];
+    } else if (textField == validadeInicioTextField) {
+        [validadeFimTextField becomeFirstResponder];
     }
     
     return YES;
@@ -134,74 +140,54 @@
         [validadeFimTextField becomeFirstResponder];
     }
     
-    // Create the "OK" button.
-    NSString *okTitle = NSLocalizedString(@"OK", nil);
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        UITextField *textField = alertController.textFields.firstObject;
-        NSString *value = textField.text;
-        cell.valor.text = value;
-        
-        if (![value isEqualToString:@""]) {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy"];
+    
+    if ([textField isEqual:nomeTextField])
+        [persistencia.usuario setNome:textField.text];
+    
+    else if ([textField isEqual:cpfTextField])
+        [persistencia.usuario setCpf:textField.text];
+    
+    else if ([textField isEqual:rgTextField])
+        [persistencia.usuario setRg:textField.text];
+    
+    else if ([textField isEqual:emailTextField])
+        [persistencia.usuario setEmail:textField.text];
+    
+    else if([textField isEqual:telefoneTextField])
+        [persistencia.usuario setTelefone:textField.text];
+    
+    else if ([textField isEqual:enderecoTextField])
+        [persistencia.usuario setEndereco:textField.text];
+    
+    else if ([textField isEqual:cepTextField])
+        [persistencia.usuario setCep:textField.text];
+    
+    else if ([textField isEqual:cidadeTextField])
+        [persistencia.usuario setCidade:textField.text];
+    
+    else if ([textField isEqual:estadoTextField])
+        [persistencia.usuario setEstado:textField.text];
+    
+    else if ([textField isEqual:nomePlanoTextField])
+        [persistencia.infoConvenio setNomePlanodeSaude:textField.text];
+    
+    else if ([textField isEqual:numeroPlanoTextField])
+        [persistencia.infoConvenio setNumCartao:textField.text];
+    
+    else if ([textField isEqual:validadeInicioTextField])
+        [persistencia.infoConvenio setInicioValidade:[dateFormat dateFromString:textField.text]];
+    
+    else if ([textField isEqual:validadeFimTextField])
+        [persistencia.infoConvenio setTerminoValidade:[dateFormat dateFromString:textField.text]];
             
-            switch (indexPath.row) {
-                case 0:
-                    [persistencia.usuario setNome: value];
-                    break;
-                case 1:
-                    [persistencia.usuario setCpf:value];
-                    break;
-                case 2:
-                    [persistencia.usuario setRg:value];
-                    break;
-                case 3:
-                    [persistencia.usuario setEndereco:value];
-                    break;
-                case 4:
-                    [persistencia.usuario setCep:value];
-                    break;
-                case 5:
-                    [persistencia.usuario setCidade:value];
-                    break;
-                case 6:
-                    [persistencia.usuario setEstado:value];
-                    break;
-                case 7:
-                    [persistencia.infoConvenio setNomePlanodeSaude:value];
-                    break;
-                case 8:
-                    [persistencia.infoConvenio setNumCartao:value];
-                    break;
-                default:
-                    break;
-            }
-            
-            [persistencia salvarUsuarioLocal];
-            [persistencia salvarInfoConvenioLocal];
-            
-            //antes de reabilitar a interface novamente devo salvar o usuario
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            BOOL usuarioCadastrado = YES;
-            [defaults setBool:usuarioCadastrado forKey:@"usuarioCadastrado"];
-            [defaults synchronize];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"HabilitarItensTabBar" object:nil];
-        }
-        
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }];
     
-    [alertController addAction:okAction];
-    
-    // Create the "Cancel" button.
-    NSString *cancelTitle = NSLocalizedString(@"Cancel", nil);
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }];
-    
-    [alertController addAction:cancelAction];
-    
-    // Present the alert controller.
-    [self presentViewController:alertController animated:YES completion:nil];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 @end

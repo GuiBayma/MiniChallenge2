@@ -78,6 +78,7 @@
             [_usuario setCidade:object[@"cidade"]];
             [_usuario setEstado:object[@"estado"]];
             [_usuario setEmail:object[@"email"]];
+            [_usuario setTelefone:object[@"telefone"]];
             [_usuario setSenha:object[@"senha"]];
             
             
@@ -95,30 +96,29 @@
     
     //[self conexaoParse];
     
-    if (![_fichaMedica.objectID isEqualToString:@""] || ![_infoConvenio.objectID isEqualToString:@""]) {
-        
-        PFObject *classeUsuario = [PFObject objectWithClassName:@"Usuario"];
-        classeUsuario[@"nome"] = _usuario.nome;
-        classeUsuario[@"cpf"] = _usuario.cpf;
-        classeUsuario[@"rg"] = _usuario.rg;
-        classeUsuario[@"endereco"] = _usuario.endereco;
-        classeUsuario[@"cep"] = _usuario.cep;
-        classeUsuario[@"cidade"] = _usuario.cidade;
-        classeUsuario[@"estado"] = _usuario.estado;
-        classeUsuario[@"email"] = _usuario.email;
-        classeUsuario[@"fichaMedica"] = _fichaMedica.objectID;
-        classeUsuario[@"infoConvenio"] = _infoConvenio.objectID;
-        classeUsuario[@"senha"] = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
-        
-        [classeUsuario saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
-            if (succeeded) {
-                [_usuario setObjectID:classeUsuario.objectId];
-                [_usuario setSenha:classeUsuario[@"senha"]];
-                [self salvarUsuarioLocal];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"UsuarioSincronizado" object:nil];
-            }
-        }];
-    }
+    PFObject *classeUsuario = [PFObject objectWithClassName:@"Usuario"];
+    classeUsuario[@"nome"] = _usuario.nome;
+    classeUsuario[@"cpf"] = _usuario.cpf;
+    classeUsuario[@"rg"] = _usuario.rg;
+    classeUsuario[@"endereco"] = _usuario.endereco;
+    classeUsuario[@"cep"] = _usuario.cep;
+    classeUsuario[@"cidade"] = _usuario.cidade;
+    classeUsuario[@"estado"] = _usuario.estado;
+    classeUsuario[@"email"] = _usuario.email;
+    classeUsuario[@"telefone"] = _usuario.telefone;
+    //classeUsuario[@"fichaMedica"] = _fichaMedica.objectID;
+    //classeUsuario[@"infoConvenio"] = _infoConvenio.objectID;
+    classeUsuario[@"senha"] = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
+    
+    [classeUsuario saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
+        if (succeeded) {
+            [_usuario setObjectID:classeUsuario.objectId];
+            [_usuario setSenha:classeUsuario[@"senha"]];
+            [self salvarUsuarioLocal];
+            [self relacionaObjetos];
+        }
+    }];
+    
 }
 
 
@@ -228,6 +228,24 @@
             [_infoConvenio setObjectID:classeInfoConvenio.objectId];
             [self salvarInfoConvenioLocal];
         }
+    }];
+    
+}
+
+/**
+ * @description Método responsável por atrelar a relação entre os objetos no banco de dados em nuvem.
+ */
+- (void)relacionaObjetos {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Usuario"];
+    
+    [query getObjectInBackgroundWithId:_usuario.objectID block:^(PFObject *classeUsuario, NSError *erro) {
+        
+        classeUsuario[@"fichaMedica"] = _fichaMedica.objectID;
+        classeUsuario[@"infoConvenio"] = _infoConvenio.objectID;
+        [classeUsuario saveInBackground];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UsuarioSincronizado" object:nil];
+
     }];
     
 }
