@@ -12,8 +12,7 @@
 @interface PageViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
-@property (strong, nonatomic) NSArray *Titulos;
-@property (strong, nonatomic) NSArray *Imagens;
-@property (strong, nonatomic) NSArray *textos;
+@property (strong, nonatomic) NSArray *imagensPrimeiro;
+@property (strong, nonatomic) NSArray *imagens;
 
 @end

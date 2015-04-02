@@ -8,15 +8,16 @@
 
 #import "PageViewController.h"
 
-@implementation PageViewController
+@implementation PageViewController {
+    BOOL primeiroUso;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Create the data model
-    _Titulos = @[@"-----------\nAir Health\n-----------", @"Página 2",@"Pagina 3",@""];
-    _Imagens = @[@"background.png", @"background.png",@"background.png",@""];
-    _textos = @[@"Texto página 1",@"Outro texto da página 2",@"Mais um\ntexto\nda página 3",@""];
+    _imagensPrimeiro = @[@"tutorial1.png", @"tutorial2.png",@"tutorial3.png",@"tutorial4.png",@"tutorial5.png",@"tutorial6.png",@""];
+    _imagens = @[@"tutorial1.png", @"tutorial2.png",@"tutorial3.png",@"tutorial4.png",@"tutorial5.png",@"tutorial6.png"];
     
     // Create page view controller
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -35,36 +36,52 @@
     [self.pageViewController didMoveToParentViewController:self];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL primeiroUso = [defaults boolForKey:@"primeiroUso"];
+    primeiroUso = [defaults boolForKey:@"primeiroUso"];
     if (primeiroUso) {
         UIButton *fecha = [UIButton buttonWithType:UIButtonTypeCustom];
         [fecha addTarget:self action:@selector(fechar) forControlEvents:UIControlEventTouchUpInside];
-        fecha.frame = CGRectMake(self.view.bounds.size.width -50, 50, 30, 30);
-        [fecha setImage:[UIImage imageNamed:@"cancel-25.png"] forState:UIControlStateNormal];
+        fecha.frame = CGRectMake(self.view.bounds.size.width -70, 20, 44, 44);
+        [fecha setImage:[UIImage imageNamed:@"close-100.png"] forState:UIControlStateNormal];
         [self.view addSubview:fecha];
     }
     
-    [self.view setBackgroundColor:[UIColor colorWithRed:187.0/255.0 green:164.0/255.0 blue:124.0/255.0 alpha:1]];
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor grayColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:45.0/255.0 green:207.0/255.0 blue:247.0/255.0 alpha:1];
+    pageControl.backgroundColor = [UIColor whiteColor];
+    
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (PageContentViewController *)viewControllerAtIndex:(NSUInteger)index {
-    if (([self.Titulos count] == 0) || (index >= [self.Titulos count])) {
-        return nil;
+    if (primeiroUso) {
+        if (([self.imagens count] == 0) || (index >= [self.imagens count])) {
+            return nil;
+        }
+        PageContentViewController *pageContentViewController = [[PageContentViewController alloc] init];
+        pageContentViewController.imageFile = self.imagens[index];
+        pageContentViewController.pageIndex = index;
+        
+        return pageContentViewController;
     }
-    
-    // Create a new view controller and pass suitable data.
-    //comment
-    PageContentViewController *pageContentViewController = [[PageContentViewController alloc] init];
-    pageContentViewController.imageFile = self.Imagens[index];
-    pageContentViewController.titleText = self.Titulos[index];
-    pageContentViewController.textoText = self.textos[index];
-    pageContentViewController.pageIndex = index;
-    
-    return pageContentViewController;
+    else {
+        if (([self.imagensPrimeiro count] == 0) || (index >= [self.imagensPrimeiro count])) {
+            return nil;
+        }
+        PageContentViewController *pageContentViewController = [[PageContentViewController alloc] init];
+        pageContentViewController.imageFile = self.imagensPrimeiro[index];
+        pageContentViewController.pageIndex = index;
+        
+        return pageContentViewController;
+    }
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
@@ -86,44 +103,38 @@
     }
     
     index++;
-    if (index == [self.Titulos count]) {
+    if (index == [self.imagensPrimeiro count]) {
         return nil;
     }
     return [self viewControllerAtIndex:index];
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    return [self.Titulos count];
+    if (primeiroUso) {
+        return [self.imagens count];
+    }
+    return [self.imagensPrimeiro count];
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
     return 0;
 }
 
--(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     PageContentViewController *viewController = [pendingViewControllers objectAtIndex:0];
-    if ([viewController pageIndex] == 3) {
+    if ([viewController pageIndex] == 6) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         BOOL usoInicial = YES;
         [defaults setBool:usoInicial forKey:@"primeiroUso"];
         [defaults synchronize];
         
         //tbc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        
-        //[[NSNotificationCenter defaultCenter] postNotificationName:@"ValidacaoCadastro" object:nil];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
-- (void)fechar {
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"ValidacaoCadastro" object:nil];
-    
+-(void) fechar {
     [self dismissViewControllerAnimated:YES completion:nil];
-
 }
-
-
 
 @end

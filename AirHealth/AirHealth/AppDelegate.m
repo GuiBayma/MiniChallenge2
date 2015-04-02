@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PageViewController.h"
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -18,7 +19,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [self conexaoParse];
+    
     return YES;
+}
+
+/**
+ * @description Método responsável por iniciar a conexão com o Parse.
+ */
+- (void)conexaoParse {
+    
+    [Parse enableLocalDatastore];
+    [Parse setApplicationId:@"fD0pEnOJYuRPQMaTexrZ4ZwYIg8LVsBWJgCh0PN5"
+                  clientKey:@"WUGLRcGna3aYmigJoSTXSB1Waq5iEnT2R393UxZ1"];
+    
+    [PFUser enableAutomaticUser];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

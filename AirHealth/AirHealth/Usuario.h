@@ -22,6 +22,7 @@
 @property NSString *cidade;
 @property NSString *estado;
 @property NSString *email;
+@property NSString *telefone;
 @property NSString *senha;
 
 - (void)encodeWithCoder:(NSCoder *)coder;

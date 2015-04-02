@@ -10,8 +10,6 @@
 
 @interface PageContentViewController : UIViewController
 
-@property UILabel *label;
-@property UILabel *texto;
 @property UIImageView *image;
 @property NSUInteger pageIndex;
 @property NSString *titleText;

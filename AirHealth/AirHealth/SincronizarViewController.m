@@ -7,6 +7,7 @@
 //
 
 #import "SincronizarViewController.h"
+#import "Persistencia.h"
 
 @interface SincronizarViewController (){
     int contAnimacao;
@@ -29,6 +30,9 @@
     [labelSincronizando setHidden:YES];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    persistencia = [Persistencia sharedInstance];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha) name:@"UsuarioSincronizado" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
