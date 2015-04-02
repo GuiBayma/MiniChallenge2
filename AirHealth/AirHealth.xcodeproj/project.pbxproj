@@ -18,6 +18,7 @@
 		17DE0B681AC4767C00F58531 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DE0B651AC4767C00F58531 /* PageViewController.m */; };
 		17DE0B691AC4767C00F58531 /* PageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DE0B671AC4767C00F58531 /* PageContentViewController.m */; };
 		17DE82731AC48AB100CFEA6B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17DE82721AC48AB100CFEA6B /* HealthKit.framework */; };
+		17EFFEB81ACDE1B20076934F /* close-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 17EFFEB71ACDE1B20076934F /* close-100.png */; };
 		17F3C2421AC17D3E009590F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F3C2411AC17D3E009590F8 /* main.m */; };
 		17F3C2451AC17D3E009590F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F3C2441AC17D3E009590F8 /* AppDelegate.m */; };
 		17F3C2481AC17D3E009590F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F3C2471AC17D3E009590F8 /* ViewController.m */; };
@@ -81,6 +82,7 @@
 		17DE0B671AC4767C00F58531 /* PageContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageContentViewController.m; sourceTree = "<group>"; };
 		17DE82711AC48AB100CFEA6B /* AirHealth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AirHealth.entitlements; sourceTree = "<group>"; };
 		17DE82721AC48AB100CFEA6B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		17EFFEB71ACDE1B20076934F /* close-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-100.png"; sourceTree = "<group>"; };
 		17F3C23C1AC17D3E009590F8 /* AirHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17F3C2401AC17D3E009590F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17F3C2411AC17D3E009590F8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				173EF6191ACDD119000F50A2 /* cloud3.png */,
 				173EF61A1ACDD119000F50A2 /* cloud4.png */,
 				173EF61D1ACDD119000F50A2 /* cloud5.png */,
+				17EFFEB71ACDE1B20076934F /* close-100.png */,
 				17DE0B641AC4767C00F58531 /* PageViewController.h */,
 				17DE0B651AC4767C00F58531 /* PageViewController.m */,
 				17DE0B661AC4767C00F58531 /* PageContentViewController.h */,
@@ -404,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				173EF6261ACDD14C000F50A2 /* cloudLogo.png in Resources */,
+				17EFFEB81ACDE1B20076934F /* close-100.png in Resources */,
 				17F3C24B1AC17D3E009590F8 /* Main.storyboard in Resources */,
 				173EF61E1ACDD119000F50A2 /* cloud1.png in Resources */,
 				173EF6241ACDD119000F50A2 /* cloud5.png in Resources */,
