@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f6f-PN-QUO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7519.1" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f6f-PN-QUO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7513.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -463,10 +463,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EEt-tY-77P">
-                                                    <rect key="frame" x="136" y="7" width="456" height="30"/>
+                                                    <rect key="frame" x="541" y="7" width="51" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="510" id="A0b-IB-X6X"/>
                                                         <constraint firstAttribute="height" constant="30" id="C6N-DF-bGd"/>
+                                                        <constraint firstAttribute="width" constant="51" id="Xn5-99-KTe"/>
                                                         <constraint firstAttribute="width" constant="456" id="zeC-pr-UMw"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -480,12 +481,21 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="EEt-tY-77P" firstAttribute="leading" secondItem="nbk-tg-hHO" secondAttribute="trailing" constant="382" id="2wc-fz-LEI"/>
                                                 <constraint firstAttribute="centerY" secondItem="EEt-tY-77P" secondAttribute="centerY" constant="-0.5" id="4vV-o1-S30"/>
                                                 <constraint firstItem="EEt-tY-77P" firstAttribute="leading" secondItem="nbk-tg-hHO" secondAttribute="trailing" constant="8" id="Nfs-kw-8cY"/>
                                                 <constraint firstItem="EEt-tY-77P" firstAttribute="trailing" secondItem="ity-eO-gYD" secondAttribute="trailingMargin" id="VEG-iZ-gpB"/>
                                                 <constraint firstAttribute="centerY" secondItem="nbk-tg-hHO" secondAttribute="centerY" id="YWp-bG-ZsP"/>
+                                                <constraint firstItem="EEt-tY-77P" firstAttribute="trailing" secondItem="ity-eO-gYD" secondAttribute="trailingMargin" id="Zfq-Of-tLq"/>
                                                 <constraint firstItem="nbk-tg-hHO" firstAttribute="leading" secondItem="ity-eO-gYD" secondAttribute="leadingMargin" constant="20" id="p76-f1-DUH"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="2wc-fz-LEI"/>
+                                                    <exclude reference="Nfs-kw-8cY"/>
+                                                    <exclude reference="VEG-iZ-gpB"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="3g5-or-F2J">
