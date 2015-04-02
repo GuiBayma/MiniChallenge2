@@ -54,7 +54,7 @@
     
     if(indexPath.row == 0){
         cell.dado.text = @"Nome";
-        cell.valor .text = [persistencia.usuario nome];
+        cell.valor.text = [persistencia.usuario nome];
     }
     else if(indexPath.row == 1){
         cell.dado.text = @"CPF";
@@ -141,8 +141,6 @@
         
         if (![value isEqualToString:@""]) {
             
-            //usuario = [persistencia carregarUsuarioLocal];
-            //infoConvenio = [persistencia carregarInfoConvenioLocal];
             switch (indexPath.row) {
                 case 0:
                     [persistencia.usuario setNome: value];
@@ -153,14 +151,24 @@
                 case 2:
                     [persistencia.usuario setRg:value];
                     break;
-//                case 3:
-//                    
-//                case 4:
-//                case 5:
-//                case 6:
-//                case 7:
+                case 3:
+                    [persistencia.usuario setEndereco:value];
+                    break;
+                case 4:
+                    [persistencia.usuario setCep:value];
+                    break;
+                case 5:
+                    [persistencia.usuario setCidade:value];
+                    break;
+                case 6:
+                    [persistencia.usuario setEstado:value];
+                    break;
+                case 7:
+                    [persistencia.infoConvenio setNomePlanodeSaude:value];
+                    break;
                 case 8:
                     [persistencia.infoConvenio setNumCartao:value];
+                    break;
                 default:
                     break;
             }

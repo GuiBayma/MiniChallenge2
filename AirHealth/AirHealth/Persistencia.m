@@ -54,23 +54,14 @@
 
 #pragma mark DAO Parse
 
-/**
- * @description Método responsável por iniciar a conexão com o Parse.
- */
-- (void)conexaoParse {
-    
-    [Parse enableLocalDatastore];
-    [Parse setApplicationId:@"fD0pEnOJYuRPQMaTexrZ4ZwYIg8LVsBWJgCh0PN5"
-                  clientKey:@"WUGLRcGna3aYmigJoSTXSB1Waq5iEnT2R393UxZ1"];
-    
-}
 
 /**
  * @description Carregar os dados do usuário da base de dados que fica na nuvem. O método atualiza o objeto de usuário da classe, mas é necessário que a propriedade 'objectID' do objeto esteja preenchido.
+ * @return Instância da propriedade 'usuario' da classe.
  */
 - (Usuario *)carregarUsuarioNuvem {
     
-    [self conexaoParse];
+    //[self conexaoParse];
 
     if (![_usuario.objectID isEqualToString:@""]) {
     
@@ -87,7 +78,7 @@
             [_usuario setCidade:object[@"cidade"]];
             [_usuario setEstado:object[@"estado"]];
             [_usuario setEmail:object[@"email"]];
-            [_usuario setSenha:[NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)]];
+            [_usuario setSenha:object[@"senha"]];
             
             
         }];
@@ -102,32 +93,43 @@
  */
 - (void)salvarUsuarioNuvem {
     
-    [self conexaoParse];
+    //[self conexaoParse];
     
-    PFObject *classeUsuario = [PFObject objectWithClassName:@"Usuario"];
-    classeUsuario[@"nome"] = _usuario.nome;
-    classeUsuario[@"cpf"] = _usuario.cpf;
-    classeUsuario[@"rg"] = _usuario.rg;
-    classeUsuario[@"endereco"] = _usuario.endereco;
-    classeUsuario[@"cep"] = _usuario.cep;
-    classeUsuario[@"cidade"] = _usuario.cidade;
-    classeUsuario[@"estado"] = _usuario.estado;
-    classeUsuario[@"email"] = _usuario.email;
-    
-    [classeUsuario saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
-        if (succeeded) {
-            [_usuario setObjectID:classeUsuario.objectId];
-        }
-    }];
-    
+    if (![_fichaMedica.objectID isEqualToString:@""] || ![_infoConvenio.objectID isEqualToString:@""]) {
+        
+        PFObject *classeUsuario = [PFObject objectWithClassName:@"Usuario"];
+        classeUsuario[@"nome"] = _usuario.nome;
+        classeUsuario[@"cpf"] = _usuario.cpf;
+        classeUsuario[@"rg"] = _usuario.rg;
+        classeUsuario[@"endereco"] = _usuario.endereco;
+        classeUsuario[@"cep"] = _usuario.cep;
+        classeUsuario[@"cidade"] = _usuario.cidade;
+        classeUsuario[@"estado"] = _usuario.estado;
+        classeUsuario[@"email"] = _usuario.email;
+        classeUsuario[@"fichaMedica"] = _fichaMedica.objectID;
+        classeUsuario[@"infoConvenio"] = _infoConvenio.objectID;
+        classeUsuario[@"senha"] = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
+        
+        [classeUsuario saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
+            if (succeeded) {
+                [_usuario setObjectID:classeUsuario.objectId];
+                [_usuario setSenha:classeUsuario[@"senha"]];
+                [self salvarUsuarioLocal];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"UsuarioSincronizado" object:nil];
+            }
+        }];
+    }
 }
+
+
 
 /**
  * @description Carregar os dados da ficha médica da base de dados que fica na nuvem. O método atualiza o objeto de ficha médica da classe, mas é necessário que a propriedade 'objectID' do objeto esteja preenchido.
+ * @return Instância da propriedade 'fichaMedica' da classe.
  */
 - (FichaMedica *)carregarFichaNuvem {
     
-    [self conexaoParse];
+    //[self conexaoParse];
     
     if (![_fichaMedica.objectID isEqualToString:@""]) {
         
@@ -157,7 +159,7 @@
  */
 - (void)salvarFichaNuvem {
     
-    [self conexaoParse];
+    //[self conexaoParse];
     
     PFObject *classeFichaMedica = [PFObject objectWithClassName:@"FichaMedica"];
     classeFichaMedica[@"dataNascimento"] = _fichaMedica.dataNascimento;
@@ -173,6 +175,7 @@
     [classeFichaMedica saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
         if (succeeded) {
             [_fichaMedica setObjectID:classeFichaMedica.objectId];
+            [self salvarFichaLocal];
         }
     }];
 
@@ -180,10 +183,11 @@
 
 /**
  * @description Carregar os dados de informações do convênio da base de dados que fica na nuvem. O método atualiza o objeto de informações do convênio da classe, mas é necessário que a propriedade 'objectID' do objeto esteja preenchido.
+ * @return Instância da propriedade 'infoConvenio' da classe.
  */
 - (InfoConvenio *)carregarInfoConvenioNuvem {
     
-    [self conexaoParse];
+    //[self conexaoParse];
     
     if (![_infoConvenio.objectID isEqualToString:@""]) {
         
@@ -209,7 +213,7 @@
  */
 - (void)salvarInfoConvenioNuvem {
     
-    [self conexaoParse];
+    //[self conexaoParse];
     
     PFObject *classeInfoConvenio = [PFObject objectWithClassName:@"InfoConvenio"];
     classeInfoConvenio[@"nomePlanoSaude"] = _infoConvenio.nomePlanodeSaude;
@@ -222,6 +226,7 @@
     [classeInfoConvenio saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
         if (succeeded) {
             [_infoConvenio setObjectID:classeInfoConvenio.objectId];
+            [self salvarInfoConvenioLocal];
         }
     }];
     
@@ -232,9 +237,11 @@
 
 /**
  * @description Método responsável por carregar os dados do usuário do User Default`s. Ao exeutar esse método, o atributo de usuário da classe persistência é atualizado e retornado.
+ * @return Instância da propriedade 'usuario' da classe.
  */
 - (Usuario *)carregarUsuarioLocal {
     
+    _usuario = [[Usuario alloc] init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *dadosUsuario = [userDefaults objectForKey:@"Usuario"];
     
@@ -259,9 +266,11 @@
 
 /**
  * @description Método responsável por carregar os dados da ficha médica do User Default`s. Ao executar esse método, o atributo de ficha médica é atualizado e retornado.
+ * @return Instância da propriedade 'fichaMedica' da classe.
  */
 - (FichaMedica *)carregarFichaLocal {
     
+    _fichaMedica = [[FichaMedica alloc] init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *dadosFicha = [userDefaults objectForKey:@"FichaMedica"];
     
@@ -285,9 +294,11 @@
 
 /**
  * @description Método responsável por carregar os dados da ficha médica do User Default`s. Ao executar esse método, o atributo de informações sobre o convênio é atualizado e retornado.
+ * @return Instância da propriedade 'infoConvenio' da classe.
  */
 - (InfoConvenio *)carregarInfoConvenioLocal {
     
+    _infoConvenio = [[InfoConvenio alloc] init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *dadosConv = [userDefaults objectForKey:@"InfoConvenio"];
     

@@ -7,9 +7,11 @@
 //
 
 #import "SincronizarViewController.h"
+#import "Persistencia.h"
 
 @interface SincronizarViewController (){
     int contAnimacao;
+    Persistencia *persistencia;
 }
 
 @end
@@ -23,6 +25,9 @@
     buttonSincronizar.adjustsImageWhenHighlighted = NO;
     [labelSincronizando setHidden:YES];
     
+    persistencia = [Persistencia sharedInstance];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha) name:@"UsuarioSincronizado" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,6 +41,7 @@
     if([toque view] == imageCruz || [toque view] == buttonSincronizar){
         [self scaleImageView];
         [self rotateImageView];
+        [self enviarDadosPraNuvem];
     }
     
 }
@@ -96,6 +102,22 @@
 -(void)sincronizar:(id)sender{
     [self scaleImageView];
     [self rotateImageView];
+    [self enviarDadosPraNuvem];
+}
+
+- (void)enviarDadosPraNuvem {
+    [persistencia salvarInfoConvenioNuvem];
+    [persistencia salvarFichaNuvem];
+    [persistencia salvarUsuarioNuvem];
+}
+
+- (void)exibirSenha {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"TA SUSSA"
+                                                     message:[persistencia.usuario senha]
+                                                    delegate:nil
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
+    [alert show];
 }
 
 /*

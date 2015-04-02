@@ -100,7 +100,7 @@
     return 0;
 }
 
--(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     PageContentViewController *viewController = [pendingViewControllers objectAtIndex:0];
     if ([viewController pageIndex] == 3) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
