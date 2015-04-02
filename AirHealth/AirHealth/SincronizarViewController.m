@@ -11,16 +11,13 @@
 
 @interface SincronizarViewController (){
     int contAnimacao;
-    float buttonWidth;
-    float buttonHeight;
-    float buttonX;
-    float buttonY;
+    Persistencia *persistencia;
 }
 
 @end
 
 @implementation SincronizarViewController
-@synthesize imageCruz, buttonSincronizar, labelSincronizando;
+@synthesize imageCruz, buttonSincronizar, labelSincronizando, labelSenha;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,6 +26,7 @@
     buttonSincronizar.adjustsImageWhenHighlighted = NO;
     [labelSincronizando setHidden:YES];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    [imageCruz bringSubviewToFront:buttonSincronizar];
     
     persistencia = [Persistencia sharedInstance];
     
@@ -45,8 +43,10 @@
     
     if([toque view] == imageCruz || [toque view] == buttonSincronizar){
         //[self teste];
-        [self rotateImageView];
+        [self tremblingButton];
         [self scaleImageReverse];
+        [self rotateImageView];
+        [self enviarDadosPraNuvem];
     }
     
 }
@@ -70,8 +70,8 @@
     CAKeyframeAnimation * anim = [CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
     anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-2.0f, -1.0f, 0.0f) ],[ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(2.0f, 1.0f, 0.0f) ] ] ;
     anim.autoreverses = YES ;
-    anim.repeatCount = 100;
-    anim.duration = 0.07f ;
+    anim.repeatCount = 10000000;
+    anim.duration = 0.3f ;
     
     [buttonSincronizar.layer addAnimation:anim forKey:nil ] ;
 
@@ -80,11 +80,11 @@
 -(void)scaleImageReverse{
     [labelSincronizando setHidden:NO];
     
-    [UIView animateWithDuration:3.0
+    [UIView animateWithDuration:1.0
                           delay:0
                         options: UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                         buttonSincronizar.transform = CGAffineTransformMakeScale(1.25, 1.25);
+                         buttonSincronizar.transform = CGAffineTransformMakeScale(1.15, 1.15);
                      }
                      completion:nil
                      ];
@@ -92,9 +92,10 @@
 }
 
 -(void)sincronizar:(id)sender{
-    //[self teste];
+    [self tremblingButton];
     [self scaleImageReverse];
     [self rotateImageView];
+    [self enviarDadosPraNuvem];
 }
 
 - (void)stopAnimation{
@@ -105,33 +106,77 @@
     [super viewDidLoad];
 }
 -(void)teste{
-    [UIView animateWithDuration:1
+    [UIView animateWithDuration:10
                           delay:1
-                        options:UIViewAnimationOptionRepeat
+                        options:nil
                      animations:^{
-                         if(contAnimacao == 0){
-                             labelSincronizando.text = @"Sincronizando";
-                         }
-                         else if (contAnimacao == 1){
-                             labelSincronizando.text = @"Sincronizando.";
-                         }
-                         else if(contAnimacao == 2){
-                             labelSincronizando.text = @"Sincronizando..";
-                         }
-                         else if(contAnimacao == 3){
-                             labelSincronizando.text = @"Sincronizando...";
-                         }
-                         contAnimacao++;
+                         labelSincronizando.text = @"Sincronizando";
                      }
                      completion:^(BOOL finished){
                          if(finished){
-                             if(contAnimacao==4){
-                                 contAnimacao=0;
-                             }
-                             [self teste];
+                             [UIView animateWithDuration:10
+                                                   delay:1
+                                                 options:nil
+                                              animations:^{
+                                                  labelSincronizando.text = @"Sincronizando.";
+                                              }
+                                              completion:^(BOOL finished){
+                                                  [UIView animateWithDuration:10
+                                                                        delay:1
+                                                                      options:nil
+                                                                   animations:^{
+                                                                       labelSincronizando.text = @"Sincronizando..";
+                                                                   }
+                                                                   completion:^(BOOL finished){
+                                                                       [UIView animateWithDuration:10
+                                                                                             delay:1
+                                                                                           options:nil
+                                                                                        animations:^{
+                                                                                            labelSincronizando.text = @"Sincronizando...";
+                                                                                        }
+                                                                                        completion:^(BOOL finished){
+                                                                                            if(finished){
+                                                                                                [self teste];
+                                                                                            }
+                                                                                        }];
+                                                                   }];
+                                              }];
                          }
                      }];
 }
+
+
+- (void)enviarDadosPraNuvem {
+    [persistencia salvarInfoConvenioNuvem];
+    [persistencia salvarFichaNuvem];
+    [persistencia salvarUsuarioNuvem];
+}
+
+- (void)exibirSenha {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"TA SUSSA"
+                                                     message:[persistencia.usuario senha]
+                                                    delegate:nil
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
+    [alert show];
+    
+    __block NSString *senha = [persistencia.usuario senha];
+    [UIView animateWithDuration:2.0 animations:^{
+        imageCruz.alpha = 1.0;
+        buttonSincronizar.alpha = 1.0;
+        labelSincronizando.alpha = 1.0;
+        imageCruz.alpha = 0.0;
+        buttonSincronizar.alpha = 0.0;
+        labelSincronizando.alpha = 0.0;
+    }];
+    
+    [UIView animateWithDuration:2.0 animations:^{
+        labelSenha.text = [NSString stringWithFormat:@"Senha: %@", senha];
+        NSLog(@"Senha: ", senha);
+        labelSenha.alpha = 1.0;
+    }];
+}
+
 /*
 #pragma mark - Navigation
 

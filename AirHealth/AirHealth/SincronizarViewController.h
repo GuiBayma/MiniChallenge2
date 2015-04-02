@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageCruz;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSincronizar;
 @property (weak, nonatomic) IBOutlet UILabel *labelSincronizando;
+@property (weak, nonatomic) IBOutlet UILabel *labelSenha;
 - (void)sincronizar:(id)sender;
 
 @end
