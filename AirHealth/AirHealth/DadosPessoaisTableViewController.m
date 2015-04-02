@@ -11,16 +11,46 @@
 #import "Persistencia.h"
 #import "Usuario.h"
 
-@interface DadosPessoaisTableViewController ()
+@interface DadosPessoaisTableViewController () <UITextFieldDelegate>
 
 @end
 
 @implementation DadosPessoaisTableViewController {
     Persistencia *persistencia;
+    
+    __weak IBOutlet UITextField *nomeTextField;
+    __weak IBOutlet UITextField *cpfTextField;
+    __weak IBOutlet UITextField *rgTextField;
+    __weak IBOutlet UITextField *emailTextField;
+    __weak IBOutlet UITextField *telefoneTextField;
+    
+    __weak IBOutlet UITextField *enderecoTextField;
+    __weak IBOutlet UITextField *cepTextField;
+    __weak IBOutlet UITextField *cidadeTextField;
+    __weak IBOutlet UITextField *estadoTextField;
+    
+    __weak IBOutlet UITextField *nomePlanoTextField;
+    __weak IBOutlet UITextField *numeroPlanoTextField;
+    __weak IBOutlet UITextField *validadeInicioTextField;
+    __weak IBOutlet UITextField *validadeFimTextField;
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    nomeTextField.delegate = self;
+    cpfTextField.delegate = self;
+    rgTextField.delegate = self;
+    emailTextField.delegate = self;
+    telefoneTextField.delegate = self;
+    enderecoTextField.delegate = self;
+    cepTextField.delegate = self;
+    cidadeTextField.delegate = self;
+    estadoTextField.delegate = self;
+    nomePlanoTextField.delegate = self;
+    numeroPlanoTextField.delegate = self;
+    validadeInicioTextField.delegate = self;
+    validadeFimTextField.delegate = self;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -39,9 +69,16 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1;
+- (void)viewDidAppear:(BOOL)animated {
+        nomeTextField.text = [persistencia.usuario nome];
+        cpfTextField.text = [persistencia.usuario cpf];
+        rgTextField.text = [persistencia.usuario rg];
+        enderecoTextField.text = [persistencia.usuario endereco];
+        cepTextField.text = [persistencia.usuario cep];
+        cidadeTextField.text = [persistencia.usuario cidade];
+        estadoTextField.text = [persistencia.usuario estado];
+        nomePlanoTextField.text = [persistencia.infoConvenio nomePlanodeSaude];
+        numeroPlanoTextField.text = [persistencia.infoConvenio numCartao];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -64,73 +101,38 @@
         cell.dado.text = @"RG";
         cell.valor.text = [persistencia.usuario rg];
     }
-    else if(indexPath.row == 3){
-        cell.dado.text = @"Endereço";
-        cell.valor.text = [persistencia.usuario endereco];
-    }
-    else if(indexPath.row == 4){
-        cell.dado.text = @"CEP";
-        cell.valor.text = [persistencia.usuario cep];
-    }
-    else if(indexPath.row == 5){
-        cell.dado.text = @"Cidade";
-        cell.valor.text = [persistencia.usuario cidade];
-    }
-    else if(indexPath.row == 6){
-        cell.dado.text = @"Estado";
-        cell.valor.text = [persistencia.usuario estado];
-    }
-    else if(indexPath.row == 7){
-        cell.dado.text = @"Plano de Saúde";
-        cell.valor.text = [persistencia.infoConvenio nomePlanodeSaude];
-    }
-    else if(indexPath.row == 8){
-        cell.dado.text = @"Número Carteira";
-        cell.valor.text = [persistencia.infoConvenio numCartao];
-    }
     
-    
-    return cell;
+    return YES;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DadosPessoaisCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dadosPessoaisCell" forIndexPath:indexPath];
-    NSString *title;
-    
-    if(indexPath.row == 0){
-        title = @"Seu Nome";
+    if(indexPath.row == 0 && indexPath.section == 1){
+        [nomeTextField becomeFirstResponder];
+    } else if (indexPath.row == 1 && indexPath.section == 1) {
+        [cpfTextField becomeFirstResponder];
+    } else if (indexPath.row == 2 && indexPath.section == 1) {
+        [rgTextField becomeFirstResponder];
+    } else if (indexPath.row == 3 && indexPath.section == 1) {
+        [emailTextField becomeFirstResponder];
+    } else if (indexPath.row == 4 && indexPath.section == 1) {
+        [telefoneTextField becomeFirstResponder];
+    } else if (indexPath.row == 0 && indexPath.section == 2) {
+        [enderecoTextField becomeFirstResponder];
+    } else if (indexPath.row == 1 && indexPath.section == 2) {
+        [cepTextField becomeFirstResponder];
+    } else if (indexPath.row == 2 && indexPath.section == 2) {
+        [cidadeTextField becomeFirstResponder];
+    } else if (indexPath.row == 3 && indexPath.section == 2) {
+        [estadoTextField becomeFirstResponder];
+    } else if (indexPath.row == 0 && indexPath.section == 3) {
+        [nomePlanoTextField becomeFirstResponder];
+    } else if (indexPath.row == 1 && indexPath.section == 3) {
+        [numeroPlanoTextField becomeFirstResponder];
+    } else if (indexPath.row == 2 && indexPath.section == 3) {
+        [validadeInicioTextField becomeFirstResponder];
+    } else {
+        [validadeFimTextField becomeFirstResponder];
     }
-    else if (indexPath.row == 1) {
-        title = @"Seu CPF";
-    }
-    else if (indexPath.row == 2) {
-        title = @"Seu RG";
-    }
-    else if (indexPath.row == 3) {
-        title = @"Seu Endereço";
-    }
-    else if (indexPath.row == 4) {
-        title = @"Seu CEP";
-    }
-    else if (indexPath.row == 5) {
-        title = @"Seu Cidade";
-    }
-    else if (indexPath.row == 6) {
-        title = @"Seu Estado";
-    }
-    else if (indexPath.row == 7) {
-        title = @"Seu Plano de Saúde";
-    }
-    else if (indexPath.row == 8) {
-        title = @"Seu Número Carteira";
-    }
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    // Add the text field to let the user enter a numeric value.
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.keyboardType = UIKeyboardTypeDefault;
-    }];
     
     // Create the "OK" button.
     NSString *okTitle = NSLocalizedString(@"OK", nil);
@@ -201,49 +203,5 @@
     [self presentViewController:alertController animated:YES completion:nil];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
