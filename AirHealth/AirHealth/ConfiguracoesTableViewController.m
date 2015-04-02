@@ -63,6 +63,9 @@
             PageViewController *pvc = [[PageViewController alloc] init];
             [self presentViewController:pvc animated:YES completion:nil];
         }
+        else if(indexPath.section == 1){
+
+        }
     }
     else{
         if(indexPath.section == 1){

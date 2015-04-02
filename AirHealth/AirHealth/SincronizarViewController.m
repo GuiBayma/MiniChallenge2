@@ -27,6 +27,7 @@
     [buttonSincronizar setUserInteractionEnabled:YES];
     buttonSincronizar.adjustsImageWhenHighlighted = NO;
     [labelSincronizando setHidden:YES];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
 }
 
@@ -39,32 +40,73 @@
     UITouch *toque = [[event allTouches]anyObject];
     
     if([toque view] == imageCruz || [toque view] == buttonSincronizar){
-        [self scaleImageView];
+        //[self teste];
         [self rotateImageView];
+        [self scaleImageReverse];
     }
     
 }
 
--(void)scaleImageView{
-    buttonWidth = buttonSincronizar.frame.size.width;
-    buttonHeight = buttonSincronizar.frame.size.height;
-    buttonX = buttonSincronizar.frame.origin.x;
-    buttonY = buttonSincronizar.frame.origin.y;
+- (void)rotateImageView{
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [imageCruz setTransform:CGAffineTransformRotate(imageCruz.transform, M_PI_2)];
+                     }completion:^(BOOL finished){
+                         if(finished){
+                             [self rotateImageView];
+                         }
+                     }];
+}
+
+- (void)tremblingButton{
+    //[imageCruz setEnabled:YES];
     
-    buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
-    buttonSincronizar.transform = CGAffineTransformMakeScale(1.25, 1.25);
+    CAKeyframeAnimation * anim = [CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
+    anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-2.0f, -1.0f, 0.0f) ],[ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(2.0f, 1.0f, 0.0f) ] ] ;
+    anim.autoreverses = YES ;
+    anim.repeatCount = 100;
+    anim.duration = 0.07f ;
     
+    [buttonSincronizar.layer addAnimation:anim forKey:nil ] ;
+
+}
+
+-(void)scaleImageReverse{
     [labelSincronizando setHidden:NO];
     
-    [UIView animateWithDuration:1
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
+    [UIView animateWithDuration:3.0
+                          delay:0
+                        options: UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                         buttonSincronizar.transform = CGAffineTransformIdentity;
-                         buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
-                         
+                         buttonSincronizar.transform = CGAffineTransformMakeScale(1.25, 1.25);
+                     }
+                     completion:nil
+                     ];
+
+}
+
+-(void)sincronizar:(id)sender{
+    //[self teste];
+    [self scaleImageReverse];
+    [self rotateImageView];
+}
+
+- (void)stopAnimation{
+    imageCruz = nil;
+    buttonSincronizar = nil;
+    [labelSincronizando setHidden:YES];
+    labelSincronizando = nil;
+    [super viewDidLoad];
+}
+-(void)teste{
+    [UIView animateWithDuration:1
+                          delay:1
+                        options:UIViewAnimationOptionRepeat
+                     animations:^{
                          if(contAnimacao == 0){
-                            labelSincronizando.text = @"Sincronizando";
+                             labelSincronizando.text = @"Sincronizando";
                          }
                          else if (contAnimacao == 1){
                              labelSincronizando.text = @"Sincronizando.";
@@ -75,52 +117,17 @@
                          else if(contAnimacao == 3){
                              labelSincronizando.text = @"Sincronizando...";
                          }
+                         contAnimacao++;
                      }
                      completion:^(BOOL finished){
                          if(finished){
-                             [self scaleImageView];
+                             if(contAnimacao==4){
+                                 contAnimacao=0;
+                             }
+                             [self teste];
                          }
-     }];
-    contAnimacao++;
-    if(contAnimacao==4){
-        contAnimacao=0;
-    }
-    
+                     }];
 }
-
-
-
-- (void)rotateImageView
-{
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [imageCruz setTransform:CGAffineTransformRotate(imageCruz.transform, M_PI_2)];
-    }completion:^(BOOL finished){
-        if(finished){
-            [self rotateImageView];
-        }
-    }];
-}
-
--(void)sincronizar:(id)sender{
-    [self scaleImageView];
-    [self rotateImageView];
-}
-
-- (void)stopAnimation{
-    imageCruz = nil;
-    buttonSincronizar = nil;
-    [labelSincronizando setHidden:YES];
-    labelSincronizando = nil;
-    
-}
-
-//- (void)teste {
-//    imageCruz = nil;
-//    buttonSincronizar = nil;
-//}
-
-
-
 /*
 #pragma mark - Navigation
 
