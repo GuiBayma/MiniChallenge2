@@ -112,29 +112,29 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0 && indexPath.section == 0){
+    if(indexPath.row == 0 && indexPath.section == 1){
         [nomeTextField becomeFirstResponder];
-    } else if (indexPath.row == 1 && indexPath.section == 0) {
-        [cpfTextField becomeFirstResponder];
-    } else if (indexPath.row == 2 && indexPath.section == 0) {
-        [rgTextField becomeFirstResponder];
-    } else if (indexPath.row == 3 && indexPath.section == 0) {
-        [emailTextField becomeFirstResponder];
-    } else if (indexPath.row == 4 && indexPath.section == 0) {
-        [telefoneTextField becomeFirstResponder];
-    } else if (indexPath.row == 0 && indexPath.section == 1) {
-        [enderecoTextField becomeFirstResponder];
     } else if (indexPath.row == 1 && indexPath.section == 1) {
-        [cepTextField becomeFirstResponder];
+        [cpfTextField becomeFirstResponder];
     } else if (indexPath.row == 2 && indexPath.section == 1) {
-        [cidadeTextField becomeFirstResponder];
+        [rgTextField becomeFirstResponder];
     } else if (indexPath.row == 3 && indexPath.section == 1) {
-        [estadoTextField becomeFirstResponder];
+        [emailTextField becomeFirstResponder];
+    } else if (indexPath.row == 4 && indexPath.section == 1) {
+        [telefoneTextField becomeFirstResponder];
     } else if (indexPath.row == 0 && indexPath.section == 2) {
-        [nomePlanoTextField becomeFirstResponder];
+        [enderecoTextField becomeFirstResponder];
     } else if (indexPath.row == 1 && indexPath.section == 2) {
-        [numeroPlanoTextField becomeFirstResponder];
+        [cepTextField becomeFirstResponder];
     } else if (indexPath.row == 2 && indexPath.section == 2) {
+        [cidadeTextField becomeFirstResponder];
+    } else if (indexPath.row == 3 && indexPath.section == 2) {
+        [estadoTextField becomeFirstResponder];
+    } else if (indexPath.row == 0 && indexPath.section == 3) {
+        [nomePlanoTextField becomeFirstResponder];
+    } else if (indexPath.row == 1 && indexPath.section == 3) {
+        [numeroPlanoTextField becomeFirstResponder];
+    } else if (indexPath.row == 2 && indexPath.section == 3) {
         [validadeInicioTextField becomeFirstResponder];
     } else {
         [validadeFimTextField becomeFirstResponder];
