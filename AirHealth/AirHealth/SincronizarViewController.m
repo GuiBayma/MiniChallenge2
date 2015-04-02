@@ -68,10 +68,10 @@
     //[imageCruz setEnabled:YES];
     
     CAKeyframeAnimation * anim = [CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
-    anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-2.0f, -1.0f, 0.0f) ],[ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(2.0f, 1.0f, 0.0f) ] ] ;
+    anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-4.0f, -1.0f, 0.0f) ],[ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(4.0f, 1.0f, 0.0f) ] ] ;
     anim.autoreverses = YES ;
     anim.repeatCount = 10000000;
-    anim.duration = 0.3f ;
+    anim.duration = 0.1f ;
     
     [buttonSincronizar.layer addAnimation:anim forKey:nil ] ;
 
@@ -84,7 +84,7 @@
                           delay:0
                         options: UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                         buttonSincronizar.transform = CGAffineTransformMakeScale(1.15, 1.15);
+                         buttonSincronizar.transform = CGAffineTransformMakeScale(1.1, 1.1);
                      }
                      completion:nil
                      ];

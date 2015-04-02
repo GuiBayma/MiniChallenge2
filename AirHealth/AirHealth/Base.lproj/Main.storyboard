@@ -810,12 +810,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tutorial" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdh-aQ-Q1y">
-                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infoIcon" translatesAutoresizingMaskIntoConstraints="NO" id="P5K-ql-tEw">
+                                                    <rect key="frame" x="14" y="10" width="25" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="PWb-bS-qxZ"/>
-                                                        <constraint firstAttribute="width" constant="66" id="pah-YX-ZeS"/>
+                                                        <constraint firstAttribute="height" constant="25" id="W0V-R7-uxg"/>
+                                                        <constraint firstAttribute="width" constant="25" id="crB-t2-I03"/>
                                                     </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tour" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="si5-M9-32x">
+                                                    <rect key="frame" x="59" y="11" width="34" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -834,16 +837,17 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="hdh-aQ-Q1y" firstAttribute="top" secondItem="pcd-Ul-QLZ" secondAttribute="topMargin" constant="3" id="9Qs-Xa-t5v"/>
-                                                <constraint firstItem="hdh-aQ-Q1y" firstAttribute="leading" secondItem="pcd-Ul-QLZ" secondAttribute="leadingMargin" constant="18" id="yrT-EC-U3s"/>
+                                                <constraint firstItem="P5K-ql-tEw" firstAttribute="leading" secondItem="pcd-Ul-QLZ" secondAttribute="leadingMargin" constant="6" id="Bq5-MW-dJg"/>
+                                                <constraint firstAttribute="centerX" secondItem="P5K-ql-tEw" secondAttribute="centerX" constant="270" id="ZAP-dQ-6g5"/>
+                                                <constraint firstAttribute="centerY" secondItem="P5K-ql-tEw" secondAttribute="centerY" constant="-0.5" id="eIO-j5-gCf"/>
+                                                <constraint firstItem="si5-M9-32x" firstAttribute="leading" secondItem="P5K-ql-tEw" secondAttribute="trailing" constant="20" id="l1u-FJ-q6j"/>
+                                                <constraint firstAttribute="centerY" secondItem="si5-M9-32x" secondAttribute="centerY" id="rLZ-qt-Iks"/>
+                                                <constraint firstItem="si5-M9-32x" firstAttribute="leading" secondItem="pcd-Ul-QLZ" secondAttribute="leadingMargin" constant="20" id="uVJ-Vm-wKH"/>
                                             </constraints>
                                             <variation key="default">
-                                                <mask key="subviews">
-                                                    <exclude reference="hdh-aQ-Q1y"/>
-                                                </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="9Qs-Xa-t5v"/>
-                                                    <exclude reference="yrT-EC-U3s"/>
+                                                    <exclude reference="ZAP-dQ-6g5"/>
+                                                    <exclude reference="uVJ-Vm-wKH"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -863,12 +867,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sobre o AirHealth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTl-0g-Z6P">
-                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="2nV-8K-bge"/>
-                                                        <constraint firstAttribute="width" constant="152" id="urt-U0-1yb"/>
-                                                    </constraints>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sobre o AirHealth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Za-dr-K41">
+                                                    <rect key="frame" x="59" y="11" width="136" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -894,16 +894,17 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="rTl-0g-Z6P" firstAttribute="leading" secondItem="L5Y-nU-E88" secondAttribute="leadingMargin" constant="21" id="C5G-vL-f8e"/>
-                                                <constraint firstItem="rTl-0g-Z6P" firstAttribute="top" secondItem="L5Y-nU-E88" secondAttribute="topMargin" constant="3" id="RhM-pB-939"/>
+                                                <constraint firstAttribute="centerY" secondItem="AEI-Dz-c9b" secondAttribute="centerY" constant="2.5" id="DFW-Vc-oxR"/>
+                                                <constraint firstItem="0Za-dr-K41" firstAttribute="leading" secondItem="AEI-Dz-c9b" secondAttribute="trailing" constant="20" id="N3Q-wJ-YgF"/>
+                                                <constraint firstItem="AEI-Dz-c9b" firstAttribute="leading" secondItem="0Za-dr-K41" secondAttribute="trailing" constant="6" id="cAJ-ou-GZx"/>
+                                                <constraint firstItem="AEI-Dz-c9b" firstAttribute="leading" secondItem="L5Y-nU-E88" secondAttribute="leadingMargin" constant="6" id="vbM-cL-kDL"/>
+                                                <constraint firstAttribute="centerY" secondItem="0Za-dr-K41" secondAttribute="centerY" id="xEX-nh-xoX"/>
+                                                <constraint firstItem="0Za-dr-K41" firstAttribute="leading" secondItem="L5Y-nU-E88" secondAttribute="leadingMargin" constant="20" id="z1O-wQ-Vaw"/>
                                             </constraints>
                                             <variation key="default">
-                                                <mask key="subviews">
-                                                    <exclude reference="rTl-0g-Z6P"/>
-                                                </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="C5G-vL-f8e"/>
-                                                    <exclude reference="RhM-pB-939"/>
+                                                    <exclude reference="cAJ-ou-GZx"/>
+                                                    <exclude reference="z1O-wQ-Vaw"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -927,14 +928,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mNw-Tt-2xp" id="9Z0-X9-cKH">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TI0-fI-3SW">
-                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="1bQ-5U-pp3"/>
-                                                        <constraint firstAttribute="width" constant="193" id="cy8-J5-Kfw"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                    <state key="normal" title="Permitir o Health">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sxb-Fp-Xau">
+                                                    <rect key="frame" x="240" y="7" width="121" height="30"/>
+                                                    <state key="normal" title="Permitir HealthKit">
+                                                        <color key="titleColor" red="0.2470588235" green="0.74509803919999995" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <variation key="default">
@@ -952,8 +949,8 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerX" secondItem="TI0-fI-3SW" secondAttribute="centerX" id="3NL-mU-oAy"/>
-                                                <constraint firstItem="TI0-fI-3SW" firstAttribute="top" secondItem="9Z0-X9-cKH" secondAttribute="topMargin" constant="-1" id="7B2-uR-VQZ"/>
+                                                <constraint firstAttribute="centerX" secondItem="Sxb-Fp-Xau" secondAttribute="centerX" id="C50-VS-z2C"/>
+                                                <constraint firstAttribute="centerY" secondItem="Sxb-Fp-Xau" secondAttribute="centerY" constant="-0.5" id="tgP-EE-ZpH"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
@@ -990,8 +987,8 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerX" secondItem="BZF-k7-n5G" secondAttribute="centerX" id="Lpk-sd-tbp"/>
-                                                <constraint firstItem="BZF-k7-n5G" firstAttribute="top" secondItem="1Ao-2R-Q86" secondAttribute="topMargin" constant="-2" id="hZU-ce-duP"/>
+                                                <constraint firstAttribute="centerX" secondItem="iKz-EE-ILu" secondAttribute="centerX" id="m6a-UT-ZHx"/>
+                                                <constraint firstAttribute="centerY" secondItem="iKz-EE-ILu" secondAttribute="centerY" constant="-0.5" id="mmE-66-iOh"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
