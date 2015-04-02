@@ -34,10 +34,15 @@
     __weak IBOutlet UITextField *validadeInicioTextField;
     __weak IBOutlet UITextField *validadeFimTextField;
     
+    UIViewController *viewController;
+    UIView *view;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    [validadeInicioTextField setInputView:datePicker];
     nomeTextField.delegate = self;
     cpfTextField.delegate = self;
     rgTextField.delegate = self;
@@ -186,8 +191,6 @@
     
     else if ([textField isEqual:validadeFimTextField])
         [persistencia.infoConvenio setTerminoValidade:[dateFormat dateFromString:textField.text]];
-            
-    
 }
 
 @end

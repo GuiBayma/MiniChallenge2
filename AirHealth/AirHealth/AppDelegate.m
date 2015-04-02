@@ -20,6 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self conexaoParse];
+    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.2470588235 green:0.7450980392 blue:0.5921568627 alpha:1]];
     
     return YES;
 }
