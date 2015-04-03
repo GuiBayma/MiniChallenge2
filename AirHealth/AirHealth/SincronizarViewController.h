@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonSincronizar;
 @property (weak, nonatomic) IBOutlet UILabel *labelSincronizando;
 @property (weak, nonatomic) IBOutlet UILabel *labelSenha;
+@property (weak, nonatomic) IBOutlet UILabel *labelOk;
+@property (weak, nonatomic) IBOutlet UIImageView *imageOk;
 - (void)sincronizar:(id)sender;
 
 @end
