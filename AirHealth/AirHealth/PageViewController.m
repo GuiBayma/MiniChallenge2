@@ -16,8 +16,10 @@
     [super viewDidLoad];
     
     // Create the data model
-    _imagensPrimeiro = @[@"tutorial1.png", @"tutorial2.png",@"tutorial3.png",@"tutorial4.png",@"tutorial5.png",@"tutorial6.png",@""];
-    _imagens = @[@"tutorial1.png", @"tutorial2.png",@"tutorial3.png",@"tutorial4.png",@"tutorial5.png",@"tutorial6.png"];
+    _imagensPrimeiro = @[@"cloudLogo.png", @"cloud1.png",@"cloud2.png",@"cloud3.png",@"cloud4.png",@"cloud5.png",@""];
+    _imagens = @[@"cloudLogo.png", @"cloud1.png",@"cloud2.png",@"cloud3.png",@"cloud4.png",@"cloud5.png"];
+    _titulos = @[@"",@"Um único App",@"Suas informações criptografadas",@"Conforto e praticidade",@"Agilidade e versatilidade",@"Atualize suas informações"];
+    _textos = @[@"",@"O AirHealth guarda seus dados médicos e pessoais para você.",@"Ao toque de um botão seus dados são enviados para um servidor de forma segura.",@"Ao sincronizar seus dados você recebe uma senha única.",@"Utilize sua senha para ser atendido em instituições de saúde cadastradas.",@"Insira seus dados para agilizar seu atendimento no aplicativo ou no aplicativo Saúde."];
     
     // Create page view controller
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -40,7 +42,7 @@
     if (primeiroUso) {
         UIButton *fecha = [UIButton buttonWithType:UIButtonTypeCustom];
         [fecha addTarget:self action:@selector(fechar) forControlEvents:UIControlEventTouchUpInside];
-        fecha.frame = CGRectMake(self.view.bounds.size.width -70, 20, 44, 44);
+        fecha.frame = CGRectMake(self.view.bounds.size.width -80, 35, 44, 44);
         [fecha setImage:[UIImage imageNamed:@"close-100.png"] forState:UIControlStateNormal];
         [self.view addSubview:fecha];
     }
@@ -62,26 +64,24 @@
 }
 
 - (PageContentViewController *)viewControllerAtIndex:(NSUInteger)index {
-    if (primeiroUso) {
-        if (([self.imagens count] == 0) || (index >= [self.imagens count])) {
-            return nil;
-        }
-        PageContentViewController *pageContentViewController = [[PageContentViewController alloc] init];
-        pageContentViewController.imageFile = self.imagens[index];
-        pageContentViewController.pageIndex = index;
-        
-        return pageContentViewController;
+    if (index == 6) {
+        PageContentViewController *pcvc = [[PageContentViewController alloc] init];
+        pcvc.imageFile = @"";
+        pcvc.tituloTexto = @"";
+        pcvc.textoTexto = @"";
+        pcvc.pageIndex = index;
+        return pcvc;
     }
-    else {
-        if (([self.imagensPrimeiro count] == 0) || (index >= [self.imagensPrimeiro count])) {
-            return nil;
-        }
-        PageContentViewController *pageContentViewController = [[PageContentViewController alloc] init];
-        pageContentViewController.imageFile = self.imagensPrimeiro[index];
-        pageContentViewController.pageIndex = index;
-        
-        return pageContentViewController;
+    if (([self.imagens count] == 0) || (index >= [self.imagens count])) {
+        return nil;
     }
+    PageContentViewController *pageContentViewController = [[PageContentViewController alloc] init];
+    pageContentViewController.imageFile = self.imagens[index];
+    pageContentViewController.tituloTexto = self.titulos[index];
+    pageContentViewController.textoTexto = self.textos[index];
+    pageContentViewController.pageIndex = index;
+    
+    return pageContentViewController;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
@@ -90,7 +90,6 @@
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
-    
     index--;
     return [self viewControllerAtIndex:index];
 }
@@ -101,7 +100,6 @@
     if (index == NSNotFound) {
         return nil;
     }
-    
     index++;
     if (index == [self.imagensPrimeiro count]) {
         return nil;
@@ -120,7 +118,7 @@
     return 0;
 }
 
-- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
+-(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     PageContentViewController *viewController = [pendingViewControllers objectAtIndex:0];
     if ([viewController pageIndex] == 6) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

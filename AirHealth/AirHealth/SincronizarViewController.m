@@ -12,12 +12,14 @@
 @interface SincronizarViewController (){
     int contAnimacao;
     Persistencia *persistencia;
+    bool click;
+    bool senhaGerada;
 }
 
 @end
 
 @implementation SincronizarViewController
-@synthesize imageCruz, buttonSincronizar, labelSincronizando, labelSenha;
+@synthesize imageCruz, buttonSincronizar, labelSincronizando, labelSenha,imageOk, labelOk;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,10 +29,25 @@
     [labelSincronizando setHidden:YES];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [imageCruz bringSubviewToFront:buttonSincronizar];
-    
+    click = NO;
+    senhaGerada = NO;
     persistencia = [Persistencia sharedInstance];
     
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha) name:@"UsuarioSincronizado" object:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    if(senhaGerada){
+        labelSenha.alpha=0;
+        labelSincronizando.alpha=0;
+        imageOk.alpha=0;
+        labelOk.alpha=0;
+        imageCruz.alpha=1;
+        buttonSincronizar.alpha=1;
+        self.view.backgroundColor = [UIColor whiteColor];
+        click=NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,13 +58,15 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *toque = [[event allTouches]anyObject];
     
-    if([toque view] == imageCruz || [toque view] == buttonSincronizar){
-        //[self teste];
-        [self tremblingButton];
-        [self scaleImageReverse];
-        [self rotateImageView];
-        [self enviarDadosPraNuvem];
+    if([toque view] == imageCruz){
+        if(click == NO){
+            [self tremblingButton];
+            [self scaleImageReverse];
+            [self rotateImageView];
+            [self enviarDadosPraNuvem];
+        }
     }
+    click = YES;
     
 }
 
@@ -92,10 +111,15 @@
 }
 
 -(void)sincronizar:(id)sender{
-    [self tremblingButton];
-    [self scaleImageReverse];
-    [self rotateImageView];
-    [self enviarDadosPraNuvem];
+    
+    if(click==NO){
+        [self tremblingButton];
+        [self scaleImageReverse];
+        [self rotateImageView];
+        [self enviarDadosPraNuvem];
+    }
+    
+    click = YES;
 }
 
 - (void)stopAnimation{
@@ -105,46 +129,6 @@
     labelSincronizando = nil;
     [super viewDidLoad];
 }
--(void)teste{
-    [UIView animateWithDuration:10
-                          delay:1
-                        options:nil
-                     animations:^{
-                         labelSincronizando.text = @"Sincronizando";
-                     }
-                     completion:^(BOOL finished){
-                         if(finished){
-                             [UIView animateWithDuration:10
-                                                   delay:1
-                                                 options:nil
-                                              animations:^{
-                                                  labelSincronizando.text = @"Sincronizando.";
-                                              }
-                                              completion:^(BOOL finished){
-                                                  [UIView animateWithDuration:10
-                                                                        delay:1
-                                                                      options:nil
-                                                                   animations:^{
-                                                                       labelSincronizando.text = @"Sincronizando..";
-                                                                   }
-                                                                   completion:^(BOOL finished){
-                                                                       [UIView animateWithDuration:10
-                                                                                             delay:1
-                                                                                           options:nil
-                                                                                        animations:^{
-                                                                                            labelSincronizando.text = @"Sincronizando...";
-                                                                                        }
-                                                                                        completion:^(BOOL finished){
-                                                                                            if(finished){
-                                                                                                [self teste];
-                                                                                            }
-                                                                                        }];
-                                                                   }];
-                                              }];
-                         }
-                     }];
-}
-
 
 - (void)enviarDadosPraNuvem {
     [persistencia salvarInfoConvenioNuvem];
@@ -153,18 +137,18 @@
 }
 
 - (void)exibirSenha {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"TA SUSSA"
-                                                     message:[persistencia.usuario senha]
-                                                    delegate:nil
-                                           cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil];
-    [alert show];
-    
     __block NSString *senha = [persistencia.usuario senha];
     [UIView animateWithDuration:2.0 animations:^{
         imageCruz.alpha = 1.0;
         buttonSincronizar.alpha = 1.0;
         labelSincronizando.alpha = 1.0;
+        labelSincronizando.alpha = 0.0;
+        
+    }];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        #define Rgb2UIColor(r, g, b)  [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:1.0];
+        self.view.backgroundColor = Rgb2UIColor(58, 191, 151);
         imageCruz.alpha = 0.0;
         buttonSincronizar.alpha = 0.0;
         labelSincronizando.alpha = 0.0;
@@ -172,9 +156,17 @@
     
     [UIView animateWithDuration:2.0 animations:^{
         labelSenha.text = [NSString stringWithFormat:@"Senha: %@", senha];
-        NSLog(@"Senha: ", senha);
+        
+        UIView *rect = [[UIView alloc]initWithFrame:CGRectMake(self.tabBarController.tabBar.frame.origin.x, self.tabBarController.tabBar.frame.origin.y, self.tabBarController.tabBar.frame.size.width, self.tabBarController.tabBar.frame.size.height)];
+        
+        rect.backgroundColor=[UIColor whiteColor];
+        [self.view addSubview:rect];
+        imageOk.alpha = 1.0;
         labelSenha.alpha = 1.0;
+        labelOk.alpha = 1.0;
     }];
+    
+    senhaGerada = YES;
 }
 
 /*

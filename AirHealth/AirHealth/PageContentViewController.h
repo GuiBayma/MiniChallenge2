@@ -11,9 +11,11 @@
 @interface PageContentViewController : UIViewController
 
 @property UIImageView *image;
+@property UILabel *titulo;
+@property UILabel *texto;
 @property NSUInteger pageIndex;
-@property NSString *titleText;
+@property NSString *tituloTexto;
 @property NSString *imageFile;
-@property NSString *textoText;
+@property NSString *textoTexto;
 
 @end

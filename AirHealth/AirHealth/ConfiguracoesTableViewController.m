@@ -58,13 +58,14 @@
 //}
 //
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0){
-        if (indexPath.section == 0) {
+    if(indexPath.section == 0){
+        if (indexPath.row == 0) {
             PageViewController *pvc = [[PageViewController alloc] init];
             [self presentViewController:pvc animated:YES completion:nil];
         }
-        else if(indexPath.section == 1){
-
+        else if(indexPath.row == 1){
+            AboutViewController *avc = [[AboutViewController alloc] init];
+            [self presentViewController:avc animated:YES completion:nil];
         }
     }
     else{
