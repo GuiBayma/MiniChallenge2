@@ -96,9 +96,24 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
+    UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"Dados apagados"
+                                                      message:@"Os dados foram apagados com sucesso!"
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+    
+    UIAlertView *cancelarAlert = [[UIAlertView alloc] initWithTitle:@"Operação cancelada"
+                                                      message:@"A operação de apagar os dados foi cancelada."
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+    
+    
     switch (buttonIndex) {
             
         case 0: //botao cancelar
+            
+            [cancelarAlert show];
             
             break;
             
@@ -112,6 +127,8 @@
             
             persistencia.infoConvenio = [[InfoConvenio alloc] init];
             [persistencia salvarInfoConvenioLocal];
+            
+            [okAlert show];
             
             break;
             
@@ -129,19 +146,13 @@
             persistencia.infoConvenio = [[InfoConvenio alloc] init];
             [persistencia salvarInfoConvenioLocal];
             
+            [okAlert show];
+            
             break;
             
         default:
             break;
     }
-    
-    UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"Dados apagados"
-                                                      message:@"Os dados foram apagados com sucesso!"
-                                                     delegate:nil
-                                            cancelButtonTitle:@"Ok"
-                                            otherButtonTitles:nil];
-    
-    [okAlert show];
     
 }
 
