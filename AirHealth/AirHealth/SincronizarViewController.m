@@ -14,6 +14,7 @@
     Persistencia *persistencia;
     bool click;
     bool senhaGerada;
+    __block NSString *senha;
 }
 
 @end
@@ -34,7 +35,7 @@
     persistencia = [Persistencia sharedInstance];
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha) name:@"UsuarioSincronizado" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha:) name:@"UsuarioSincronizado" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -136,8 +137,10 @@
     [persistencia salvarUsuarioNuvem];
 }
 
-- (void)exibirSenha {
-    __block NSString *senha = [persistencia.usuario senha];
+- (void)exibirSenha:(NSNotification *)not {
+    
+    senha = not.object;
+    
     [UIView animateWithDuration:2.0 animations:^{
         imageCruz.alpha = 1.0;
         buttonSincronizar.alpha = 1.0;

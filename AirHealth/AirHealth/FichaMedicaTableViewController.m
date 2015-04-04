@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
 
 @implementation FichaMedicaTableViewController {
     Persistencia *persistencia;
+    NSNumberFormatter *numFormatter;
 }
 
 - (void)viewDidLoad {
@@ -87,17 +88,6 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
                 [self atualizaAlturaDoUsuario];
                 [self atualizaPesoDoUsuario];
                 [self atualizaImcDoUsuario];
-                
-                NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
-                numFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-                
-                //a data de nascimento é setada dentro do método atualizaIdade
-                [persistencia.fichaMedica setSexo:self.sexoValorLabel.text];
-                [persistencia.fichaMedica setGrupoSanguineo:self.grupoSanguineoValorLabel.text];
-                [persistencia.fichaMedica setAltura:[numFormatter numberFromString:self.alturaValorLabel.text]];
-                [persistencia.fichaMedica setPeso:[numFormatter numberFromString:self.pesoValorLabel.text]];
-                //persistencia.fichaMedica setPressaoArterialSistolica:[numFormatter numberFromString:self.]
-                
                 
             });
         }];
@@ -150,8 +140,6 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
         
         self.idadeValorLabel.text = [NSNumberFormatter localizedStringFromNumber:@(usersAge) numberStyle:NSNumberFormatterNoStyle];
         
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        
         [persistencia.fichaMedica setDataNascimento:dateOfBirth];
         
     }
@@ -172,6 +160,8 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
         // Calcula a idade do usuário
         int determinaSexo = [sexo biologicalSex];
         self.sexoValorLabel.text = [NSString stringWithFormat:@"%@", [self determinaSexo:determinaSexo]];
+        
+        [persistencia.fichaMedica setSexo:self.sexoValorLabel.text];
     }
     
 }
@@ -191,6 +181,8 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
         int num = [grupoSanguineo bloodType];
         
         self.grupoSanguineoValorLabel.text = [NSString stringWithFormat:@"%@",[self bloodType:num]];
+        
+        [persistencia.fichaMedica setGrupoSanguineo:self.grupoSanguineoValorLabel.text];
     }
 }
 
@@ -223,6 +215,9 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.alturaValorLabel.text = [NSString stringWithFormat:@"%.2f", usersHeight];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
+                
+                [persistencia.fichaMedica setAltura:[NSNumber numberWithDouble:usersHeight]];
+                
             });
         }
     }];
@@ -256,6 +251,9 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             // Atualiza a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.pesoValorLabel.text = [NSString stringWithFormat:@"%.2f", usersWeight];
+                
+                [persistencia.fichaMedica setPeso:[NSNumber numberWithDouble:usersWeight]];
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
             });
         }
@@ -281,6 +279,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.imcValorLabel.text = [NSString stringWithFormat:@"%.2f", userImc];
+                [persistencia.fichaMedica setIndiceMassaCorporal:[NSNumber numberWithDouble:userImc]];
             });
         }
     }];
@@ -396,6 +395,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     double peso = [self.pesoValorLabel.text floatValue];
     
     double imc = (peso/((altura/100)*(altura/100)));
+    
     
     HKUnit *imcUnit = [HKUnit countUnit];
     HKQuantity *imcQuantity = [HKQuantity quantityWithUnit:imcUnit doubleValue:imc];

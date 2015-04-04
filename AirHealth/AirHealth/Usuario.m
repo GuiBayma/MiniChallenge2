@@ -25,6 +25,7 @@
         _estado = @"";
         _email = @"";
         _telefone = @"";
+        _senha = @"";
     }
     
     return self;
@@ -43,6 +44,8 @@
     [coder encodeObject:self.email forKey:@"emailUsu"];
     [coder encodeObject:self.telefone forKey:@"telefoneUsu"];
     
+    [coder encodeObject:self.senha forKey:@"senhaUsu"];
+    
 }
 
 - (Usuario *)initWithCoder:(NSCoder *)decoder {
@@ -57,6 +60,8 @@
     self.estado = [decoder decodeObjectForKey:@"estadoUsu"];
     self.email = [decoder decodeObjectForKey:@"emailUsu"];
     self.telefone = [decoder decodeObjectForKey:@"telefoneUsu"];
+    
+    self.senha = [decoder decodeObjectForKey:@"senhaUsu"];
     
     return self;
 }
