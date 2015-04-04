@@ -135,5 +135,14 @@
             break;
     }
     
+    UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"Dados apagados"
+                                                      message:@"Os dados foram apagados com sucesso!"
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+    
+    [okAlert show];
+    
 }
+
 @end
