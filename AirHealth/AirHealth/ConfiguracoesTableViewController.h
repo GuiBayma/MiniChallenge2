@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "AboutViewController.h"
 
-@interface ConfiguracoesTableViewController : UITableViewController
+@interface ConfiguracoesTableViewController : UITableViewController<UIAlertViewDelegate>
+
+
+- (IBAction)apagarTodosDados:(id)sender;
+
 
 @end

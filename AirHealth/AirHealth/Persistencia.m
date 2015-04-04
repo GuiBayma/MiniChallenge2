@@ -123,7 +123,7 @@
         
         PFQuery *query = [PFQuery queryWithClassName:@"Usuario"];
         
-        [query getObjectInBackgroundWithId:_infoConvenio.objectID block:^(PFObject *classeUsuario, NSError *erro) {
+        [query getObjectInBackgroundWithId:_usuario.objectID block:^(PFObject *classeUsuario, NSError *erro) {
             
             classeUsuario[@"nome"] = _usuario.nome;
             classeUsuario[@"cpf"] = _usuario.cpf;
@@ -141,6 +141,19 @@
     }
 }
 
+/**
+ * @description Deleta o registro do usuário da base de dados na nuvem.
+ */
+- (void)deletarUsuarioNuvem {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Usuario"];
+    
+    [query getObjectInBackgroundWithId:_usuario.objectID block:^(PFObject *classeUsuario, NSError *erro) {
+        
+        [classeUsuario deleteInBackground];
+    }];
+
+}
 
 
 /**
@@ -204,7 +217,7 @@
         
         PFQuery *query = [PFQuery queryWithClassName:@"FichaMedica"];
         
-        [query getObjectInBackgroundWithId:_infoConvenio.objectID block:^(PFObject *classeFichaMedica, NSError *erro) {
+        [query getObjectInBackgroundWithId:_fichaMedica.objectID block:^(PFObject *classeFichaMedica, NSError *erro) {
             
             classeFichaMedica[@"dataNascimento"] = _fichaMedica.dataNascimento;
             classeFichaMedica[@"sexo"] = _fichaMedica.sexo;
@@ -220,6 +233,21 @@
         }];
     }
 }
+
+/**
+ * @description Deleta o registro da ficha médica da base de dados na nuvem.
+ */
+- (void)deletarFichaNuvem {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"FichaMedica"];
+    
+    [query getObjectInBackgroundWithId:_fichaMedica.objectID block:^(PFObject *classeFichaMedica, NSError *erro) {
+        
+        [classeFichaMedica deleteInBackground];
+    }];
+    
+}
+
 
 /**
  * @description Carregar os dados de informações do convênio da base de dados que fica na nuvem. O método atualiza o objeto de informações do convênio da classe, mas é necessário que a propriedade 'objectID' do objeto esteja preenchido.
@@ -290,6 +318,20 @@
             [classeInfoConvenio saveInBackground];
         }];
     }
+}
+
+/**
+ * @description Deleta o registro das informações de convênio da base de dados na nuvem.
+ */
+- (void)deletarInfoConvenioNuvem {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"InfoConvenio"];
+    
+    [query getObjectInBackgroundWithId:_infoConvenio.objectID block:^(PFObject *classeInfoConvenio, NSError *erro) {
+        
+        [classeInfoConvenio deleteInBackground];
+    }];
+    
 }
 
 /**

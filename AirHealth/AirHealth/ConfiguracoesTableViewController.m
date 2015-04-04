@@ -8,12 +8,18 @@
 
 #import "ConfiguracoesTableViewController.h"
 #import "PageViewController.h"
+#import "Persistencia.h"
+#import "Usuario.h"
+#import "FichaMedica.h"
+#import "InfoConvenio.h"
 
 @interface ConfiguracoesTableViewController ()
 
 @end
 
-@implementation ConfiguracoesTableViewController
+@implementation ConfiguracoesTableViewController {
+    Persistencia *persistencia;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,6 +31,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    persistencia = [Persistencia sharedInstance];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,4 +82,58 @@
     }
 }
 
+- (IBAction)apagarTodosDados:(id)sender {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Apagar Dados"
+                                                    message:@"Deseja apagar também os dados salvos na nuvem?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancelar"
+                                          otherButtonTitles:@"Não", @"Sim", nil];
+    
+    [alert show];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+            
+        case 0: //botao cancelar
+            
+            break;
+            
+        case 1: //botao não
+            
+            persistencia.usuario = [[Usuario alloc] init];
+            [persistencia salvarUsuarioLocal];
+            
+            persistencia.fichaMedica = [[FichaMedica alloc] init];
+            [persistencia salvarFichaLocal];
+            
+            persistencia.infoConvenio = [[InfoConvenio alloc] init];
+            [persistencia salvarInfoConvenioLocal];
+            
+            break;
+            
+        case 2: //botao sim
+            
+            [persistencia deletarUsuarioNuvem];
+            persistencia.usuario = [[Usuario alloc] init];
+            [persistencia salvarUsuarioNuvem];
+            
+            [persistencia deletarFichaNuvem];
+            persistencia.fichaMedica = [[FichaMedica alloc] init];
+            [persistencia salvarFichaLocal];
+            
+            [persistencia deletarInfoConvenioNuvem];
+            persistencia.infoConvenio = [[InfoConvenio alloc] init];
+            [persistencia salvarInfoConvenioLocal];
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+}
 @end
