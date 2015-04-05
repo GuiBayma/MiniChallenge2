@@ -38,6 +38,7 @@
     __weak IBOutlet UIButton *selecionaFotoBotao;
     
     UIDatePicker *datePicker;
+    NSDateFormatter *dateFormat;
 }
 
 - (void)viewDidLoad {
@@ -83,6 +84,10 @@
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);
     
     persistencia = [Persistencia sharedInstance];
+    
+    dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy"];
+    
 }
 
 - (void)tocouNaView {
@@ -116,8 +121,6 @@
 }
 
 - (void)confirmaData {
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd/MM/yyyy"];
     
     NSString *theDate = [dateFormat stringFromDate:datePicker.date];
     
@@ -138,15 +141,28 @@
 #pragma mark - Table view data source
 
 - (void)viewDidAppear:(BOOL)animated {
-        nomeTextField.text = [persistencia.usuario nome];
-        cpfTextField.text = [persistencia.usuario cpf];
-        rgTextField.text = [persistencia.usuario rg];
-        enderecoTextField.text = [persistencia.usuario endereco];
-        cepTextField.text = [persistencia.usuario cep];
-        cidadeTextField.text = [persistencia.usuario cidade];
-        estadoTextField.text = [persistencia.usuario estado];
-        nomePlanoTextField.text = [persistencia.infoConvenio nomePlanodeSaude];
-        numeroPlanoTextField.text = [persistencia.infoConvenio numCartao];
+    
+    nomeTextField.text = [persistencia.usuario nome];
+    cpfTextField.text = [persistencia.usuario cpf];
+    rgTextField.text = [persistencia.usuario rg];
+    emailTextField.text = [persistencia.usuario email];
+    telefoneTextField.text = [persistencia.usuario telefone];
+    
+    enderecoTextField.text = [persistencia.usuario endereco];
+    cepTextField.text = [persistencia.usuario cep];
+    cidadeTextField.text = [persistencia.usuario cidade];
+    estadoTextField.text = [persistencia.usuario estado];
+
+    nomePlanoTextField.text = [persistencia.infoConvenio nomePlanodeSaude];
+    numeroPlanoTextField.text = [persistencia.infoConvenio numCartao];
+    validadeInicioTextField.text = [dateFormat stringFromDate:[persistencia.infoConvenio inicioValidade]];
+    validadeFimTextField.text = [dateFormat stringFromDate:[persistencia.infoConvenio terminoValidade]];
+    
+    if (![[persistencia.usuario imagem] isEqual:nil]) {
+        imagem.image = [UIImage imageWithData:[persistencia.usuario imagem]];
+        selecionaFotoBotao.titleLabel.text = @"";
+    }
+    
 }
 
 - (IBAction)selecionaFoto:(UIButton *)sender {
@@ -161,6 +177,9 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     imagem.image = chosenImage;
+    
+    [persistencia.usuario setImagem:UIImagePNGRepresentation(chosenImage)];
+    [persistencia salvarUsuarioLocal];
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
@@ -251,47 +270,60 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd/MM/yyyy"];
-    
-    if ([textField isEqual:nomeTextField])
+    if ([textField isEqual:nomeTextField]) {
         [persistencia.usuario setNome:textField.text];
-    
-    else if ([textField isEqual:cpfTextField])
+        [persistencia salvarUsuarioLocal];
+    }
+    else if ([textField isEqual:cpfTextField]) {
         [persistencia.usuario setCpf:textField.text];
-    
-    else if ([textField isEqual:rgTextField])
+        [persistencia salvarUsuarioLocal];
+    }
+    else if ([textField isEqual:rgTextField]) {
         [persistencia.usuario setRg:textField.text];
-    
-    else if ([textField isEqual:emailTextField])
+        [persistencia salvarUsuarioLocal];
+    }
+    else if ([textField isEqual:emailTextField]) {
         [persistencia.usuario setEmail:textField.text];
-    
-    else if([textField isEqual:telefoneTextField])
+        [persistencia salvarUsuarioLocal];
+    }
+    else if([textField isEqual:telefoneTextField]) {
         [persistencia.usuario setTelefone:textField.text];
-    
-    else if ([textField isEqual:enderecoTextField])
+        [persistencia salvarUsuarioLocal];
+    }
+    else if ([textField isEqual:enderecoTextField]) {
         [persistencia.usuario setEndereco:textField.text];
-    
-    else if ([textField isEqual:cepTextField])
+        [persistencia salvarUsuarioLocal];
+    }
+    else if ([textField isEqual:cepTextField]) {
         [persistencia.usuario setCep:textField.text];
-    
-    else if ([textField isEqual:cidadeTextField])
+        [persistencia salvarUsuarioLocal];
+    }
+    else if ([textField isEqual:cidadeTextField]) {
         [persistencia.usuario setCidade:textField.text];
-    
-    else if ([textField isEqual:estadoTextField])
+        [persistencia salvarUsuarioLocal];
+    }
+    else if ([textField isEqual:estadoTextField]) {
         [persistencia.usuario setEstado:textField.text];
-    
-    else if ([textField isEqual:nomePlanoTextField])
+        [persistencia salvarUsuarioLocal];
+    }
+    else if ([textField isEqual:nomePlanoTextField]) {
         [persistencia.infoConvenio setNomePlanodeSaude:textField.text];
-    
-    else if ([textField isEqual:numeroPlanoTextField])
+        [persistencia salvarInfoConvenioLocal];
+    }
+    else if ([textField isEqual:numeroPlanoTextField]) {
         [persistencia.infoConvenio setNumCartao:textField.text];
-    
-    else if ([textField isEqual:validadeInicioTextField])
+        [persistencia salvarInfoConvenioLocal];
+    }
+    else if ([textField isEqual:validadeInicioTextField]) {
         [persistencia.infoConvenio setInicioValidade:[dateFormat dateFromString:textField.text]];
-    
-    else if ([textField isEqual:validadeFimTextField])
+        [persistencia salvarInfoConvenioLocal];
+    }
+    else if ([textField isEqual:validadeFimTextField]) {
         [persistencia.infoConvenio setTerminoValidade:[dateFormat dateFromString:textField.text]];
+        [persistencia salvarInfoConvenioLocal];
+    }
+    
 }
+
 
 @end

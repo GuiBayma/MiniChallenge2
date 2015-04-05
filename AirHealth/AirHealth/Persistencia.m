@@ -141,6 +141,8 @@
     }
 }
 
+
+
 /**
  * @description Deleta o registro do usuário da base de dados na nuvem.
  */

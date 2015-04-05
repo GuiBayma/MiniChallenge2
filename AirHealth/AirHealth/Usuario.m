@@ -16,6 +16,7 @@
     self = [super init];
     
     if (self) {
+        _imagem = nil;
         _nome = @"";
         _cpf = @"";
         _rg = @"";
@@ -34,6 +35,7 @@
 - (void)encodeWithCoder:(NSCoder *)coder {
     
     [coder encodeObject:self.objectID forKey:@"usuObjectID"];
+    [coder encodeObject:self.imagem forKey:@"imagemUsu"];
     [coder encodeObject:self.nome forKey:@"nomeUsu"];
     [coder encodeObject:self.cpf forKey:@"cpfUsu"];
     [coder encodeObject:self.rg forKey:@"rgUsu"];
@@ -43,7 +45,6 @@
     [coder encodeObject:self.estado forKey:@"estadoUsu"];
     [coder encodeObject:self.email forKey:@"emailUsu"];
     [coder encodeObject:self.telefone forKey:@"telefoneUsu"];
-    
     [coder encodeObject:self.senha forKey:@"senhaUsu"];
     
 }
@@ -51,6 +52,7 @@
 - (Usuario *)initWithCoder:(NSCoder *)decoder {
     
     self.objectID = [decoder decodeObjectForKey:@"usuObjectID"];
+    self.imagem = [decoder decodeObjectForKey:@"imagemUsu"];
     self.nome = [decoder decodeObjectForKey:@"nomeUsu"];
     self.cpf = [decoder decodeObjectForKey:@"cpfUsu"];
     self.rg = [decoder decodeObjectForKey:@"rgUsu"];
@@ -60,7 +62,6 @@
     self.estado = [decoder decodeObjectForKey:@"estadoUsu"];
     self.email = [decoder decodeObjectForKey:@"emailUsu"];
     self.telefone = [decoder decodeObjectForKey:@"telefoneUsu"];
-    
     self.senha = [decoder decodeObjectForKey:@"senhaUsu"];
     
     return self;
