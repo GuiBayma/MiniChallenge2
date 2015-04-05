@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     AAPLProfileViewControllerTableViewIndex2,
 };
 
-@interface FichaMedicaTableViewController ()
+@interface FichaMedicaTableViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *idadeUnidadeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *idadeValorLabel;
@@ -28,22 +28,42 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
 @property (weak, nonatomic) IBOutlet UILabel *grupoSanguineoValorLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *alturaUnidadeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *alturaValorLabel;
+@property (weak, nonatomic) IBOutlet UITextField *alturaValorTextField;
 
 @property (weak, nonatomic) IBOutlet UILabel *pesoUnidadeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pesoValorLabel;
+@property (weak, nonatomic) IBOutlet UITextField *pesoValorTextField;
 
 @property (weak, nonatomic) IBOutlet UILabel *imcUnidadeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *imcValorLabel;
+@property (weak, nonatomic) IBOutlet UITextField *imcValorTextField;
+
+@property (weak, nonatomic) IBOutlet UILabel *temperaturaCorporalUnidadeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *temperaturaCorporalValorTextField;
+
+@property (weak, nonatomic) IBOutlet UILabel *pressaoSistolicaUnidadeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *pressaoSistolicaValorTextField;
+
+@property (weak, nonatomic) IBOutlet UILabel *pressaoDiastolicaUnidadeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *pressaoDiastolicaValorTextField;
 
 @end
 
 @implementation FichaMedicaTableViewController {
     Persistencia *persistencia;
+    NSNumberFormatter *numFormatter;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tocouNaView)];
+    [self.view addGestureRecognizer:tap];
+    
+    self.alturaValorTextField.delegate = self;
+    self.pesoValorTextField.delegate = self;
+    self.imcValorTextField.delegate = self;
+    self.temperaturaCorporalValorTextField.delegate = self;
+    self.pressaoSistolicaValorTextField.delegate = self;
+    self.pressaoDiastolicaValorTextField.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(salvaImcNoHealthSotre) name:@"CalcularImc" object:nil];
     // Uncomment the following line to preserve selection between presentations.
@@ -80,27 +100,34 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                // Update the user interface based on the current user's health information.
+                // Atualiza a interface do usuário de acordo com os dados atuais no HealthKit
                 [self atualizaIdade];
                 [self atualizaSexo];
                 [self atualizaGrupoSanguineo];
-                [self atualizaAlturaDoUsuario];
-                [self atualizaPesoDoUsuario];
-                [self atualizaImcDoUsuario];
-                
-                NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
-                numFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-                
-                //a data de nascimento é setada dentro do método atualizaIdade
-                [persistencia.fichaMedica setSexo:self.sexoValorLabel.text];
-                [persistencia.fichaMedica setGrupoSanguineo:self.grupoSanguineoValorLabel.text];
-                [persistencia.fichaMedica setAltura:[numFormatter numberFromString:self.alturaValorLabel.text]];
-                [persistencia.fichaMedica setPeso:[numFormatter numberFromString:self.pesoValorLabel.text]];
-                //persistencia.fichaMedica setPressaoArterialSistolica:[numFormatter numberFromString:self.]
-                
-                
+                [self atualizaAltura];
+                [self atualizaPeso];
+                [self atualizaImc];
+                [self atualizaTemperaturaCorporal];
+                [self atualizaPressaoSistolica];
+                [self atualizaPressaoDiastolica];
             });
         }];
+    }
+}
+
+- (void)tocouNaView {
+    if ([self.alturaValorTextField isFirstResponder]) {
+        [self.alturaValorTextField resignFirstResponder];
+    } else if ([self.pesoValorTextField isFirstResponder]) {
+        [self.pesoValorTextField resignFirstResponder];
+    } else if ([self.imcValorTextField isFirstResponder]) {
+        [self.imcValorTextField resignFirstResponder];
+    } else if ([self.temperaturaCorporalValorTextField isFirstResponder]) {
+        [self.temperaturaCorporalValorTextField resignFirstResponder];
+    } else if ([self.pressaoSistolicaValorTextField isFirstResponder]) {
+        [self.pressaoSistolicaValorTextField resignFirstResponder];
+    } else if ([self.pressaoDiastolicaValorTextField isFirstResponder]) {
+        [self.pressaoDiastolicaValorTextField resignFirstResponder];
     }
 }
 
@@ -111,8 +138,11 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     HKQuantityType *altura = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
     HKQuantityType *peso = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
     HKQuantityType *imc = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+    HKQuantityType *temperaturaCorporal = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
+    HKQuantityType *pressaoSistolica = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    HKQuantityType *pressaoDiastolica = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
     
-    return [NSSet setWithObjects:altura, peso, imc,nil];
+    return [NSSet setWithObjects:altura, peso, imc, temperaturaCorporal, pressaoSistolica, pressaoDiastolica, nil];
 }
 
 // Retorna os tipos de dados que desejamos ler do HealthKit.
@@ -123,8 +153,11 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     HKQuantityType *altura = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
     HKQuantityType *peso = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
     HKQuantityType *imc = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+    HKQuantityType *temperaturaCorporal = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
+    HKQuantityType *pressaoSistolica = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    HKQuantityType *pressaoDiastolica = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
     
-    return [NSSet setWithObjects:altura, peso, imc, dataNascimento, tipoSanguineo, sexo, nil];
+    return [NSSet setWithObjects:altura, peso, imc, dataNascimento, tipoSanguineo, sexo, temperaturaCorporal, pressaoSistolica, pressaoDiastolica, nil];
 }
 
 #pragma mark - Lendo os dados do HealthKit
@@ -138,7 +171,12 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     if (!dateOfBirth) {
         NSLog(@"Either an error occured fetching the user's age information or none has been stored yet. In your app, try to handle this gracefully.");
         
-        self.idadeValorLabel.text = NSLocalizedString(@"Não Disponível", nil);
+        if (dateOfBirth == nil) {
+            self.idadeValorLabel.text = NSLocalizedString(@"Não Disponível", nil);
+        } else {
+            self.idadeValorLabel.text = NSLocalizedString(@"Não definido", nil);
+        }
+        
     }
     else {
         // Calcula a idade do usuário
@@ -149,8 +187,6 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
         NSUInteger usersAge = [ageComponents year];
         
         self.idadeValorLabel.text = [NSNumberFormatter localizedStringFromNumber:@(usersAge) numberStyle:NSNumberFormatterNoStyle];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         
         [persistencia.fichaMedica setDataNascimento:dateOfBirth];
         
@@ -164,14 +200,21 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     HKBiologicalSexObject *sexo = [self.healthStore biologicalSexWithError:&error];
     
     if (!sexo) {
-        NSLog(@"Either an error occured fetching the user's age information or none has been stored yet. In your app, try to handle this gracefully.");
+        NSLog(@"Either an error occured fetching the user's sex information or none has been stored yet. In your app, try to handle this gracefully.");
         
-        self.sexoUnidadeLabel.text = NSLocalizedString(@"Não Disponível", nil);
+        if (sexo == nil) {
+            self.sexoValorLabel.text = NSLocalizedString(@"Não Disponível", nil);
+        } else {
+            self.sexoValorLabel.text = NSLocalizedString(@"Não definido", nil);
+        }
+        
     }
     else {
         // Calcula a idade do usuário
         int determinaSexo = [sexo biologicalSex];
         self.sexoValorLabel.text = [NSString stringWithFormat:@"%@", [self determinaSexo:determinaSexo]];
+        
+        [persistencia.fichaMedica setSexo:self.sexoValorLabel.text];
     }
     
 }
@@ -184,21 +227,24 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     HKBloodTypeObject * grupoSanguineo = [self.healthStore bloodTypeWithError:&error];
     
     if (!grupoSanguineo) {
-        NSLog(@"Either an error occured fetching the user's age information or none has been stored yet. In your app, try to handle this gracefully.");
+        NSLog(@"Either an error occured fetching the user's blood type information or none has been stored yet. In your app, try to handle this gracefully.");
         
-        self.grupoSanguineoUnidadeLabel.text = @"Não Disponível";
+        if (grupoSanguineo == nil) {
+            self.grupoSanguineoValorLabel.text = NSLocalizedString(@"Não Disponível", nil);
+        } else {
+            self.grupoSanguineoValorLabel.text = NSLocalizedString(@"Não definido", nil);
+        }
+        
     } else {
         int num = [grupoSanguineo bloodType];
         
         self.grupoSanguineoValorLabel.text = [NSString stringWithFormat:@"%@",[self bloodType:num]];
+        
+        [persistencia.fichaMedica setGrupoSanguineo:self.grupoSanguineoValorLabel.text];
     }
 }
 
-- (void)atualizaAlturaDoUsuario {
-    // Formatando a altura do usuário em centímetros.
-    NSLengthFormatter *lengthFormatter = [[NSLengthFormatter alloc] init];
-    lengthFormatter.unitStyle = NSFormattingUnitStyleLong;
-    
+- (void)atualizaAltura {
     NSString *localizedHeightUnitDescriptionFormat = NSLocalizedString(@"Altura (%@)", nil);
     
     self.alturaUnidadeLabel.text = [NSString stringWithFormat:localizedHeightUnitDescriptionFormat, @"cm"];
@@ -211,7 +257,11 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             NSLog(@"Either an error occured fetching the user's height information or none has been stored yet. In your app, try to handle this gracefully.");
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.alturaValorLabel.text = NSLocalizedString(@"Não Disponível", nil);
+                if (heightType == nil) {
+                    self.alturaValorTextField.text = NSLocalizedString(@"Não Disponível", nil);
+                } else {
+                    self.alturaValorTextField.text = NSLocalizedString(@"Não definido", nil);
+                }
             });
         }
         else {
@@ -221,18 +271,17 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             
             // Atualize a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.alturaValorLabel.text = [NSString stringWithFormat:@"%.2f", usersHeight];
+                self.alturaValorTextField.text = [NSString stringWithFormat:@"%.2f", usersHeight];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
+                
+                [persistencia.fichaMedica setAltura:[NSNumber numberWithDouble:usersHeight]];
+                
             });
         }
     }];
 }
 
-- (void)atualizaPesoDoUsuario {
-    // Formatando o peso do usuário em quilos.
-    NSMassFormatter *massFormatter = [[NSMassFormatter alloc] init];
-    massFormatter.unitStyle = NSFormattingUnitStyleLong;
-    
+- (void)atualizaPeso {
     NSString *localizedWeightUnitDescriptionFormat = NSLocalizedString(@"Peso (%@)", nil);
     
     self.pesoUnidadeLabel.text = [NSString stringWithFormat:localizedWeightUnitDescriptionFormat, @"kg"];
@@ -245,7 +294,11 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             NSLog(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.");
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.pesoValorLabel.text = NSLocalizedString(@"Não disponível", nil);
+                if (weightType == nil) {
+                    self.pesoValorTextField.text = NSLocalizedString(@"Não Disponível", nil);
+                } else {
+                    self.pesoValorTextField.text = NSLocalizedString(@"Não definido", nil);
+                }
             });
         }
         else {
@@ -255,14 +308,17 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             
             // Atualiza a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.pesoValorLabel.text = [NSString stringWithFormat:@"%.2f", usersWeight];
+                self.pesoValorTextField.text = [NSString stringWithFormat:@"%.2f", usersWeight];
+                
+                [persistencia.fichaMedica setPeso:[NSNumber numberWithDouble:usersWeight]];
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
             });
         }
     }];
 }
 
-- (void)atualizaImcDoUsuario {
+- (void)atualizaImc {
     self.imcUnidadeLabel.text = @"IMC";
     
     //Query para pegar o imc do usuário, se existir.
@@ -270,17 +326,123 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     
     [self.healthStore aapl_mostRecentQuantitySampleOfType:imc predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.");
+            NSLog(@"Either an error occured fetching the user's body mass index information or none has been stored yet. In your app, try to handle this gracefully.");
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.pesoValorLabel.text = NSLocalizedString(@"Não disponível", nil);
+                if (imc == nil) {
+                    self.imcValorTextField.text = NSLocalizedString(@"Não Disponível", nil);
+                } else {
+                    self.imcValorTextField.text = NSLocalizedString(@"Não definido", nil);
+                }
             });
         } else {
             HKUnit *imcUnit = [HKUnit countUnit];
             double userImc = [mostRecentQuantity doubleValueForUnit:imcUnit];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.imcValorLabel.text = [NSString stringWithFormat:@"%.2f", userImc];
+                self.imcValorTextField.text = [NSString stringWithFormat:@"%.2f", userImc];
+                [persistencia.fichaMedica setIndiceMassaCorporal:[NSNumber numberWithDouble:userImc]];
+            });
+        }
+    }];
+}
+
+- (void)atualizaTemperaturaCorporal {
+    NSString *localizedHeightUnitDescriptionFormat = NSLocalizedString(@"Temperatura Corporal (%@)", nil);
+    
+    self.temperaturaCorporalUnidadeLabel.text = [NSString stringWithFormat:localizedHeightUnitDescriptionFormat, @"°C"];
+    
+    HKQuantityType *temperaturaCorporal = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
+    
+    // Query para pegar a última altura do usuário, se existir.
+    [self.healthStore aapl_mostRecentQuantitySampleOfType:temperaturaCorporal predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+        if (!mostRecentQuantity) {
+            NSLog(@"Either an error occured fetching the user's body temperature information or none has been stored yet. In your app, try to handle this gracefully.");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (temperaturaCorporal == nil) {
+                    self.temperaturaCorporalValorTextField.text = NSLocalizedString(@"Não Disponível", nil);
+                } else {
+                    self.temperaturaCorporalValorTextField.text = NSLocalizedString(@"Não definido", nil);
+                }
+            });
+        }
+        else {
+            // Determina a unidade de medida da altura do usuário
+            HKUnit *graus = [HKUnit degreeCelsiusUnit];
+            double temperaturaDoUsuario = [mostRecentQuantity doubleValueForUnit:graus];
+            
+            // Atualize a interface do usuário
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.temperaturaCorporalValorTextField.text = [NSString stringWithFormat:@"%.0f", temperaturaDoUsuario];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
+                
+                [persistencia.fichaMedica setAltura:[NSNumber numberWithDouble:temperaturaDoUsuario]];
+            });
+        }
+    }];
+}
+
+- (void)atualizaPressaoSistolica {
+    HKQuantityType *pressaoSistolica = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    
+    // Query para pegar a última altura do usuário, se existir.
+    [self.healthStore aapl_mostRecentQuantitySampleOfType:pressaoSistolica predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+        if (!mostRecentQuantity) {
+            NSLog(@"Either an error occured fetching the user's pressure systolic information or none has been stored yet. In your app, try to handle this gracefully.");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (pressaoSistolica == nil) {
+                    self.pressaoSistolicaValorTextField.text = NSLocalizedString(@"Não Disponível", nil);
+                } else {
+                    self.pressaoSistolicaValorTextField.text = NSLocalizedString(@"Não definido", nil);
+                }
+            });
+        }
+        else {
+            // Determina a unidade de medida da altura do usuário
+            HKUnit *pressao = [HKUnit millimeterOfMercuryUnit];
+            double pressaoDoUsuario = [mostRecentQuantity doubleValueForUnit:pressao];
+            
+            // Atualize a interface do usuário
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.pressaoSistolicaValorTextField.text = [NSString stringWithFormat:@"%.0f", pressaoDoUsuario];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
+                
+                [persistencia.fichaMedica setAltura:[NSNumber numberWithDouble:pressaoDoUsuario]];
+            });
+        }
+    }];
+
+}
+
+- (void)atualizaPressaoDiastolica {
+    HKQuantityType *pressaoDiastolica = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
+    
+    // Query para pegar a última altura do usuário, se existir.
+    [self.healthStore aapl_mostRecentQuantitySampleOfType:pressaoDiastolica predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+        if (!mostRecentQuantity) {
+            NSLog(@"Either an error occured fetching the user's pressure systolic information or none has been stored yet. In your app, try to handle this gracefully.");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (pressaoDiastolica == nil) {
+                    self.pressaoDiastolicaValorTextField.text = NSLocalizedString(@"Não Disponível", nil);
+                } else {
+                    self.pressaoDiastolicaValorTextField.text = NSLocalizedString(@"Não definido", nil);
+                }
+            });
+        }
+        else {
+            // Determina a unidade de medida da altura do usuário
+            HKUnit *pressao = [HKUnit millimeterOfMercuryUnit];
+            double pressaoDoUsuario = [mostRecentQuantity doubleValueForUnit:pressao];
+            
+            // Atualize a interface do usuário
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.pressaoDiastolicaValorTextField.text = [NSString stringWithFormat:@"%.0f", pressaoDoUsuario];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
+                
+                [persistencia.fichaMedica setAltura:[NSNumber numberWithDouble:pressaoDoUsuario]];
             });
         }
     }];
@@ -368,7 +530,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             abort();
         }
         
-        [self atualizaAlturaDoUsuario];
+        [self atualizaAltura];
     }];
 }
 
@@ -387,15 +549,16 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", weightSample, error);
             abort();
         }
-        [self atualizaPesoDoUsuario];
+        [self atualizaPeso];
     }];
 }
 
 - (void)salvaImcNoHealthSotre {
-    double altura = [self.alturaValorLabel.text floatValue];
-    double peso = [self.pesoValorLabel.text floatValue];
+    double altura = [self.alturaValorTextField.text floatValue];
+    double peso = [self.pesoValorTextField.text floatValue];
     
     double imc = (peso/((altura/100)*(altura/100)));
+    
     
     HKUnit *imcUnit = [HKUnit countUnit];
     HKQuantity *imcQuantity = [HKQuantity quantityWithUnit:imcUnit doubleValue:imc];
@@ -410,76 +573,143 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", imcSample, error);
             abort();
         }
-        [self atualizaImcDoUsuario];
+        [self atualizaImc];
     }];
 }
 
-#pragma mark - UITableViewDelegate
+/*
+ LEMBRAR DE DECIDIR SE VOU DEIXAR ESSE MÉTODO OU NÃO !!!!!!!!!
+*/
+- (void)salvaImcNoHealthStore:(double)imc {
+    HKUnit *imcUnit = [HKUnit countUnit];
+    HKQuantity *imcQuantity = [HKQuantity quantityWithUnit:imcUnit doubleValue:imc];
+    
+    HKQuantityType *imcType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *imcSample = [HKQuantitySample quantitySampleWithType:imcType quantity:imcQuantity startDate:now endDate:now];
+    
+    [self.healthStore saveObject:imcSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", imcSample, error);
+            abort();
+        }
+        [self atualizaImc];
+    }];
+
+}
+
+- (void)salvaTemperaturaCorporalNoHealthStore:(double)temperaturaCorporal {
+    HKUnit *celsiusUnit = [HKUnit degreeCelsiusUnit];
+    HKQuantity *celsiusQuantity = [HKQuantity quantityWithUnit:celsiusUnit doubleValue:temperaturaCorporal];
+    
+    HKQuantityType *temperatureType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *temperatureSample = [HKQuantitySample quantitySampleWithType:temperatureType quantity:celsiusQuantity startDate:now endDate:now];
+    
+    [self.healthStore saveObject:temperatureSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", temperatureSample, error);
+            abort();
+        }
+        [self atualizaTemperaturaCorporal];
+    }];
+}
+
+- (void)salvaPressaoSistolicaNoHealthStore:(double)pressaoSistolica {
+    HKUnit *pressureUnit = [HKUnit millimeterOfMercuryUnit];
+    HKQuantity *pressureQuantity = [HKQuantity quantityWithUnit:pressureUnit doubleValue:pressaoSistolica];
+    
+    HKQuantityType *pressureType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *pressureSample = [HKQuantitySample quantitySampleWithType:pressureType quantity:pressureQuantity startDate:now endDate:now];
+    
+    [self.healthStore saveObject:pressureSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", pressureSample, error);
+            abort();
+        }
+        [self atualizaPressaoSistolica];
+    }];
+}
+
+- (void)salvaPressaoDiastolicaNoHealthStore:(double)pressaoDiastolica {
+    HKUnit *pressureUnit = [HKUnit millimeterOfMercuryUnit];
+    HKQuantity *pressureQuantity = [HKQuantity quantityWithUnit:pressureUnit doubleValue:pressaoDiastolica];
+    
+    HKQuantityType *pressureType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *pressureSample = [HKQuantitySample quantitySampleWithType:pressureType quantity:pressureQuantity startDate:now endDate:now];
+    
+    [self.healthStore saveObject:pressureSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", pressureSample, error);
+            abort();
+        }
+        [self atualizaPressaoDiastolica];
+    }];
+}
+
+#pragma mark - Ações do teclado
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.alturaValorTextField) {
+        [self.alturaValorTextField resignFirstResponder];
+    } else if (textField == self.pesoValorTextField) {
+        [self.pesoValorTextField resignFirstResponder];
+    } else if (textField == self.imcValorTextField) {
+        [self.imcValorTextField resignFirstResponder];
+    } else if (textField == self.temperaturaCorporalValorTextField) {
+        [self.temperaturaCorporalValorTextField resignFirstResponder];
+    } else if (textField == self.pressaoSistolicaValorTextField) {
+        [self.pressaoSistolicaValorTextField resignFirstResponder];
+    } else if (textField == self.pressaoDiastolicaValorTextField) {
+        [self.pressaoDiastolicaValorTextField resignFirstResponder];
+    }
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (textField == self.alturaValorTextField) {
+        double altura = [self.alturaValorTextField.text floatValue];
+        [self salvaAlturaNoHealthStore:altura];
+    } else if (textField == self.pesoValorTextField) {
+        double peso = [self.pesoValorTextField.text floatValue];
+        [self salvaPesoNoHealthStore:peso];
+    } else if (textField == self.imcValorTextField) {
+        double imc = [self.imcValorTextField.text floatValue];
+        [self salvaImcNoHealthStore:imc];
+    } else if (textField == self.temperaturaCorporalValorTextField) {
+        double temperaturaCorporal = [self.temperaturaCorporalValorTextField.text floatValue];
+        [self salvaTemperaturaCorporalNoHealthStore:temperaturaCorporal];
+    } else if (textField == self.pressaoSistolicaValorTextField) {
+        double pressaoSistolica = [self.pressaoSistolicaValorTextField.text floatValue];
+        [self salvaPressaoSistolicaNoHealthStore:pressaoSistolica];
+    } else if (textField == self.pressaoDiastolicaValorTextField) {
+        double pressaoDiastolica = [self.pressaoDiastolicaValorTextField.text floatValue];
+        [self salvaPressaoDiastolicaNoHealthStore:pressaoDiastolica];
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    AAPLProfileViewControllerTableViewIndex index = (AAPLProfileViewControllerTableViewIndex)indexPath.row;
-    
-    // We won't allow people to change their date of birth, so ignore selection of the age cell.
-    
-    // Set up variables based on what row the user has selected.
-    NSString *title;
-    void (^valueChangedHandler)(double value);
-    
-    if (index == AAPLProfileViewControllerTableViewIndex0 && indexPath.section == 0) {
-        title = NSLocalizedString(@"Esse campo só pode ser alterado no HealthKit", nil);
-    } else if (index == AAPLProfileViewControllerTableViewIndex1 && indexPath.section == 0) {
-        title = NSLocalizedString(@"Esse campo só pode ser alterado no HealthKit", nil);
-    } else if (index == AAPLProfileViewControllerTableViewIndex2 && indexPath.section == 0) {
-        title = NSLocalizedString(@"Esse campo só pode ser alterado no HealthKit", nil);
-    } else if (index == AAPLProfileViewControllerTableViewIndex0 && indexPath.section == 1) {
-        title = NSLocalizedString(@"Digite sua altura", nil);
-        
-        valueChangedHandler = ^(double value) {
-            [self salvaAlturaNoHealthStore:value];
-        };
-    } else if (index == AAPLProfileViewControllerTableViewIndex1 && indexPath.section == 1) {
-        title = NSLocalizedString(@"Digite seu peso", nil);
-        
-        valueChangedHandler = ^(double value) {
-            [self salvaPesoNoHealthStore:value];
-        };
-    } else if (index == AAPLProfileViewControllerTableViewIndex2 && indexPath.section == 1) {
-        title = NSLocalizedString(@"Digite seu IMC", nil);
+    if (indexPath.row == 0 && indexPath.section == 1) {
+        [self.alturaValorTextField becomeFirstResponder];
+    } else if (indexPath.row == 1 && indexPath.section == 1) {
+        [self.pesoValorTextField becomeFirstResponder];
+    } else if (indexPath.row == 2 && indexPath.section == 1) {
+        [self.imcValorTextField becomeFirstResponder];
+    } else if (indexPath.row == 0 && indexPath.section == 2) {
+        [self.temperaturaCorporalValorTextField becomeFirstResponder];
+    } else if (indexPath.row == 1 && indexPath.section == 2) {
+        [self.pressaoSistolicaValorTextField becomeFirstResponder];
+    } else if (indexPath.row == 2 && indexPath.section == 2){
+        [self.pressaoDiastolicaValorTextField becomeFirstResponder];
     }
     
-    // Criando um alerta para ser apresentado
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    // Adicionando um textField para que o usuário possa colocar um valor numérico
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        // Só permite que o usuário entre com um valor válido
-        textField.keyboardType = UIKeyboardTypeDecimalPad;
-    }];
-    
-    // Criando o botão "OK"
-    NSString *okTitle = NSLocalizedString(@"OK", nil);
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        UITextField *textField = alertController.textFields.firstObject;
-        
-        double value = textField.text.doubleValue;
-        
-        valueChangedHandler(value);
-        
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }];
-    
-    [alertController addAction:okAction];
-    
-    // Criando o botão "Cancelar"
-    NSString *cancelTitle = NSLocalizedString(@"Cancel", nil);
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }];
-    
-    [alertController addAction:cancelAction];
-    
-    // Apresentando o alerta
-    [self presentViewController:alertController animated:YES completion:nil];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

@@ -94,33 +94,66 @@
  */
 - (void)salvarUsuarioNuvem {
     
-    //[self conexaoParse];
+    if (!_usuario.objectID || [_usuario.objectID isEqualToString:@""]) {
+        PFObject *classeUsuario = [PFObject objectWithClassName:@"Usuario"];
+        classeUsuario[@"nome"] = _usuario.nome;
+        classeUsuario[@"cpf"] = _usuario.cpf;
+        classeUsuario[@"rg"] = _usuario.rg;
+        classeUsuario[@"endereco"] = _usuario.endereco;
+        classeUsuario[@"cep"] = _usuario.cep;
+        classeUsuario[@"cidade"] = _usuario.cidade;
+        classeUsuario[@"estado"] = _usuario.estado;
+        classeUsuario[@"email"] = _usuario.email;
+        classeUsuario[@"telefone"] = _usuario.telefone;
+        //classeUsuario[@"fichaMedica"] = _fichaMedica.objectID;
+        //classeUsuario[@"infoConvenio"] = _infoConvenio.objectID;
+        classeUsuario[@"senha"] = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
+        
+        [classeUsuario saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
+            if (succeeded) {
+                [_usuario setObjectID:classeUsuario.objectId];
+                [_usuario setSenha:classeUsuario[@"senha"]];
+                [self salvarUsuarioLocal];
+                [self relacionaObjetos];
+            }
+        }];
+    }
     
-    PFObject *classeUsuario = [PFObject objectWithClassName:@"Usuario"];
-    classeUsuario[@"nome"] = _usuario.nome;
-    classeUsuario[@"cpf"] = _usuario.cpf;
-    classeUsuario[@"rg"] = _usuario.rg;
-    classeUsuario[@"endereco"] = _usuario.endereco;
-    classeUsuario[@"cep"] = _usuario.cep;
-    classeUsuario[@"cidade"] = _usuario.cidade;
-    classeUsuario[@"estado"] = _usuario.estado;
-    classeUsuario[@"email"] = _usuario.email;
-    classeUsuario[@"telefone"] = _usuario.telefone;
-    //classeUsuario[@"fichaMedica"] = _fichaMedica.objectID;
-    //classeUsuario[@"infoConvenio"] = _infoConvenio.objectID;
-    classeUsuario[@"senha"] = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
-    
-    [classeUsuario saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
-        if (succeeded) {
-            [_usuario setObjectID:classeUsuario.objectId];
-            [_usuario setSenha:classeUsuario[@"senha"]];
-            [self salvarUsuarioLocal];
-            [self relacionaObjetos];
-        }
-    }];
-    
+    else {
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Usuario"];
+        
+        [query getObjectInBackgroundWithId:_usuario.objectID block:^(PFObject *classeUsuario, NSError *erro) {
+            
+            classeUsuario[@"nome"] = _usuario.nome;
+            classeUsuario[@"cpf"] = _usuario.cpf;
+            classeUsuario[@"rg"] = _usuario.rg;
+            classeUsuario[@"endereco"] = _usuario.endereco;
+            classeUsuario[@"cep"] = _usuario.cep;
+            classeUsuario[@"cidade"] = _usuario.cidade;
+            classeUsuario[@"estado"] = _usuario.estado;
+            classeUsuario[@"email"] = _usuario.email;
+            classeUsuario[@"telefone"] = _usuario.telefone;
+            
+            [classeUsuario saveInBackground];
+        }];
+
+    }
 }
 
+/**
+ * @description Deleta o registro do usuário da base de dados na nuvem.
+ */
+- (void)deletarUsuarioNuvem {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Usuario"];
+    
+    [query getObjectInBackgroundWithId:_usuario.objectID block:^(PFObject *classeUsuario, NSError *erro) {
+        
+        [classeUsuario deleteInBackground];
+    }];
+
+}
 
 
 /**
@@ -159,27 +192,62 @@
  */
 - (void)salvarFichaNuvem {
     
-    //[self conexaoParse];
-    
-    PFObject *classeFichaMedica = [PFObject objectWithClassName:@"FichaMedica"];
-    classeFichaMedica[@"dataNascimento"] = _fichaMedica.dataNascimento;
-    classeFichaMedica[@"sexo"] = _fichaMedica.sexo;
-    classeFichaMedica[@"grupoSanguineo"] = _fichaMedica.grupoSanguineo;
-    classeFichaMedica[@"altura"] = _fichaMedica.altura;
-    classeFichaMedica[@"imc"] = _fichaMedica.indiceMassaCorporal;
-    classeFichaMedica[@"peso"] = _fichaMedica.peso;
-    classeFichaMedica[@"pressaoSistolica"] = _fichaMedica.pressaoArterialSistolica;
-    classeFichaMedica[@"pressaoDiastolica"] = _fichaMedica.pressaoArterialDiastolica;
-    classeFichaMedica[@"temperaturaCorporal"] = _fichaMedica.temperaturaCorporal;
-    
-    [classeFichaMedica saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
-        if (succeeded) {
-            [_fichaMedica setObjectID:classeFichaMedica.objectId];
-            [self salvarFichaLocal];
-        }
-    }];
-
+    if (!_fichaMedica.objectID || [_fichaMedica.objectID isEqualToString:@""]) {
+        
+        PFObject *classeFichaMedica = [PFObject objectWithClassName:@"FichaMedica"];
+        classeFichaMedica[@"dataNascimento"] = _fichaMedica.dataNascimento;
+        classeFichaMedica[@"sexo"] = _fichaMedica.sexo;
+        classeFichaMedica[@"grupoSanguineo"] = _fichaMedica.grupoSanguineo;
+        classeFichaMedica[@"altura"] = _fichaMedica.altura;
+        classeFichaMedica[@"imc"] = _fichaMedica.indiceMassaCorporal;
+        classeFichaMedica[@"peso"] = _fichaMedica.peso;
+        classeFichaMedica[@"pressaoSistolica"] = _fichaMedica.pressaoArterialSistolica;
+        classeFichaMedica[@"pressaoDiastolica"] = _fichaMedica.pressaoArterialDiastolica;
+        classeFichaMedica[@"temperaturaCorporal"] = _fichaMedica.temperaturaCorporal;
+        
+        [classeFichaMedica saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
+            if (succeeded) {
+                [_fichaMedica setObjectID:classeFichaMedica.objectId];
+                [self salvarFichaLocal];
+                [self relacionaObjetos];
+            }
+        }];
+    }
+    else {
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"FichaMedica"];
+        
+        [query getObjectInBackgroundWithId:_fichaMedica.objectID block:^(PFObject *classeFichaMedica, NSError *erro) {
+            
+            classeFichaMedica[@"dataNascimento"] = _fichaMedica.dataNascimento;
+            classeFichaMedica[@"sexo"] = _fichaMedica.sexo;
+            classeFichaMedica[@"grupoSanguineo"] = _fichaMedica.grupoSanguineo;
+            classeFichaMedica[@"altura"] = _fichaMedica.altura;
+            classeFichaMedica[@"imc"] = _fichaMedica.indiceMassaCorporal;
+            classeFichaMedica[@"peso"] = _fichaMedica.peso;
+            classeFichaMedica[@"pressaoSistolica"] = _fichaMedica.pressaoArterialSistolica;
+            classeFichaMedica[@"pressaoDiastolica"] = _fichaMedica.pressaoArterialDiastolica;
+            classeFichaMedica[@"temperaturaCorporal"] = _fichaMedica.temperaturaCorporal;
+            
+            [classeFichaMedica saveInBackground];
+        }];
+    }
 }
+
+/**
+ * @description Deleta o registro da ficha médica da base de dados na nuvem.
+ */
+- (void)deletarFichaNuvem {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"FichaMedica"];
+    
+    [query getObjectInBackgroundWithId:_fichaMedica.objectID block:^(PFObject *classeFichaMedica, NSError *erro) {
+        
+        [classeFichaMedica deleteInBackground];
+    }];
+    
+}
+
 
 /**
  * @description Carregar os dados de informações do convênio da base de dados que fica na nuvem. O método atualiza o objeto de informações do convênio da classe, mas é necessário que a propriedade 'objectID' do objeto esteja preenchido.
@@ -187,7 +255,6 @@
  */
 - (InfoConvenio *)carregarInfoConvenioNuvem {
     
-    //[self conexaoParse];
     
     if (![_infoConvenio.objectID isEqualToString:@""]) {
         
@@ -213,21 +280,56 @@
  */
 - (void)salvarInfoConvenioNuvem {
     
-    //[self conexaoParse];
     
-    PFObject *classeInfoConvenio = [PFObject objectWithClassName:@"InfoConvenio"];
-    classeInfoConvenio[@"nomePlanoSaude"] = _infoConvenio.nomePlanodeSaude;
-    classeInfoConvenio[@"numCartao"] = _infoConvenio.numCartao;
-    classeInfoConvenio[@"beneficiario"] = _infoConvenio.beneficiario;
-    classeInfoConvenio[@"titular"] = _infoConvenio.titular;
-    classeInfoConvenio[@"inicio"] = _infoConvenio.inicioValidade;
-    classeInfoConvenio[@"termino"] = _infoConvenio.terminoValidade;
+    //se o objectId estiver nulo ou vazio, é criado um novo registro
+    if (!_infoConvenio.objectID || [_infoConvenio.objectID isEqualToString:@""]) {
+        
+        PFObject *classeInfoConvenio = [PFObject objectWithClassName:@"InfoConvenio"];
+        
+        classeInfoConvenio[@"nomePlanoSaude"] = _infoConvenio.nomePlanodeSaude;
+        classeInfoConvenio[@"numCartao"] = _infoConvenio.numCartao;
+        classeInfoConvenio[@"beneficiario"] = _infoConvenio.beneficiario;
+        classeInfoConvenio[@"titular"] = _infoConvenio.titular;
+        classeInfoConvenio[@"inicio"] = _infoConvenio.inicioValidade;
+        classeInfoConvenio[@"termino"] = _infoConvenio.terminoValidade;
+        
+        [classeInfoConvenio saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
+            if (succeeded) {
+                [_infoConvenio setObjectID:classeInfoConvenio.objectId];
+                [self salvarInfoConvenioLocal];
+                [self relacionaObjetos];
+            }
+        }];
+    }
+    //se estiver preenchido, o registro é localizado e atualizado
+    else {
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"InfoConvenio"];
+        
+        [query getObjectInBackgroundWithId:_infoConvenio.objectID block:^(PFObject *classeInfoConvenio, NSError *erro) {
+            
+            classeInfoConvenio[@"nomePlanoSaude"] = _infoConvenio.nomePlanodeSaude;
+            classeInfoConvenio[@"numCartao"] = _infoConvenio.numCartao;
+            classeInfoConvenio[@"beneficiario"] = _infoConvenio.beneficiario;
+            classeInfoConvenio[@"titular"] = _infoConvenio.titular;
+            classeInfoConvenio[@"inicio"] = _infoConvenio.inicioValidade;
+            classeInfoConvenio[@"termino"] = _infoConvenio.terminoValidade;
+            
+            [classeInfoConvenio saveInBackground];
+        }];
+    }
+}
+
+/**
+ * @description Deleta o registro das informações de convênio da base de dados na nuvem.
+ */
+- (void)deletarInfoConvenioNuvem {
     
-    [classeInfoConvenio saveInBackgroundWithBlock:^(bool succeeded, NSError *error) {
-        if (succeeded) {
-            [_infoConvenio setObjectID:classeInfoConvenio.objectId];
-            [self salvarInfoConvenioLocal];
-        }
+    PFQuery *query = [PFQuery queryWithClassName:@"InfoConvenio"];
+    
+    [query getObjectInBackgroundWithId:_infoConvenio.objectID block:^(PFObject *classeInfoConvenio, NSError *erro) {
+        
+        [classeInfoConvenio deleteInBackground];
     }];
     
 }
@@ -243,9 +345,12 @@
         
         classeUsuario[@"fichaMedica"] = _fichaMedica.objectID;
         classeUsuario[@"infoConvenio"] = _infoConvenio.objectID;
-        [classeUsuario saveInBackground];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UsuarioSincronizado" object:nil];
-
+        [classeUsuario saveInBackgroundWithBlock:^(bool succeeded, NSError *erro) {
+            
+            if (succeeded)
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"UsuarioSincronizado" object:[_usuario senha]];
+            
+        }];
     }];
     
 }
