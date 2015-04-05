@@ -100,7 +100,18 @@
             }
         }];
     }
+}
 
+- (IBAction)apagarTodosDados:(id)sender {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Apagar Dados"
+                                                    message:@"Deseja apagar também os dados salvos na nuvem?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancelar"
+                                          otherButtonTitles:@"Não", @"Sim", nil];
+    
+    [alert show];
+    
 }
 
 // Retorna os tipos de dados que desejamos atualizar no HealthKit.
@@ -111,7 +122,7 @@
              
     return [NSSet setWithObjects:altura, peso, imc,nil];
 }
-         
+
 // Retorna os tipos de dados que desejamos ler do HealthKit.
 - (NSSet *)dadosParaLer {
     HKCharacteristicType *dataNascimento = [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth];
@@ -120,8 +131,70 @@
     HKQuantityType *altura = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
     HKQuantityType *peso = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
     HKQuantityType *imc = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
-             
+    
     return [NSSet setWithObjects:altura, peso, imc, dataNascimento, tipoSanguineo, sexo, nil];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"Dados apagados"
+                                                      message:@"Os dados foram apagados com sucesso!"
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+    
+    UIAlertView *cancelarAlert = [[UIAlertView alloc] initWithTitle:@"Operação cancelada"
+                                                      message:@"A operação de apagar os dados foi cancelada."
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+    
+    
+    switch (buttonIndex) {
+            
+        case 0: //botao cancelar
+            
+            [cancelarAlert show];
+            
+            break;
+            
+        case 1: //botao não
+            
+            persistencia.usuario = [[Usuario alloc] init];
+            [persistencia salvarUsuarioLocal];
+            
+            persistencia.fichaMedica = [[FichaMedica alloc] init];
+            [persistencia salvarFichaLocal];
+            
+            persistencia.infoConvenio = [[InfoConvenio alloc] init];
+            [persistencia salvarInfoConvenioLocal];
+            
+            [okAlert show];
+            
+            break;
+            
+        case 2: //botao sim
+            
+            [persistencia deletarUsuarioNuvem];
+            persistencia.usuario = [[Usuario alloc] init];
+            [persistencia salvarUsuarioNuvem];
+            
+            [persistencia deletarFichaNuvem];
+            persistencia.fichaMedica = [[FichaMedica alloc] init];
+            [persistencia salvarFichaLocal];
+            
+            [persistencia deletarInfoConvenioNuvem];
+            persistencia.infoConvenio = [[InfoConvenio alloc] init];
+            [persistencia salvarInfoConvenioLocal];
+            
+            [okAlert show];
+            
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 @end

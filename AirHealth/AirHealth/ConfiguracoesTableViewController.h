@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AboutViewController.h"
 @import HealthKit;
 
+@interface ConfiguracoesTableViewController : UITableViewController<UIAlertViewDelegate>
 
 @property HKHealthStore *healthStore;
+
+- (IBAction)apagarTodosDados:(id)sender;
+
 
 @end

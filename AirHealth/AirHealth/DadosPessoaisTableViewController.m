@@ -37,17 +37,36 @@
     __weak IBOutlet UIImageView *imagem;
     __weak IBOutlet UIButton *selecionaFotoBotao;
     
-    UIViewController *viewController;
-    UIView *view;
+    UIDatePicker *datePicker;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tocouNaView)];
+    [self.view addGestureRecognizer:tap];
+    
     selecionaFotoBotao.tintColor = [UIColor colorWithRed:0.2470588235 green:0.7450980392 blue:0.5921568627 alpha:1];
     imagem.layer.borderColor = [[UIColor lightGrayColor]CGColor];
-    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
-    [validadeInicioTextField setInputView:datePicker];
+    
+    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, 0, 0)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 250)];
+    UIView *viewBotao = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    UIButton *botaoConfirma = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-100, 0, 90, 50)];
+    
+    [datePicker setDatePickerMode:UIDatePickerModeDate];
+    viewBotao.backgroundColor = [UIColor lightGrayColor];
+    [botaoConfirma setTitle:@"Concluído" forState:UIControlStateNormal];
+    [botaoConfirma addTarget:self action:@selector(confirmaData) forControlEvents:UIControlEventTouchUpInside];
+    [botaoConfirma setTitleColor:[UIColor colorWithRed:0.07058823529 green:0.3960784314 blue:0.9803921569 alpha:1] forState:UIControlStateNormal];
+    
+    [view addSubview:datePicker];
+    [view addSubview:viewBotao];
+    [view addSubview:botaoConfirma];
+    
+    [validadeInicioTextField setInputView:view];
+    [validadeFimTextField setInputView:view];
+    
     nomeTextField.delegate = self;
     cpfTextField.delegate = self;
     rgTextField.delegate = self;
@@ -61,15 +80,54 @@
     numeroPlanoTextField.delegate = self;
     validadeInicioTextField.delegate = self;
     validadeFimTextField.delegate = self;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.tableView.contentInset = UIEdgeInsetsMake(20.0, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);
     
     persistencia = [Persistencia sharedInstance];
+}
+
+- (void)tocouNaView {
+    if ([nomeTextField isFirstResponder]) {
+        [nomeTextField resignFirstResponder];
+    } else if ([cpfTextField isFirstResponder]) {
+        [cpfTextField resignFirstResponder];
+    } else if ([rgTextField isFirstResponder]) {
+        [rgTextField resignFirstResponder];
+    } else if ([emailTextField isFirstResponder]) {
+        [emailTextField resignFirstResponder];
+    } else if ([telefoneTextField isFirstResponder]) {
+        [telefoneTextField resignFirstResponder];
+    } else if ([enderecoTextField isFirstResponder]) {
+        [enderecoTextField resignFirstResponder];
+    } else if ([cepTextField isFirstResponder]) {
+        [cepTextField resignFirstResponder];
+    } else if ([cidadeTextField isFirstResponder]) {
+        [cidadeTextField resignFirstResponder];
+    } else if ([estadoTextField isFirstResponder]) {
+        [estadoTextField resignFirstResponder];
+    } else if ([nomePlanoTextField isFirstResponder]) {
+        [nomePlanoTextField resignFirstResponder];
+    } else if ([numeroPlanoTextField isFirstResponder]) {
+        [numeroPlanoTextField resignFirstResponder];
+    } else if ([validadeInicioTextField isFirstResponder]) {
+        [validadeInicioTextField resignFirstResponder];
+    } else {
+        [validadeFimTextField resignFirstResponder];
+    }
+}
+
+- (void)confirmaData {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy"];
     
+    NSString *theDate = [dateFormat stringFromDate:datePicker.date];
+    
+    if ([validadeInicioTextField isFirstResponder]) {
+        validadeInicioTextField.text = [NSString stringWithFormat:@"%@",theDate];
+        [validadeFimTextField becomeFirstResponder];
+    } else if ([validadeFimTextField isFirstResponder]) {
+        validadeFimTextField.text = [NSString stringWithFormat:@"%@",theDate];
+        [validadeFimTextField resignFirstResponder];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
