@@ -14,5 +14,7 @@
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (strong, nonatomic) NSArray *imagensPrimeiro;
 @property (strong, nonatomic) NSArray *imagens;
+@property (strong, nonatomic) NSArray *titulos;
+@property (strong, nonatomic) NSArray *textos;
 
 @end

@@ -12,22 +12,43 @@
 @interface SincronizarViewController (){
     int contAnimacao;
     Persistencia *persistencia;
+    bool click;
+    bool senhaGerada;
+    __block NSString *senha;
 }
 
 @end
 
 @implementation SincronizarViewController
-@synthesize imageCruz, buttonSincronizar, labelSincronizando;
+@synthesize imageCruz, buttonSincronizar, labelSincronizando, labelSenha,imageOk, labelOk;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [imageCruz setUserInteractionEnabled:YES];
     [buttonSincronizar setUserInteractionEnabled:YES];
     buttonSincronizar.adjustsImageWhenHighlighted = NO;
     [labelSincronizando setHidden:YES];
-    
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [imageCruz bringSubviewToFront:buttonSincronizar];
+    click = NO;
+    senhaGerada = NO;
     persistencia = [Persistencia sharedInstance];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha) name:@"UsuarioSincronizado" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha:) name:@"UsuarioSincronizado" object:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    if(senhaGerada){
+        labelSenha.alpha=0;
+        labelSincronizando.alpha=0;
+        imageOk.alpha=0;
+        labelOk.alpha=0;
+        imageCruz.alpha=1;
+        buttonSincronizar.alpha=1;
+        self.view.backgroundColor = [UIColor whiteColor];
+        click=NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,71 +59,76 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *toque = [[event allTouches]anyObject];
     
-    if([toque view] == imageCruz || [toque view] == buttonSincronizar){
-        [self scaleImageView];
+    if([toque view] == imageCruz){
+        if(click == NO){
+            [self tremblingButton];
+            [self scaleImageReverse];
+            [self rotateImageView];
+            [self enviarDadosPraNuvem];
+        }
+    }
+    click = YES;
+    
+}
+
+- (void)rotateImageView{
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [imageCruz setTransform:CGAffineTransformRotate(imageCruz.transform, M_PI_2)];
+                     }completion:^(BOOL finished){
+                         if(finished){
+                             [self rotateImageView];
+                         }
+                     }];
+}
+
+- (void)tremblingButton{
+    //[imageCruz setEnabled:YES];
+    
+    CAKeyframeAnimation * anim = [CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
+    anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-4.0f, -1.0f, 0.0f) ],[ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(4.0f, 1.0f, 0.0f) ] ] ;
+    anim.autoreverses = YES ;
+    anim.repeatCount = 10000000;
+    anim.duration = 0.1f ;
+    
+    [buttonSincronizar.layer addAnimation:anim forKey:nil ] ;
+
+}
+
+-(void)scaleImageReverse{
+    [labelSincronizando setHidden:NO];
+    
+    [UIView animateWithDuration:1.0
+                          delay:0
+                        options: UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         buttonSincronizar.transform = CGAffineTransformMakeScale(1.1, 1.1);
+                     }
+                     completion:nil
+                     ];
+
+}
+
+-(void)sincronizar:(id)sender{
+    
+    if(click==NO){
+        [self tremblingButton];
+        [self scaleImageReverse];
         [self rotateImageView];
         [self enviarDadosPraNuvem];
     }
     
+    click = YES;
 }
 
--(void)scaleImageView{
-    float buttonWidth = buttonSincronizar.frame.size.width;
-    float buttonHeight = buttonSincronizar.frame.size.height;
-    float buttonX = buttonSincronizar.frame.origin.x;
-    float buttonY = buttonSincronizar.frame.origin.y;
-    
-    buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
-    buttonSincronizar.transform = CGAffineTransformMakeScale(1.25, 1.25);
-    
-    [labelSincronizando setHidden:NO];
-    
-    [UIView animateWithDuration:1
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         buttonSincronizar.transform = CGAffineTransformIdentity;
-                         buttonSincronizar.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
-                         
-                         if(contAnimacao == 0){
-                            labelSincronizando.text = @"Sincronizando";
-                         }
-                         else if (contAnimacao == 1){
-                             labelSincronizando.text = @"Sincronizando.";
-                         }
-                         else if(contAnimacao == 2){
-                             labelSincronizando.text = @"Sincronizando..";
-                         }
-                         else if(contAnimacao == 3){
-                             labelSincronizando.text = @"Sincronizando...";
-                         }
-                     }
-                     completion:^(BOOL finished){
-                         if(finished){
-                             [self scaleImageView];
-                         }
-     }];
-    contAnimacao++;
-    if(contAnimacao==4){
-        contAnimacao=0;
-    }
-}
-
-- (void)rotateImageView
-{
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [imageCruz setTransform:CGAffineTransformRotate(imageCruz.transform, M_PI_2)];
-    }completion:^(BOOL finished){
-        if(finished){
-            [self rotateImageView];
-        }
-    }];
-}
-
--(void)sincronizar:(id)sender{
-    [self scaleImageView];
-    [self rotateImageView];
-    [self enviarDadosPraNuvem];
+- (void)stopAnimation{
+    imageCruz = nil;
+    buttonSincronizar = nil;
+    [labelSincronizando setHidden:YES];
+    labelSincronizando = nil;
+    [super viewDidLoad];
 }
 
 - (void)enviarDadosPraNuvem {
@@ -111,13 +137,39 @@
     [persistencia salvarUsuarioNuvem];
 }
 
-- (void)exibirSenha {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"TA SUSSA"
-                                                     message:[persistencia.usuario senha]
-                                                    delegate:nil
-                                           cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil];
-    [alert show];
+- (void)exibirSenha:(NSNotification *)not {
+    
+    senha = not.object;
+    
+    [UIView animateWithDuration:2.0 animations:^{
+        imageCruz.alpha = 1.0;
+        buttonSincronizar.alpha = 1.0;
+        labelSincronizando.alpha = 1.0;
+        labelSincronizando.alpha = 0.0;
+        
+    }];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        #define Rgb2UIColor(r, g, b)  [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:1.0];
+        self.view.backgroundColor = Rgb2UIColor(58, 191, 151);
+        imageCruz.alpha = 0.0;
+        buttonSincronizar.alpha = 0.0;
+        labelSincronizando.alpha = 0.0;
+    }];
+    
+    [UIView animateWithDuration:2.0 animations:^{
+        labelSenha.text = [NSString stringWithFormat:@"Senha: %@", senha];
+        
+        UIView *rect = [[UIView alloc]initWithFrame:CGRectMake(self.tabBarController.tabBar.frame.origin.x, self.tabBarController.tabBar.frame.origin.y, self.tabBarController.tabBar.frame.size.width, self.tabBarController.tabBar.frame.size.height)];
+        
+        rect.backgroundColor=[UIColor whiteColor];
+        [self.view addSubview:rect];
+        imageOk.alpha = 1.0;
+        labelSenha.alpha = 1.0;
+        labelOk.alpha = 1.0;
+    }];
+    
+    senhaGerada = YES;
 }
 
 /*

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 @import HealthKit;
 
-@interface ConfiguracoesTableViewController : UITableViewController
 
 @property HKHealthStore *healthStore;
 

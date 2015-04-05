@@ -8,12 +8,18 @@
 
 #import "ConfiguracoesTableViewController.h"
 #import "PageViewController.h"
+#import "Persistencia.h"
+#import "Usuario.h"
+#import "FichaMedica.h"
+#import "InfoConvenio.h"
 
 @interface ConfiguracoesTableViewController ()
 
 @end
 
-@implementation ConfiguracoesTableViewController
+@implementation ConfiguracoesTableViewController {
+    Persistencia *persistencia;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,6 +31,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    persistencia = [Persistencia sharedInstance];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,11 +41,38 @@
 
 #pragma mark - Table view data source
 
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return 2;
+//}
+//
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"celulaPadrao"];
+//    if(indexPath.section==0){
+//        if (indexPath.row == 0) {
+//            cell.textLabel.text = @"Tutorial";
+//        }
+//        else {
+//            cell.textLabel.text = @"Sobre o AirHealth";
+//        }
+//    }
+//    
+//    return cell;
+//}
+//
+//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    return 2;
+//}
+//
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0){
-        if (indexPath.section == 0) {
+    if(indexPath.section == 0){
+        if (indexPath.row == 0) {
             PageViewController *pvc = [[PageViewController alloc] init];
             [self presentViewController:pvc animated:YES completion:nil];
+        }
+        else if(indexPath.row == 1){
+            AboutViewController *avc = [[AboutViewController alloc] init];
+            [self presentViewController:avc animated:YES completion:nil];
         }
     }
     else{

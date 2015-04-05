@@ -13,9 +13,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    self.image.image = [UIImage imageNamed:self.imageFile];
+    self.image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.imageFile]];
+    self.image.frame = CGRectMake(0, 0, 300, 265);
+    self.image.center = CGPointMake(self.view.center.x, self.view.center.y);
     [self.view addSubview:self.image];
+    
+    self.titulo = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-30, 100)];
+    self.titulo.text = self.tituloTexto;
+    [self.titulo sizeToFit];
+    self.titulo.center = CGPointMake(self.view.center.x, 100);
+    [self.view addSubview:self.titulo];
+    
+    self.texto = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-30, 100)];
+    self.texto.text = self.textoTexto;
+    self.texto.numberOfLines = 3;
+    self.texto.textAlignment = NSTextAlignmentCenter;
+    [self.texto sizeToFit];
+    self.texto.center = CGPointMake(self.view.center.x, self.view.bounds.size.height-150);
+    [self.view addSubview:self.texto];
 }
 
 - (void)didReceiveMemoryWarning {

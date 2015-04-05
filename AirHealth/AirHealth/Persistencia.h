@@ -33,6 +33,10 @@
 - (void)salvarFichaNuvem;
 - (void)salvarInfoConvenioNuvem;
 
+- (void)deletarUsuarioNuvem;
+- (void)deletarFichaNuvem;
+- (void)deletarInfoConvenioNuvem;
+
 
 
 @end
