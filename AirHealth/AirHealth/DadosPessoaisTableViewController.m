@@ -11,7 +11,7 @@
 #import "Persistencia.h"
 #import "Usuario.h"
 
-@interface DadosPessoaisTableViewController () <UITextFieldDelegate>
+@interface DadosPessoaisTableViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -34,13 +34,18 @@
     __weak IBOutlet UITextField *validadeInicioTextField;
     __weak IBOutlet UITextField *validadeFimTextField;
     
+    __weak IBOutlet UIImageView *imagem;
+    __weak IBOutlet UIButton *selecionaFotoBotao;
+    
     UIViewController *viewController;
     UIView *view;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    selecionaFotoBotao.tintColor = [UIColor colorWithRed:0.2470588235 green:0.7450980392 blue:0.5921568627 alpha:1];
+    imagem.layer.borderColor = [[UIColor lightGrayColor]CGColor];
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     [validadeInicioTextField setInputView:datePicker];
     nomeTextField.delegate = self;
@@ -84,6 +89,44 @@
         estadoTextField.text = [persistencia.usuario estado];
         nomePlanoTextField.text = [persistencia.infoConvenio nomePlanodeSaude];
         numeroPlanoTextField.text = [persistencia.infoConvenio numCartao];
+}
+
+- (IBAction)selecionaFoto:(UIButton *)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [sender setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    imagem.image = chosenImage;
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    if ([imagem isOpaque]) {
+        [selecionaFotoBotao setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (NSString *)saveImage: (UIImage *)image {
+    NSString *path;
+    if (image != nil)
+    {
+        path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                   NSUserDomainMask, YES)[0];
+        path = [path stringByAppendingPathComponent:
+                [NSString stringWithFormat:@"%@.png",
+                 nomeTextField.text]];
+        NSData* data = UIImagePNGRepresentation(image);
+        [data writeToFile:path atomically:YES];
+    }
+    return path;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

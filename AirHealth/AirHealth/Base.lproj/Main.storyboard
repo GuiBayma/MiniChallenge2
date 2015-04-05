@@ -16,10 +16,52 @@
                         <sections>
                             <tableViewSection id="LBL-VK-ZKJ">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rWZ-i8-d2K">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="127" id="rWZ-i8-d2K">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rWZ-i8-d2K" id="uJp-Ni-r2X">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vw0-s2-TGH">
+                                                    <rect key="frame" x="250" y="13" width="100" height="100"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="100" id="KXj-3p-wrK"/>
+                                                        <constraint firstAttribute="width" constant="100" id="Qw4-My-bGt"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="50"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                            <integer key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkr-CI-Y7r">
+                                                    <rect key="frame" x="255" y="50" width="91" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <state key="normal" title="Selecione a foto">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="selecionaFoto:" destination="Lhb-Ss-2qh" eventType="touchUpInside" id="2rZ-tM-HRZ"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vw0-s2-TGH" firstAttribute="leading" secondItem="uJp-Ni-r2X" secondAttribute="leadingMargin" constant="242" id="3w3-BV-Arl"/>
+                                                <constraint firstAttribute="centerX" secondItem="vw0-s2-TGH" secondAttribute="centerX" id="52H-BH-FZB"/>
+                                                <constraint firstItem="pkr-CI-Y7r" firstAttribute="leading" secondItem="uJp-Ni-r2X" secondAttribute="leadingMargin" constant="259" id="558-f7-nra"/>
+                                                <constraint firstAttribute="centerX" secondItem="pkr-CI-Y7r" secondAttribute="centerX" constant="-0.5" id="QEM-Ed-yp4"/>
+                                                <constraint firstAttribute="centerY" secondItem="vw0-s2-TGH" secondAttribute="centerY" id="hYS-nn-qDz"/>
+                                                <constraint firstAttribute="centerY" secondItem="pkr-CI-Y7r" secondAttribute="centerY" id="lBX-YK-B4O"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="3w3-BV-Arl"/>
+                                                    <exclude reference="558-f7-nra"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -551,10 +593,12 @@
                         <outlet property="emailTextField" destination="qXS-zh-yU5" id="LmN-Mf-3tc"/>
                         <outlet property="enderecoTextField" destination="OAe-5R-wiT" id="RxY-ER-vzP"/>
                         <outlet property="estadoTextField" destination="SPR-VN-LwO" id="qxT-k1-4Rr"/>
+                        <outlet property="imagem" destination="vw0-s2-TGH" id="CPo-Ym-YdF"/>
                         <outlet property="nomePlanoTextField" destination="Xm7-SX-dQX" id="bVr-LQ-YEX"/>
                         <outlet property="nomeTextField" destination="THQ-Wc-FnZ" id="R2Y-sx-sXb"/>
                         <outlet property="numeroPlanoTextField" destination="QYT-Pr-ZtI" id="SEO-zh-Mm6"/>
                         <outlet property="rgTextField" destination="NRZ-cs-akI" id="Fvg-hY-HN3"/>
+                        <outlet property="selecionaFotoBotao" destination="pkr-CI-Y7r" id="ech-dW-tPq"/>
                         <outlet property="telefoneTextField" destination="h7J-53-j2T" id="UUZ-gC-i3G"/>
                         <outlet property="validadeFimTextField" destination="pwX-3j-FM9" id="yjT-GT-Knf"/>
                         <outlet property="validadeInicioTextField" destination="EEt-tY-77P" id="R90-SS-6Fx"/>
@@ -892,6 +936,9 @@
                                                         <color key="titleColor" red="0.2470588235" green="0.74509803919999995" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="permitirHealthKit:" destination="r5J-cB-4zn" eventType="touchUpInside" id="B8K-pY-Og4"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
