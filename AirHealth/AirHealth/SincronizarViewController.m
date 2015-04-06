@@ -38,6 +38,7 @@
     imageCruz.alpha = 1;
     buttonSincronizar.alpha = 1;
     [labelSincronizando setHidden:YES];
+    NSLog(@"LOAD");
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha:) name:@"UsuarioSincronizado" object:nil];
@@ -58,15 +59,8 @@
         buttonSincronizar.alpha=1;
         self.view.backgroundColor = [UIColor whiteColor];
         click=NO;
+        NSLog(@"APPEAR");
     }
-    
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    //    BOOL primeiroUso = [defaults boolForKey:@"primeiroUso"];
-//    BOOL primeiroUso = NO;
-//    if (!primeiroUso) {
-//        PageViewController *pvc = [[PageViewController alloc] init];
-//        [self presentViewController:pvc animated:YES completion:nil];
-//    }
 }
 
 - (void)pedirPermissao {
@@ -118,10 +112,7 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-    
-    
-    
+
     UITouch *toque = [[event allTouches]anyObject];
     
     if([toque view] == imageCruz){
@@ -143,10 +134,9 @@
             dadosOk = YES;
         
         if(click == NO && dadosOk) {
-            [self tremblingButton];
-            [self scaleImageReverse];
             [self rotateImageView];
             [self enviarDadosPraNuvem];
+            click=YES;
         }
         
     }
@@ -164,31 +154,6 @@
                              [self rotateImageView];
                          }
                      }];
-}
-
-- (void)tremblingButton{
-    
-    CAKeyframeAnimation * anim = [CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
-    anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-4.0f, -1.0f, 0.0f) ],[ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(4.0f, 1.0f, 0.0f) ] ] ;
-    anim.autoreverses = YES ;
-    anim.repeatCount = 100;
-    anim.duration = 0.1f ;
-    
-    [buttonSincronizar.layer addAnimation:anim forKey:nil ] ;
-
-}
-
--(void)scaleImageReverse{
-    
-    [UIView animateWithDuration:1.0
-                          delay:0
-                        options: UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction
-                     animations:^{
-                         buttonSincronizar.transform = CGAffineTransformMakeScale(1.1, 1.1);
-                     }
-                     completion:nil
-                     ];
-
 }
 
 -(void)sincronizar:(id)sender{
@@ -211,8 +176,6 @@
     
     
     if(click == NO && dadosOk) {
-        [self tremblingButton];
-        [self scaleImageReverse];
         [self rotateImageView];
         [self enviarDadosPraNuvem];
         click = YES;
@@ -223,7 +186,7 @@
 
 - (void)stopAnimation{
     [imageCruz.layer removeAllAnimations];
-    [buttonSincronizar.layer removeAllAnimations];
+    [buttonSincronizar.imageView.layer removeAllAnimations];
 }
 
 - (void)enviarDadosPraNuvem {

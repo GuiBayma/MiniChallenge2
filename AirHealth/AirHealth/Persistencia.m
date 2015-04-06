@@ -159,7 +159,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Usuario"];
     
     [query getObjectInBackgroundWithId:_usuario.objectID block:^(PFObject *classeUsuario, NSError *erro) {
-        
+        [self.usuario setObjectID:nil];
         [classeUsuario deleteInBackground];
     }];
 
@@ -252,8 +252,9 @@
     PFQuery *query = [PFQuery queryWithClassName:@"FichaMedica"];
     
     [query getObjectInBackgroundWithId:_fichaMedica.objectID block:^(PFObject *classeFichaMedica, NSError *erro) {
-        
         [classeFichaMedica deleteInBackground];
+        
+        [self.fichaMedica setObjectID:nil];
     }];
     
 }
@@ -340,6 +341,8 @@
     [query getObjectInBackgroundWithId:_infoConvenio.objectID block:^(PFObject *classeInfoConvenio, NSError *erro) {
         
         [classeInfoConvenio deleteInBackground];
+        
+        [self.infoConvenio setObjectID:nil];
     }];
     
 }
