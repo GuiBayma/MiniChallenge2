@@ -14,6 +14,7 @@
 @interface Usuario : NSObject <NSCoding>
 
 @property NSString *objectID;
+@property NSData *imagem;
 @property NSString *nome;
 @property NSString *cpf;
 @property NSString *rg;

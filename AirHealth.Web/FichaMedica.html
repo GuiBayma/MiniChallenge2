@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Ficha Médica - AirHealth</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.4.0.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+  </head>
+
+  <script type="text/javascript">
+
+    function formataData(data) {
+
+      date = new Date(data)
+      var dd = date.getDate(); 
+      var mm = date.getMonth()+1;
+      var yyyy = date.getFullYear(); 
+      
+      if(dd < 10)
+        dd = '0' + dd;
+
+      if(mm < 10)
+        mm = '0' + mm;
+
+      return d = dd + '/' + mm + '/' + yyyy;
+    }
+
+    function preencheFormulario() {
+
+      //pegando objectId do usuario
+      var usuarioId = localStorage.getItem("usuarioId");
+  
+      //referenciando inputs para preenchimento
+      var usuarioImg = document.getElementById("imgUsuario")
+      var inputNome = document.getElementById("nomeInput");
+      var inputDataNasc = document.getElementById("dataNascInput");
+      var inputCPF = document.getElementById("cpfInput");
+      var inputRG = document.getElementById("rgInput");
+      var inputEmail = document.getElementById("emailInput");
+      var inputEndereco = document.getElementById("enderecoInput");
+      var inputCep = document.getElementById("cepInput");
+      var inputCidade = document.getElementById("cidadeInput");
+      var inputEstado = document.getElementById("estadoInput");
+
+      var inputSexo = document.getElementById("sexoInput");
+      var inputAltura = document.getElementById("alturaInput");
+      var inputPeso = document.getElementById("pesoInput");
+      var inputImc = document.getElementById("imcInput");
+      var inputGrupoSanguineo = document.getElementById("grupoSanguineoInput");
+      var inputSistolica = document.getElementById("sistolicaInput");
+      var inputDiastolica = document.getElementById("diastolicaInput");
+      var inputTemperaturaCorporal = document.getElementById("temperaturaInput");
+
+      var labelNomePlano = document.getElementById("lblNomePlano");
+      var inputNumCartao = document.getElementById("numCartaoInput");
+      var inputInicio = document.getElementById("inicioInput");
+      var inputTermino = document.getElementById("terminoInput");
+
+      Parse.initialize("fD0pEnOJYuRPQMaTexrZ4ZwYIg8LVsBWJgCh0PN5", "gGxjzMDV2jKKb4XKlGxNql63RYUUOY8VsCDA9cwG");
+
+      var Usuario = Parse.Object.extend("Usuario");
+      var query = new Parse.Query(Usuario);
+
+      var fichaMedicaID;
+      var infoConvenioID;
+
+      query.get(usuarioId, {
+        success: function(resultUsuario) {
+          
+          var arquivoImg = resultUsuario.get("imagem");
+          usuarioImg.src = arquivoImg.url();
+          inputNome.value = resultUsuario.get("nome");
+          inputCPF.value = resultUsuario.get("cpf");
+          inputRG.value = resultUsuario.get("rg");
+          inputEndereco.value = resultUsuario.get("endereco");
+          inputCep.value = resultUsuario.get("cep");
+          inputCidade.value = resultUsuario.get("cidade");
+          inputEstado.value = resultUsuario.get("estado");
+          inputEmail.value = resultUsuario.get("email");
+
+          fichaMedicaID = resultUsuario.get("fichaMedica");
+          infoConvenioID = resultUsuario.get("infoConvenio");
+
+          var FichaMedica = Parse.Object.extend("FichaMedica");
+          var query = new Parse.Query(FichaMedica);
+
+          query.get(fichaMedicaID, {
+            success: function(resultFicha) {
+              
+              inputDataNasc.value = formataData(resultFicha.get("dataNascimento"));
+              inputSexo.value = resultFicha.get("sexo");
+              inputGrupoSanguineo.value = resultFicha.get("grupoSanguineo");
+              inputAltura.value = resultFicha.get("altura");
+              inputImc.value = resultFicha.get("imc").toString().match(/^\d+(?:\.\d{0,2})?/);
+              inputPeso.value = resultFicha.get("peso");
+              inputSistolica.value = resultFicha.get("pressaoSistolica");
+              inputDiastolica.value = resultFicha.get("pressaoDiastolica");
+              inputTemperaturaCorporal.value = resultFicha.get("temperaturaCorporal");        
+            }
+
+          });
+
+          var InfoConvenio = Parse.Object.extend("InfoConvenio");
+          var query = new Parse.Query(InfoConvenio);
+
+          query.get(infoConvenioID, {
+            success: function(resultInfoConv) {
+
+              labelNomePlano.innerHTML = resultInfoConv.get("nomePlanoSaude");
+              inputNumCartao.value = resultInfoConv.get("numCartao");
+              inputInicio.value = formataData(resultInfoConv.get("inicio"));
+              inputTermino.value = formataData(resultInfoConv.get("termino"));
+
+            }
+          });
+
+        }
+      });
+
+      // var FichaMedica = Parse.Object.extend("FichaMedica");
+      // var query = new Parse.Query(FichaMedica);
+      // console.log(fichaMedicaID);
+      // query.get(fichaMedicaID, {
+      //   success: function(resultFicha) {
+          
+      //     console.log(resultFicha);
+      //     inputDataNasc.value = resultFicha.get("dataNascimento");
+      //     inputSexo.value = resultFicha.get("sexo");
+      //     inputGrupoSanguineo.value = resultFicha.get("grupoSanguineo");
+      //     inputAltura.value = resultFicha.get("altura");
+      //     inputImc.value = resultFicha.get("imc");
+      //     inputPeso.value = resultFicha.get("peso");
+      //     inputSistolica.value = resultFicha.get("pressaoSistolica");
+      //     inputDiastolica.value = resultFicha.get("pressaoDiastolica");
+      //     inputTemperaturaCorporal.value = resultFicha("temperaturaCorporal");        
+      //   }
+
+      // });
+
+      // var InfoConvenio = Parse.Object.extend("InfoConvenio");
+      // var query = new Parse.Query(InfoConvenio);
+
+      // query.get(infoConvenioID, {
+      //   success: function(resultInfoConv) {
+
+      //     labelNomePlano.innerHTML = resultInfoConv.get("nomePlanoSaude");
+      //     inputNumCartao.value = resultInfoConv.get("numCartao");
+      //     inputTitular.value = resultInfoConv.get("titular");
+      //     inputInicio.value = resultInfoConv.get("inicio");
+      //     inputTermino.value = resultInfoConv.get("termino");
+
+      //   }
+      // });
+    }
+  </script>
+
+  <body onLoad="preencheFormulario()">
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#"><img alt="Brand" id="imagem" src="cloudGreen.png"></a>
+        <form class="navbar-form navbar-left"><h4>AirHealth</h4></form>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="span12 pagination-centered">
+    
+    <div class="row">
+      <div class="col-md-12" style="padding-left:55px; padding-top:65px; padding-right:55px;">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Dados Pessoais
+          </div>
+          <div class="panel-body">
+
+
+            <div class="col-sm-2">
+              <img src="..." alt="Foto do paciente" id="imgUsuario" class="img-rounded" 
+              style="border:3px; border-style: solid; border-color: #000000; width:100%; height:100%;">
+            </div>
+
+            <div class="col-sm-4">
+
+              <form>
+                <div class="form-group">
+                  <label for="nomeInput">Nome do Paciente</label>
+                  <input type="text" class="form-control" id="nomeInput"  readonly>
+                </div>
+                <div class="form-group">
+                  <label for="dataNascInput">Data de Nascimento</label>
+                  <input type="date" class="form-control" id="dataNascInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="cpfInput">CPF</label>
+                  <input type="text" class="form-control" id="cpfInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="rgInput">RG</label>
+                  <input type="text" class="form-control" id="rgInput" readonly>
+                </div>
+              </form>
+
+            </div>
+
+            <div class="col-sm-6">
+
+              <form>
+                <div class="form-group">
+                  <label for="emailInput">Email</label>
+                  <input type="text" class="form-control" id="emailInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="enderecoInput">Endereço</label>
+                  <input type="text" class="form-control" id="enderecoInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="cepInput">CEP</label>
+                  <input type="text" class="form-control" id="cepInput" readonly>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-6" style="padding-left: 0px;">
+                    <label for="cidadeInput">Cidade</label>
+                    <input type="text" class="form-control" id="cidadeInput" readonly>
+                  </div>
+                  <div class="col-sm-6" style="padding-right: 0px;">
+                    <label for="estadoInput">Estado</label>
+                    <input type="text" class="form-control" id="estadoInput" readonly>
+                  </div> 
+                </div>
+                
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12" style="padding-left:55px; padding-top:5px; padding-right:55px;">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Ficha Médica
+          </div>
+          <div class="panel-body">
+            
+            <div class="col-sm-6">
+
+              <form>
+                <div class="form-group">
+                  <label for="sexoInput">Sexo</label>
+                  <input type="text" class="form-control" id="sexoInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="alturaInput">Altura</label>
+                  <input type="text" class="form-control" id="alturaInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="pesoInput">Peso</label>
+                  <input type="text" class="form-control" id="pesoInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="imcInput">Índice de Massa Corporal</label>
+                  <input type="text" class="form-control" id="imcInput" readonly>
+                </div>
+              </form>
+              
+            </div>
+
+            <div class="col-sm-6">
+
+              <form>
+                <div class="form-group">
+                  <label for="grupoSanguineoInput">Grupo Sanguíneo</label>
+                  <input type="text" class="form-control" id="grupoSanguineoInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="sistolicaInput">Pressão Arterial Sistólica</label>
+                  <input type="text" class="form-control" id="sistolicaInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="diastolicaInput">Pressão Arterial Diastólica</label>
+                  <input type="text" class="form-control" id="diastolicaInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="temperaturaInput">Temperatura Corporal</label>
+                  <input type="text" class="form-control" id="temperaturaInput" readonly>
+                </div>
+              </form>
+              
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12" style="padding-left:55px; padding-top:5px; padding-right:55px;">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Plano de Saúde - <label id="lblNomePlano"/>
+          </div>
+          <div class="panel-body">
+            <div class="col-sm-6">
+
+              <form>
+                <div class="form-group">
+                  <label for="numCartaoInput">Número do Cartão do Convênio</label>
+                  <input type="text" class="form-control" id="numCartaoInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="inicioInput">Início de período de validade</label>
+                  <input type="text" class="form-control" id="inicioInput" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="terminoInput">Término de período de validade</label>
+                  <input type="text" class="form-control" id="terminoInput" readonly>
+                </div>
+              </form>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+ 
+
+  </body>
+</html>

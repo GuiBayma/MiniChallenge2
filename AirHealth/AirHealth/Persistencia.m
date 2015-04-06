@@ -96,6 +96,7 @@
     
     if (!_usuario.objectID || [_usuario.objectID isEqualToString:@""]) {
         PFObject *classeUsuario = [PFObject objectWithClassName:@"Usuario"];
+        classeUsuario[@"imagem"] = [PFFile fileWithData:_usuario.imagem];
         classeUsuario[@"nome"] = _usuario.nome;
         classeUsuario[@"cpf"] = _usuario.cpf;
         classeUsuario[@"rg"] = _usuario.rg;
@@ -125,6 +126,7 @@
         
         [query getObjectInBackgroundWithId:_usuario.objectID block:^(PFObject *classeUsuario, NSError *erro) {
             
+            classeUsuario[@"imagem"] = [PFFile fileWithData:_usuario.imagem];
             classeUsuario[@"nome"] = _usuario.nome;
             classeUsuario[@"cpf"] = _usuario.cpf;
             classeUsuario[@"rg"] = _usuario.rg;
@@ -140,6 +142,8 @@
 
     }
 }
+
+
 
 /**
  * @description Deleta o registro do usuário da base de dados na nuvem.
