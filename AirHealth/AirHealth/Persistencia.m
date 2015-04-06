@@ -96,7 +96,10 @@
     
     if (!_usuario.objectID || [_usuario.objectID isEqualToString:@""]) {
         PFObject *classeUsuario = [PFObject objectWithClassName:@"Usuario"];
-        classeUsuario[@"imagem"] = [PFFile fileWithData:_usuario.imagem];
+        
+        if (![_usuario.imagem isEqual:nil])
+            classeUsuario[@"imagem"] = [PFFile fileWithData:_usuario.imagem];
+        
         classeUsuario[@"nome"] = _usuario.nome;
         classeUsuario[@"cpf"] = _usuario.cpf;
         classeUsuario[@"rg"] = _usuario.rg;
@@ -126,7 +129,9 @@
         
         [query getObjectInBackgroundWithId:_usuario.objectID block:^(PFObject *classeUsuario, NSError *erro) {
             
-            classeUsuario[@"imagem"] = [PFFile fileWithData:_usuario.imagem];
+            if (![_usuario.imagem isEqual:nil])
+                classeUsuario[@"imagem"] = [PFFile fileWithData:_usuario.imagem];
+            
             classeUsuario[@"nome"] = _usuario.nome;
             classeUsuario[@"cpf"] = _usuario.cpf;
             classeUsuario[@"rg"] = _usuario.rg;
@@ -136,8 +141,9 @@
             classeUsuario[@"estado"] = _usuario.estado;
             classeUsuario[@"email"] = _usuario.email;
             classeUsuario[@"telefone"] = _usuario.telefone;
-            
+            [self salvarUsuarioLocal];
             [classeUsuario saveInBackground];
+            [self relacionaObjetos];
         }];
 
     }
@@ -232,7 +238,7 @@
             classeFichaMedica[@"pressaoSistolica"] = _fichaMedica.pressaoArterialSistolica;
             classeFichaMedica[@"pressaoDiastolica"] = _fichaMedica.pressaoArterialDiastolica;
             classeFichaMedica[@"temperaturaCorporal"] = _fichaMedica.temperaturaCorporal;
-            
+            [self salvarFichaLocal];
             [classeFichaMedica saveInBackground];
         }];
     }
@@ -318,7 +324,7 @@
             classeInfoConvenio[@"titular"] = _infoConvenio.titular;
             classeInfoConvenio[@"inicio"] = _infoConvenio.inicioValidade;
             classeInfoConvenio[@"termino"] = _infoConvenio.terminoValidade;
-            
+            [self salvarInfoConvenioLocal];
             [classeInfoConvenio saveInBackground];
         }];
     }

@@ -93,7 +93,7 @@
     CAKeyframeAnimation * anim = [CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
     anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-4.0f, -1.0f, 0.0f) ],[ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(4.0f, 1.0f, 0.0f) ] ] ;
     anim.autoreverses = YES ;
-    anim.repeatCount = 10000000;
+    anim.repeatCount = 100;
     anim.duration = 0.1f ;
     
     [buttonSincronizar.layer addAnimation:anim forKey:nil ] ;
