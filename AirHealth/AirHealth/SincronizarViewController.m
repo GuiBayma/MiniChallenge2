@@ -33,6 +33,10 @@
     click = NO;
     senhaGerada = NO;
     persistencia = [Persistencia sharedInstance];
+    imageOk.alpha = 0;
+    labelSenha.alpha = 0;
+    imageCruz.alpha = 1;
+    buttonSincronizar.alpha = 1;
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha:) name:@"UsuarioSincronizado" object:nil];
@@ -68,7 +72,6 @@
         }
     }
     click = YES;
-    
 }
 
 - (void)rotateImageView{
@@ -128,7 +131,6 @@
     buttonSincronizar = nil;
     [labelSincronizando setHidden:YES];
     labelSincronizando = nil;
-    [super viewDidLoad];
 }
 
 - (void)enviarDadosPraNuvem {
