@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7519.1" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f6f-PN-QUO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YNQ-FS-LM0">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7513.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -63,8 +63,8 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="3w3-BV-Arl"/>
                                                     <exclude reference="558-f7-nra"/>
+                                                    <exclude reference="3w3-BV-Arl"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -613,9 +613,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RcX-eJ-MeD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="70" y="1137"/>
+            <point key="canvasLocation" x="160" y="1084"/>
         </scene>
-        <!--Ficha Médica-->
+        <!--Ficha Medica-->
         <scene sceneID="eU0-bV-4dg">
             <objects>
                 <tableViewController id="lb0-VD-t7Q" customClass="FichaMedicaTableViewController" sceneMemberID="viewController">
@@ -922,6 +922,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Ficha Médica" image="fichaMedica" id="CQY-m8-kpY"/>
+                    <navigationItem key="navigationItem" title="Ficha Medica" id="uUW-NM-eQf"/>
                     <connections>
                         <outlet property="alturaUnidadeLabel" destination="Wkq-80-b6y" id="b2O-oR-i2X"/>
                         <outlet property="alturaValorTextField" destination="O3v-vK-FzW" id="Hjw-4T-Sd4"/>
@@ -1294,10 +1295,27 @@
             </objects>
             <point key="canvasLocation" x="-654" y="1137.75"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yw4-jS-aFQ">
+            <objects>
+                <navigationController id="YNQ-FS-LM0" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ew0-LZ-Sig">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="f6f-PN-QUO" kind="relationship" relationship="rootViewController" id="87T-Qo-RoD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bfm-7I-lPR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-492" y="318"/>
+        </scene>
         <!--Main Tab Bar View Controller-->
         <scene sceneID="RoT-ZJ-iDA">
             <objects>
                 <tabBarController storyboardIdentifier="TabBarController" id="f6f-PN-QUO" customClass="MainTabBarViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" prompt="" id="0zq-mc-LeY"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="8vu-AW-yCb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -1313,14 +1331,14 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bma-dE-N3Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="371" y="381"/>
+            <point key="canvasLocation" x="264" y="294"/>
         </scene>
     </scenes>
     <resources>
         <image name="Ok" width="436" height="436"/>
         <image name="cloud" width="600" height="382"/>
         <image name="configuracoes" width="64" height="64"/>
-        <image name="cruz" width="80" height="79"/>
+        <image name="cruz" width="144" height="143"/>
         <image name="dadosPessoais" width="64" height="64"/>
         <image name="fichaMedica" width="64" height="64"/>
         <image name="heathIcon" width="32" height="32"/>

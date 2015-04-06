@@ -46,7 +46,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
+    [self.navigationController.navigationBar.topItem setTitle:@"Sincronização"];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -67,6 +67,16 @@
 //        PageViewController *pvc = [[PageViewController alloc] init];
 //        [self presentViewController:pvc animated:YES completion:nil];
 //    }
+    
+    [self.navigationController.navigationBar.topItem setTitle:@"Sincronização"];
+    
+    //ajustando view entre a navigation e a tabbar
+    CGFloat tabBarHeight = self.tabBarController.tabBar.bounds.size.height;
+    CGFloat navBarHeight = self.navigationController.navigationBar.bounds.size.height;
+    CGRect frame = self.view.frame;
+    frame.size.height = frame.size.height - navBarHeight - tabBarHeight;
+    frame.origin.y += navBarHeight;
+    self.view.frame = frame;
 }
 
 - (void)pedirPermissao {

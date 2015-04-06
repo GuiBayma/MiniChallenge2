@@ -88,6 +88,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
     // first view controller that's shown to the user, so we'll ask for all of the desired HealthKit permissions now.
     // In your own app, you should consider requesting permissions the first time a user wants to interact with
     // HealthKit data.
+    
     if ([HKHealthStore isHealthDataAvailable]) {
         NSSet *writeDataTypes = [self dadosParaEscrever];
         NSSet *readDataTypes = [self dadosParaLer];
@@ -113,6 +114,16 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             });
         }];
     }
+    
+    [self.navigationController.navigationBar.topItem setTitle:@"Ficha Médica"];
+    
+    //ajustando view entre a navigation e a tabbar
+    CGFloat tabBarHeight = self.tabBarController.tabBar.bounds.size.height;
+    CGFloat navBarHeight = self.navigationController.navigationBar.bounds.size.height;
+    CGRect frame = self.view.frame;
+    frame.size.height = frame.size.height - navBarHeight - tabBarHeight;
+    frame.origin.y += navBarHeight;
+    self.view.frame = frame;
 }
 
 - (void)tocouNaView {
