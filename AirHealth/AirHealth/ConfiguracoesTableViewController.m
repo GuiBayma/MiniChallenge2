@@ -105,10 +105,10 @@
 - (IBAction)apagarTodosDados:(id)sender {
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Apagar Dados"
-                                                    message:@"Deseja apagar também os dados salvos na nuvem?"
+                                                    message:@"Tem certeza que deseja apagar os dados?"
                                                    delegate:self
-                                          cancelButtonTitle:@"Cancelar"
-                                          otherButtonTitles:@"Não", @"Sim", nil];
+                                          cancelButtonTitle:@"Não"
+                                          otherButtonTitles:@"Sim", nil];
     
     [alert show];
     
@@ -152,45 +152,31 @@
     
     switch (buttonIndex) {
             
-        case 0: //botao cancelar
+        case 0: //botao não
             
             [cancelarAlert show];
             
             break;
             
-        case 1: //botao não
-            
-            persistencia.usuario = [[Usuario alloc] init];
-            [persistencia salvarUsuarioLocal];
-            
-            persistencia.fichaMedica = [[FichaMedica alloc] init];
-            [persistencia salvarFichaLocal];
-            
-            persistencia.infoConvenio = [[InfoConvenio alloc] init];
-            [persistencia salvarInfoConvenioLocal];
-            
-            [okAlert show];
-            
-            break;
-            
-        case 2: //botao sim
+        case 1: //botao sim
             
             [persistencia deletarUsuarioNuvem];
-            persistencia.usuario = [[Usuario alloc] init];
-            [persistencia salvarUsuarioNuvem];
+            //persistencia.usuario = [[Usuario alloc] init];
+            //[persistencia salvarUsuarioNuvem];
             
             [persistencia deletarFichaNuvem];
-            persistencia.fichaMedica = [[FichaMedica alloc] init];
-            [persistencia salvarFichaLocal];
+            //persistencia.fichaMedica = [[FichaMedica alloc] init];
+            //[persistencia salvarFichaLocal];
             
             [persistencia deletarInfoConvenioNuvem];
-            persistencia.infoConvenio = [[InfoConvenio alloc] init];
-            [persistencia salvarInfoConvenioLocal];
+            //persistencia.infoConvenio = [[InfoConvenio alloc] init];
+            //[persistencia salvarInfoConvenioLocal];
             
             [okAlert show];
+
             
             break;
-            
+
         default:
             break;
     }
