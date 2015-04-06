@@ -160,7 +160,6 @@
     
     if (![[persistencia.usuario imagem] isEqual:nil]) {
         imagem.image = [UIImage imageWithData:[persistencia.usuario imagem]];
-        selecionaFotoBotao.titleLabel.text = @"";
     }
     
 }
@@ -186,7 +185,7 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     if ([imagem isOpaque]) {
-        [selecionaFotoBotao setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [selecionaFotoBotao setTitleColor:[UIColor colorWithRed:0.2470588235 green:0.7450980392 blue:0.5921568627 alpha:1] forState:UIControlStateNormal];
     }
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
