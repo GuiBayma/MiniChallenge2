@@ -14,6 +14,7 @@
     Persistencia *persistencia;
     bool click;
     bool senhaGerada;
+    bool dadosOk;
     __block NSString *senha;
 }
 
@@ -40,6 +41,12 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha:) name:@"UsuarioSincronizado" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pedirPermissao) name:@"PedirPermissaoHealthKit" object:nil];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -52,6 +59,58 @@
         self.view.backgroundColor = [UIColor whiteColor];
         click=NO;
     }
+    
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    //    BOOL primeiroUso = [defaults boolForKey:@"primeiroUso"];
+//    BOOL primeiroUso = NO;
+//    if (!primeiroUso) {
+//        PageViewController *pvc = [[PageViewController alloc] init];
+//        [self presentViewController:pvc animated:YES completion:nil];
+//    }
+}
+
+- (void)pedirPermissao {
+    self.healthStore = [[HKHealthStore alloc] init];
+    
+    if ([HKHealthStore isHealthDataAvailable]) {
+        NSSet *writeDataTypes = [self dadosParaEscrever];
+        NSSet *readDataTypes = [self dadosParaLer];
+        
+        [self.healthStore requestAuthorizationToShareTypes:writeDataTypes readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
+            if (!success) {
+                NSLog(@"You didn't allow HealthKit to access these read/write data types. In your app, try to handle this error gracefully when a user decides not to provide access. The error was: %@. If you're using a simulator, try it on a device.", error);
+                
+                return;
+            }
+        }];
+    }
+}
+
+// Retorna os tipos de dados que desejamos atualizar no HealthKit.
+- (NSSet *)dadosParaEscrever {
+    HKQuantityType *altura = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    HKQuantityType *peso = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    HKQuantityType *imc = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+    HKQuantityType *temperaturaCorporal = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
+    HKQuantityType *pressaoSistolica = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    HKQuantityType *pressaoDiastolica = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
+    
+    return [NSSet setWithObjects:altura, peso, imc, temperaturaCorporal, pressaoSistolica, pressaoDiastolica, nil];
+}
+
+// Retorna os tipos de dados que desejamos ler do HealthKit.
+- (NSSet *)dadosParaLer {
+    HKCharacteristicType *dataNascimento = [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth];
+    HKCharacteristicType *sexo = [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex];
+    HKCharacteristicType *tipoSanguineo = [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType];
+    HKQuantityType *altura = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    HKQuantityType *peso = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    HKQuantityType *imc = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+    HKQuantityType *temperaturaCorporal = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
+    HKQuantityType *pressaoSistolica = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    HKQuantityType *pressaoDiastolica = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
+    
+    return [NSSet setWithObjects:altura, peso, imc, dataNascimento, tipoSanguineo, sexo, temperaturaCorporal, pressaoSistolica, pressaoDiastolica, nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,17 +118,39 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    
+    
+    
     UITouch *toque = [[event allTouches]anyObject];
     
     if([toque view] == imageCruz){
-        if(click == NO){
+        
+        if ([persistencia.usuario.nome isEqual:@""] || [persistencia.usuario.cpf isEqual:@""] || [persistencia.usuario.rg isEqual:@""] || [persistencia.usuario.email isEqual:@""] || [persistencia.usuario.telefone isEqual:@""] || [persistencia.usuario.endereco isEqual:@""] || [persistencia.usuario.cep isEqual:@""] || [persistencia.usuario.cidade isEqual:@""] || [persistencia.usuario.estado isEqual:@""] || [persistencia.infoConvenio.nomePlanodeSaude isEqual:@""] || [persistencia.infoConvenio.numCartao isEqual:@""]) {
+            
+            dadosOk = NO;
+            
+            UIAlertView *alertaDadosNaoPreenchidos = [[UIAlertView alloc] initWithTitle:@"Dados não preenchidos"
+                                                                                message:@"É necessário que os dados estejam preenchidos pra realizar a sincronização"
+                                                                               delegate:self
+                                                                      cancelButtonTitle:@"Ok"
+                                                                      otherButtonTitles:nil];
+            
+            [alertaDadosNaoPreenchidos show];
+            
+        }
+        else
+            dadosOk = YES;
+        
+        if(click == NO && dadosOk) {
             [self tremblingButton];
             [self scaleImageReverse];
             [self rotateImageView];
             [self enviarDadosPraNuvem];
         }
+        
     }
-    click = YES;
+    
 }
 
 - (void)rotateImageView{
@@ -112,14 +193,32 @@
 
 -(void)sincronizar:(id)sender{
     
-    if(click==NO){
+    if ([persistencia.usuario.nome isEqual:@""] || [persistencia.usuario.cpf isEqual:@""] || [persistencia.usuario.rg isEqual:@""] || [persistencia.usuario.email isEqual:@""] || [persistencia.usuario.telefone isEqual:@""] || [persistencia.usuario.endereco isEqual:@""] || [persistencia.usuario.cep isEqual:@""] || [persistencia.usuario.cidade isEqual:@""] || [persistencia.usuario.estado isEqual:@""] || [persistencia.infoConvenio.nomePlanodeSaude isEqual:@""] || [persistencia.infoConvenio.numCartao isEqual:@""]) {
+        
+        dadosOk = NO;
+    
+        UIAlertView *alertaDadosNaoPreenchidos = [[UIAlertView alloc] initWithTitle:@"Dados não preenchidos"
+                                                                            message:@"É necessário que os dados estejam preenchidos pra realizar a sincronização"
+                                                                           delegate:self
+                                                                  cancelButtonTitle:@"Ok"
+                                                                  otherButtonTitles:nil];
+        
+        [alertaDadosNaoPreenchidos show];
+    
+    }
+    else
+        dadosOk = YES;
+    
+    
+    if(click == NO && dadosOk) {
         [self tremblingButton];
         [self scaleImageReverse];
         [self rotateImageView];
         [self enviarDadosPraNuvem];
+        click = YES;
     }
     
-    click = YES;
+    
 }
 
 - (void)stopAnimation{

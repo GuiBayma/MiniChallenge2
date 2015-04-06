@@ -7,7 +7,6 @@
 //
 
 #import "DadosPessoaisTableViewController.h"
-#import "DadosPessoaisCell.h"
 #import "Persistencia.h"
 #import "Usuario.h"
 
@@ -158,8 +157,9 @@
     validadeInicioTextField.text = [dateFormat stringFromDate:[persistencia.infoConvenio inicioValidade]];
     validadeFimTextField.text = [dateFormat stringFromDate:[persistencia.infoConvenio terminoValidade]];
     
-    if (![[persistencia.usuario imagem] isEqual:nil]) {
+    if (persistencia.usuario.imagem) {
         imagem.image = [UIImage imageWithData:[persistencia.usuario imagem]];
+        [selecionaFotoBotao setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
     }
     
 }
