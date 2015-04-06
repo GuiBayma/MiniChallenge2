@@ -97,7 +97,7 @@
     if (!_usuario.objectID || [_usuario.objectID isEqualToString:@""]) {
         PFObject *classeUsuario = [PFObject objectWithClassName:@"Usuario"];
         
-        if (![_usuario.imagem isEqual:nil])
+        if (_usuario.imagem)
             classeUsuario[@"imagem"] = [PFFile fileWithData:_usuario.imagem];
         
         classeUsuario[@"nome"] = _usuario.nome;
@@ -129,7 +129,7 @@
         
         [query getObjectInBackgroundWithId:_usuario.objectID block:^(PFObject *classeUsuario, NSError *erro) {
             
-            if (![_usuario.imagem isEqual:nil])
+            if (_usuario.imagem)
                 classeUsuario[@"imagem"] = [PFFile fileWithData:_usuario.imagem];
             
             classeUsuario[@"nome"] = _usuario.nome;

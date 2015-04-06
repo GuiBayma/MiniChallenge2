@@ -14,6 +14,7 @@
     Persistencia *persistencia;
     bool click;
     bool senhaGerada;
+    bool dadosOk;
     __block NSString *senha;
 }
 
@@ -119,17 +120,39 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    
+    
+    
     UITouch *toque = [[event allTouches]anyObject];
     
     if([toque view] == imageCruz){
-        if(click == NO){
+        
+        if ([persistencia.usuario.nome isEqual:@""] || [persistencia.usuario.cpf isEqual:@""] || [persistencia.usuario.rg isEqual:@""] || [persistencia.usuario.email isEqual:@""] || [persistencia.usuario.telefone isEqual:@""] || [persistencia.usuario.endereco isEqual:@""] || [persistencia.usuario.cep isEqual:@""] || [persistencia.usuario.cidade isEqual:@""] || [persistencia.usuario.estado isEqual:@""] || [persistencia.infoConvenio.nomePlanodeSaude isEqual:@""] || [persistencia.infoConvenio.numCartao isEqual:@""]) {
+            
+            dadosOk = NO;
+            
+            UIAlertView *alertaDadosNaoPreenchidos = [[UIAlertView alloc] initWithTitle:@"Dados não preenchidos"
+                                                                                message:@"É necessário que os dados estejam preenchidos pra realizar a sincronização"
+                                                                               delegate:self
+                                                                      cancelButtonTitle:@"Ok"
+                                                                      otherButtonTitles:nil];
+            
+            [alertaDadosNaoPreenchidos show];
+            
+        }
+        else
+            dadosOk = YES;
+        
+        if(click == NO && dadosOk) {
             [self tremblingButton];
             [self scaleImageReverse];
             [self rotateImageView];
             [self enviarDadosPraNuvem];
         }
+        
     }
-    click = YES;
+    
 }
 
 - (void)rotateImageView{
@@ -174,14 +197,32 @@
 
 -(void)sincronizar:(id)sender{
     
-    if(click==NO){
+    if ([persistencia.usuario.nome isEqual:@""] || [persistencia.usuario.cpf isEqual:@""] || [persistencia.usuario.rg isEqual:@""] || [persistencia.usuario.email isEqual:@""] || [persistencia.usuario.telefone isEqual:@""] || [persistencia.usuario.endereco isEqual:@""] || [persistencia.usuario.cep isEqual:@""] || [persistencia.usuario.cidade isEqual:@""] || [persistencia.usuario.estado isEqual:@""] || [persistencia.infoConvenio.nomePlanodeSaude isEqual:@""] || [persistencia.infoConvenio.numCartao isEqual:@""]) {
+        
+        dadosOk = NO;
+    
+        UIAlertView *alertaDadosNaoPreenchidos = [[UIAlertView alloc] initWithTitle:@"Dados não preenchidos"
+                                                                            message:@"É necessário que os dados estejam preenchidos pra realizar a sincronização"
+                                                                           delegate:self
+                                                                  cancelButtonTitle:@"Ok"
+                                                                  otherButtonTitles:nil];
+        
+        [alertaDadosNaoPreenchidos show];
+    
+    }
+    else
+        dadosOk = YES;
+    
+    
+    if(click == NO && dadosOk) {
         [self tremblingButton];
         [self scaleImageReverse];
         [self rotateImageView];
         [self enviarDadosPraNuvem];
+        click = YES;
     }
     
-    click = YES;
+    
 }
 
 - (void)stopAnimation{
