@@ -141,8 +141,9 @@
             classeUsuario[@"estado"] = _usuario.estado;
             classeUsuario[@"email"] = _usuario.email;
             classeUsuario[@"telefone"] = _usuario.telefone;
-            
+            [self salvarUsuarioLocal];
             [classeUsuario saveInBackground];
+            [self relacionaObjetos];
         }];
 
     }
@@ -237,7 +238,7 @@
             classeFichaMedica[@"pressaoSistolica"] = _fichaMedica.pressaoArterialSistolica;
             classeFichaMedica[@"pressaoDiastolica"] = _fichaMedica.pressaoArterialDiastolica;
             classeFichaMedica[@"temperaturaCorporal"] = _fichaMedica.temperaturaCorporal;
-            
+            [self salvarFichaLocal];
             [classeFichaMedica saveInBackground];
         }];
     }
@@ -323,7 +324,7 @@
             classeInfoConvenio[@"titular"] = _infoConvenio.titular;
             classeInfoConvenio[@"inicio"] = _infoConvenio.inicioValidade;
             classeInfoConvenio[@"termino"] = _infoConvenio.terminoValidade;
-            
+            [self salvarInfoConvenioLocal];
             [classeInfoConvenio saveInBackground];
         }];
     }

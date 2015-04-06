@@ -375,9 +375,8 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             // Atualize a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.temperaturaCorporalValorTextField.text = [NSString stringWithFormat:@"%.0f", temperaturaDoUsuario];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
                 
-                [persistencia.fichaMedica setAltura:[NSNumber numberWithDouble:temperaturaDoUsuario]];
+                [persistencia.fichaMedica setTemperaturaCorporal:[NSNumber numberWithDouble:temperaturaDoUsuario]];
             });
         }
     }];
@@ -407,9 +406,8 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             // Atualize a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.pressaoSistolicaValorTextField.text = [NSString stringWithFormat:@"%.0f", pressaoDoUsuario];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
                 
-                [persistencia.fichaMedica setAltura:[NSNumber numberWithDouble:pressaoDoUsuario]];
+                [persistencia.fichaMedica setPressaoArterialSistolica:[NSNumber numberWithDouble:pressaoDoUsuario]];
             });
         }
     }];
@@ -440,9 +438,7 @@ typedef NS_ENUM(NSInteger, AAPLProfileViewControllerTableViewIndex) {
             // Atualize a interface do usuário
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.pressaoDiastolicaValorTextField.text = [NSString stringWithFormat:@"%.0f", pressaoDoUsuario];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"CalcularImc" object:nil];
-                
-                [persistencia.fichaMedica setAltura:[NSNumber numberWithDouble:pressaoDoUsuario]];
+                [persistencia.fichaMedica setPressaoArterialDiastolica:[NSNumber numberWithDouble:pressaoDoUsuario]];
             });
         }
     }];
