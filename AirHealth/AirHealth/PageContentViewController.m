@@ -20,6 +20,7 @@
     
     self.titulo = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-30, 100)];
     self.titulo.text = self.tituloTexto;
+    self.titulo.textColor = [UIColor whiteColor];
     self.titulo.font = [UIFont fontWithName:@"Arial" size:35];
     self.titulo.numberOfLines = 2;
     self.titulo.textAlignment = NSTextAlignmentCenter;
@@ -29,6 +30,7 @@
     
     self.texto = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-30, 100)];
     self.texto.text = self.textoTexto;
+    self.texto.textColor = [UIColor whiteColor];
     self.texto.font = [UIFont fontWithName:@"Arial" size:25];
     self.texto.numberOfLines = 3;
     self.texto.textAlignment = NSTextAlignmentCenter;

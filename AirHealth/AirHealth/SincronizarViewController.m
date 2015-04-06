@@ -38,6 +38,7 @@
     imageCruz.alpha = 1;
     buttonSincronizar.alpha = 1;
     [labelSincronizando setHidden:YES];
+    [self.view setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:199.0/255.0 blue:167.0/255.0 alpha:1]];
     NSLog(@"LOAD");
     
     
@@ -57,7 +58,6 @@
         labelOk.alpha=0;
         imageCruz.alpha=1;
         buttonSincronizar.alpha=1;
-        self.view.backgroundColor = [UIColor whiteColor];
         click=NO;
         NSLog(@"APPEAR");
     }
