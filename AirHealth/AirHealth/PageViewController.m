@@ -127,6 +127,7 @@
         [defaults synchronize];
         
         //tbc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PedirPermissaoHealthKit" object:nil];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

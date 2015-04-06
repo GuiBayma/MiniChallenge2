@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@import HealthKit;
+#import "PageViewController.h"
 
 @interface SincronizarViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIImageView *imageCruz;
@@ -15,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelSenha;
 @property (weak, nonatomic) IBOutlet UILabel *labelOk;
 @property (weak, nonatomic) IBOutlet UIImageView *imageOk;
+@property  HKHealthStore *healthStore;
 - (void)sincronizar:(id)sender;
 
 @end

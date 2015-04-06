@@ -41,29 +41,6 @@
 
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return 2;
-//}
-//
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"celulaPadrao"];
-//    if(indexPath.section==0){
-//        if (indexPath.row == 0) {
-//            cell.textLabel.text = @"Tutorial";
-//        }
-//        else {
-//            cell.textLabel.text = @"Sobre o AirHealth";
-//        }
-//    }
-//    
-//    return cell;
-//}
-//
-//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return 2;
-//}
-//
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 0){
         if (indexPath.row == 0) {
@@ -84,10 +61,7 @@
 
 - (IBAction)permitirHealthKit:(id)sender {
     self.healthStore = [[HKHealthStore alloc] init];
-    // Set up an HKHealthStore, asking the user for read/write permissions. The profile view controller is the
-    // first view controller that's shown to the user, so we'll ask for all of the desired HealthKit permissions now.
-    // In your own app, you should consider requesting permissions the first time a user wants to interact with
-    // HealthKit data.
+
     if ([HKHealthStore isHealthDataAvailable]) {
         NSSet *writeDataTypes = [self dadosParaEscrever];
         NSSet *readDataTypes = [self dadosParaLer];
