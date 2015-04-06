@@ -48,7 +48,6 @@
 		25833DDA1AC9B8A3002702B3 /* InfoConvenio.m in Sources */ = {isa = PBXBuildFile; fileRef = 25833DD51AC9B8A3002702B3 /* InfoConvenio.m */; };
 		25833DDB1AC9B8A3002702B3 /* Persistencia.m in Sources */ = {isa = PBXBuildFile; fileRef = 25833DD71AC9B8A3002702B3 /* Persistencia.m */; };
 		5E9C62631AC19B8100E9486E /* MainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */; };
-		5E9C62791AC1AE3D00E9486E /* DadosPessoaisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */; };
 		5E9C627F1AC1B0B700E9486E /* DadosPessoaisTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */; };
 		5EBC4D8E1AC99328008BB4D7 /* SincronizarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBC4D8D1AC99328008BB4D7 /* SincronizarViewController.m */; };
 		ECB4CEE11AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CEE01AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m */; };
@@ -123,8 +122,6 @@
 		25833DD71AC9B8A3002702B3 /* Persistencia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persistencia.m; sourceTree = "<group>"; };
 		5E9C62611AC19B8100E9486E /* MainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarViewController.h; sourceTree = "<group>"; };
 		5E9C62621AC19B8100E9486E /* MainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarViewController.m; sourceTree = "<group>"; };
-		5E9C62771AC1AE3D00E9486E /* DadosPessoaisCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DadosPessoaisCell.h; sourceTree = "<group>"; };
-		5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisCell.m; sourceTree = "<group>"; };
 		5E9C627D1AC1B0B700E9486E /* DadosPessoaisTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DadosPessoaisTableViewController.h; sourceTree = "<group>"; };
 		5E9C627E1AC1B0B700E9486E /* DadosPessoaisTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DadosPessoaisTableViewController.m; sourceTree = "<group>"; };
 		5EBC4D8C1AC99328008BB4D7 /* SincronizarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SincronizarViewController.h; sourceTree = "<group>"; };
@@ -228,8 +225,6 @@
 				17F3C2491AC17D3E009590F8 /* Main.storyboard */,
 				17F3C24C1AC17D3E009590F8 /* Images.xcassets */,
 				17F3C24E1AC17D3E009590F8 /* LaunchScreen.xib */,
-				5E9C62771AC1AE3D00E9486E /* DadosPessoaisCell.h */,
-				5E9C62781AC1AE3D00E9486E /* DadosPessoaisCell.m */,
 				ECB90FD11AC47D09009D7F18 /* FichaMedicaTableViewController.h */,
 				ECB90FD21AC47D09009D7F18 /* FichaMedicaTableViewController.m */,
 				ECB4CEDF1AC2F0D200AFB5FB /* ConfiguracoesTableViewController.h */,
@@ -434,7 +429,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E9C62791AC1AE3D00E9486E /* DadosPessoaisCell.m in Sources */,
 				ECB90FD31AC47D09009D7F18 /* FichaMedicaTableViewController.m in Sources */,
 				17F3C2481AC17D3E009590F8 /* ViewController.m in Sources */,
 				25833DDB1AC9B8A3002702B3 /* Persistencia.m in Sources */,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f6f-PN-QUO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7519.1" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f6f-PN-QUO">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7513.1"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -39,7 +39,11 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkr-CI-Y7r">
-                                                    <rect key="frame" x="255" y="50" width="91" height="27"/>
+                                                    <rect key="frame" x="250" y="13" width="100" height="100"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="100" id="0aa-WR-awk"/>
+                                                        <constraint firstAttribute="width" constant="100" id="g1Q-bf-Ax5"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="Selecione a foto">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1102,7 +1106,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4C0-cM-Rud">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4C0-cM-Rud">
                                 <rect key="frame" x="147" y="146" width="307" height="307"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="307" id="UoO-WW-TTW">
@@ -1175,7 +1179,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sincronizando..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfH-ID-FDn">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Sincronizando..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfH-ID-FDn">
                                 <rect key="frame" x="238" y="461" width="149" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="8eY-2f-bL9"/>
@@ -1237,6 +1241,9 @@
                                 <exclude reference="1r5-47-ggh"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="2ON-D6-DqA"/>
+                                <exclude reference="DDW-tC-duT"/>
+                                <exclude reference="ZqD-fs-Yuk"/>
                                 <exclude reference="C6l-38-ps8"/>
                                 <exclude reference="mQ1-Zx-4wJ"/>
                                 <exclude reference="82i-AL-vAh"/>
@@ -1245,9 +1252,6 @@
                                 <exclude reference="cQ5-jh-aXe"/>
                                 <exclude reference="xzW-Ms-nH6"/>
                                 <exclude reference="gkn-Q7-Mgs"/>
-                                <exclude reference="2ON-D6-DqA"/>
-                                <exclude reference="DDW-tC-duT"/>
-                                <exclude reference="ZqD-fs-Yuk"/>
                                 <exclude reference="7ab-Wy-Oi4"/>
                                 <exclude reference="lEB-mc-fWE"/>
                                 <exclude reference="scH-mA-ElE"/>
@@ -1260,6 +1264,9 @@
                                 <include reference="1r5-47-ggh"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="2ON-D6-DqA"/>
+                                <exclude reference="DDW-tC-duT"/>
+                                <include reference="ZqD-fs-Yuk"/>
                                 <include reference="C6l-38-ps8"/>
                                 <include reference="mQ1-Zx-4wJ"/>
                                 <include reference="82i-AL-vAh"/>
@@ -1268,9 +1275,6 @@
                                 <exclude reference="cQ5-jh-aXe"/>
                                 <exclude reference="xzW-Ms-nH6"/>
                                 <exclude reference="gkn-Q7-Mgs"/>
-                                <include reference="2ON-D6-DqA"/>
-                                <exclude reference="DDW-tC-duT"/>
-                                <include reference="ZqD-fs-Yuk"/>
                                 <include reference="7ab-Wy-Oi4"/>
                                 <include reference="lEB-mc-fWE"/>
                                 <exclude reference="scH-mA-ElE"/>
