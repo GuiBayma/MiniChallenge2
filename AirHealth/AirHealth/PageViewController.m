@@ -48,11 +48,11 @@
     }
     
     UIPageControl *pageControl = [UIPageControl appearance];
-    pageControl.pageIndicatorTintColor = [UIColor grayColor];
-    pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:45.0/255.0 green:207.0/255.0 blue:247.0/255.0 alpha:1];
-    pageControl.backgroundColor = [UIColor colorWithRed:0.2470588235 green:0.7450980392 blue:0.5921568627 alpha:1];
+    pageControl.pageIndicatorTintColor = [UIColor colorWithRed:4.0/255.0 green:134.0/255.0 blue:149.0/255.0 alpha:1];
+    pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
+    pageControl.backgroundColor = [UIColor colorWithRed:73.0/255.0 green:199.0/255.0 blue:167.0/255.0 alpha:1];
     
-    [self.view setBackgroundColor:[UIColor colorWithRed:0.2470588235 green:0.7450980392 blue:0.5921568627 alpha:1]];
+    [self.view setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:199.0/255.0 blue:167.0/255.0 alpha:1]];
 }
 
 - (void)didReceiveMemoryWarning {
