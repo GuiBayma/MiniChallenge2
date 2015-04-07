@@ -29,6 +29,10 @@
 -(void)viewDidAppear:(BOOL)animated {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL primeiroUso = [defaults boolForKey:@"primeiroUso"];
+    
+    [self.navigationController.navigationBar setTranslucent:NO];
+    [self.tabBarController.tabBar setTranslucent:NO];
+    
 //    BOOL primeiroUso = NO;
     if (!primeiroUso) {
         PageViewController *pvc = [[PageViewController alloc] init];
