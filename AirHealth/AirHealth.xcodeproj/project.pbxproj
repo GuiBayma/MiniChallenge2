@@ -53,6 +53,8 @@
 		ECB4CEE11AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CEE01AC2F0D200AFB5FB /* ConfiguracoesTableViewController.m */; };
 		ECB90FD01AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB90FCF1AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.m */; };
 		ECB90FD31AC47D09009D7F18 /* FichaMedicaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB90FD21AC47D09009D7F18 /* FichaMedicaTableViewController.m */; };
+		ECBB23541AD2FE5500651052 /* OCInspectableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBB23531AD2FE5500651052 /* OCInspectableView.swift */; };
+		ECBB23581AD30C9F00651052 /* logoAirHealth2.png in Resources */ = {isa = PBXBuildFile; fileRef = ECBB23571AD30C9F00651052 /* logoAirHealth2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +134,9 @@
 		ECB90FCF1AC4794F009D7F18 /* HKHealthStore+AAPLExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HKHealthStore+AAPLExtensions.m"; sourceTree = "<group>"; };
 		ECB90FD11AC47D09009D7F18 /* FichaMedicaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FichaMedicaTableViewController.h; sourceTree = "<group>"; };
 		ECB90FD21AC47D09009D7F18 /* FichaMedicaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FichaMedicaTableViewController.m; sourceTree = "<group>"; };
+		ECBB23501AD2FDBF00651052 /* AirHealth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AirHealth-Bridging-Header.h"; sourceTree = "<group>"; };
+		ECBB23531AD2FE5500651052 /* OCInspectableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCInspectableView.swift; sourceTree = "<group>"; };
+		ECBB23571AD30C9F00651052 /* logoAirHealth2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoAirHealth2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				17BC14261AD2C0AF00932B28 /* cloudLogo.png */,
+				ECBB23571AD30C9F00651052 /* logoAirHealth2.png */,
 				173EF6171ACDD119000F50A2 /* cloud1.png */,
 				173EF6181ACDD119000F50A2 /* cloud2.png */,
 				173EF6191ACDD119000F50A2 /* cloud3.png */,
@@ -236,6 +242,7 @@
 				5EBC4D8C1AC99328008BB4D7 /* SincronizarViewController.h */,
 				5EBC4D8D1AC99328008BB4D7 /* SincronizarViewController.m */,
 				17F3C23F1AC17D3E009590F8 /* Supporting Files */,
+				ECBB23501AD2FDBF00651052 /* AirHealth-Bridging-Header.h */,
 			);
 			path = AirHealth;
 			sourceTree = "<group>";
@@ -243,6 +250,7 @@
 		17F3C23F1AC17D3E009590F8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ECBB23531AD2FE5500651052 /* OCInspectableView.swift */,
 				17F3C2401AC17D3E009590F8 /* Info.plist */,
 				17F3C2411AC17D3E009590F8 /* main.m */,
 			);
@@ -404,6 +412,7 @@
 				17EFFEB81ACDE1B20076934F /* close-100.png in Resources */,
 				17F3C24B1AC17D3E009590F8 /* Main.storyboard in Resources */,
 				173EF61E1ACDD119000F50A2 /* cloud1.png in Resources */,
+				ECBB23581AD30C9F00651052 /* logoAirHealth2.png in Resources */,
 				173EF6241ACDD119000F50A2 /* cloud5.png in Resources */,
 				173EF6211ACDD119000F50A2 /* cloud4.png in Resources */,
 				17ABAE361ACDDAD200D7C895 /* about.png in Resources */,
@@ -431,6 +440,7 @@
 			files = (
 				ECB90FD31AC47D09009D7F18 /* FichaMedicaTableViewController.m in Sources */,
 				17F3C2481AC17D3E009590F8 /* ViewController.m in Sources */,
+				ECBB23541AD2FE5500651052 /* OCInspectableView.swift in Sources */,
 				25833DDB1AC9B8A3002702B3 /* Persistencia.m in Sources */,
 				5EBC4D8E1AC99328008BB4D7 /* SincronizarViewController.m in Sources */,
 				25833DD91AC9B8A3002702B3 /* FichaMedica.m in Sources */,
@@ -566,6 +576,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AirHealth/AirHealth.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -582,6 +593,8 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "AirHealth/AirHealth-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -589,6 +602,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AirHealth/AirHealth.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -605,6 +619,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "AirHealth/AirHealth-Bridging-Header.h";
 			};
 			name = Release;
 		};

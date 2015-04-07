@@ -17,7 +17,7 @@
                         <sections>
                             <tableViewSection id="LBL-VK-ZKJ">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="127" id="rWZ-i8-d2K">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="127" id="rWZ-i8-d2K" customClass="KPCell" customModule="AirHealth" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rWZ-i8-d2K" id="uJp-Ni-r2X">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -53,6 +53,7 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="vw0-s2-TGH" firstAttribute="leading" secondItem="uJp-Ni-r2X" secondAttribute="leadingMargin" constant="242" id="3w3-BV-Arl"/>
                                                 <constraint firstAttribute="centerX" secondItem="vw0-s2-TGH" secondAttribute="centerX" id="52H-BH-FZB"/>
@@ -63,11 +64,22 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="3w3-BV-Arl"/>
                                                     <exclude reference="558-f7-nra"/>
+                                                    <exclude reference="3w3-BV-Arl"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -592,7 +604,12 @@
                             <outlet property="delegate" destination="Lhb-Ss-2qh" id="eRC-Mz-lb4"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Dados Pessoais" image="dadosPessoais" id="snK-7b-AaT"/>
+                    <tabBarItem key="tabBarItem" title="Dados Pessoais" image="dadosPessoais" id="snK-7b-AaT">
+                        <inset key="imageInsets" minX="1" minY="1" maxX="1" maxY="1"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="dadosPessoaisFilled"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <connections>
                         <outlet property="cepTextField" destination="DbT-zY-NH2" id="qRT-aq-XMC"/>
                         <outlet property="cidadeTextField" destination="1ze-B0-LQr" id="vsQ-qv-e4a"/>
@@ -921,7 +938,12 @@
                             <outlet property="delegate" destination="lb0-VD-t7Q" id="3WB-Sk-nvP"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Ficha Médica" image="fichaMedica" id="CQY-m8-kpY"/>
+                    <tabBarItem key="tabBarItem" title="Ficha Médica" image="fichaMedica" id="CQY-m8-kpY">
+                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="fichaMedicaFilled"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <connections>
                         <outlet property="alturaUnidadeLabel" destination="Wkq-80-b6y" id="b2O-oR-i2X"/>
                         <outlet property="alturaValorTextField" destination="O3v-vK-FzW" id="Hjw-4T-Sd4"/>
@@ -1088,7 +1110,12 @@
                             <outlet property="delegate" destination="r5J-cB-4zn" id="OjR-kW-Fdh"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Configurações" image="configuracoes" id="egJ-9g-4Ly"/>
+                    <tabBarItem key="tabBarItem" title="Configurações" image="configuracoes" id="egJ-9g-4Ly">
+                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="configuracoesFilled"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tM1-46-gxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1281,7 +1308,12 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Sincronização" image="sincronizacao" id="nnn-z0-Tbt"/>
+                    <tabBarItem key="tabBarItem" title="Sincronização" image="sincronizar" id="nnn-z0-Tbt">
+                        <inset key="imageInsets" minX="1" minY="1" maxX="1" maxY="1"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="sincronizarFilled"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <connections>
                         <outlet property="buttonSincronizar" destination="4C0-cM-Rud" id="dh3-7r-7aM"/>
                         <outlet property="imageCruz" destination="rOB-Y9-CJ8" id="7rT-r7-MxP"/>
@@ -1320,12 +1352,16 @@
     <resources>
         <image name="Ok" width="436" height="436"/>
         <image name="cloud" width="600" height="382"/>
-        <image name="configuracoes" width="64" height="64"/>
-        <image name="cruz" width="80" height="79"/>
-        <image name="dadosPessoais" width="64" height="64"/>
-        <image name="fichaMedica" width="64" height="64"/>
+        <image name="configuracoes" width="32" height="32"/>
+        <image name="configuracoesFilled" width="32" height="32"/>
+        <image name="cruz" width="144" height="143"/>
+        <image name="dadosPessoais" width="32" height="32"/>
+        <image name="dadosPessoaisFilled" width="32" height="32"/>
+        <image name="fichaMedica" width="32" height="32"/>
+        <image name="fichaMedicaFilled" width="32" height="32"/>
         <image name="heathIcon" width="32" height="32"/>
         <image name="infoIcon" width="32" height="32"/>
-        <image name="sincronizacao" width="64" height="64"/>
+        <image name="sincronizar" width="32" height="32"/>
+        <image name="sincronizarFilled" width="32" height="32"/>
     </resources>
 </document>

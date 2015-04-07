@@ -16,8 +16,8 @@
     [super viewDidLoad];
     
     // Create the data model
-    _imagensPrimeiro = @[@"cloudLogo.png", @"cloud1.png",@"cloud2.png",@"cloud3.png",@"cloud4.png",@"cloud5.png",@""];
-    _imagens = @[@"cloudLogo.png", @"cloud1.png",@"cloud2.png",@"cloud3.png",@"cloud4.png",@"cloud5.png"];
+    _imagensPrimeiro = @[@"logoAirHealth2.png", @"cloud1.png",@"cloud2.png",@"cloud3.png",@"cloud4.png",@"cloud5.png",@""];
+    _imagens = @[@"logoAirHealth2.png", @"cloud1.png",@"cloud2.png",@"cloud3.png",@"cloud4.png",@"cloud5.png"];
     _titulos = @[@"",@"Um único App",@"Suas informações criptografadas",@"Conforto e praticidade",@"Agilidade e versatilidade",@"Atualize suas informações"];
     _textos = @[@"",@"O AirHealth guarda seus dados médicos e pessoais para você.",@"Ao toque de um botão seus dados são enviados para um servidor de forma segura.",@"Ao sincronizar seus dados você recebe uma senha única.",@"Utilize sua senha para ser atendido em instituições de saúde cadastradas.",@"Insira seus dados para agilizar seu atendimento no aplicativo ou no aplicativo Saúde."];
     
@@ -50,9 +50,9 @@
     UIPageControl *pageControl = [UIPageControl appearance];
     pageControl.pageIndicatorTintColor = [UIColor grayColor];
     pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:45.0/255.0 green:207.0/255.0 blue:247.0/255.0 alpha:1];
-    pageControl.backgroundColor = [UIColor whiteColor];
+    pageControl.backgroundColor = [UIColor colorWithRed:0.2470588235 green:0.7450980392 blue:0.5921568627 alpha:1];
     
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:[UIColor colorWithRed:0.2470588235 green:0.7450980392 blue:0.5921568627 alpha:1]];
 }
 
 - (void)didReceiveMemoryWarning {
