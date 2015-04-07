@@ -28,7 +28,6 @@
     [imageCruz setUserInteractionEnabled:YES];
     [buttonSincronizar setUserInteractionEnabled:YES];
     buttonSincronizar.adjustsImageWhenHighlighted = NO;
-    [labelSincronizando setHidden:YES];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [imageCruz bringSubviewToFront:buttonSincronizar];
     click = NO;
@@ -38,6 +37,9 @@
     labelSenha.alpha = 0;
     imageCruz.alpha = 1;
     buttonSincronizar.alpha = 1;
+    [labelSincronizando setHidden:YES];
+    [self.view setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:199.0/255.0 blue:167.0/255.0 alpha:1]];
+    NSLog(@"LOAD");
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exibirSenha:) name:@"UsuarioSincronizado" object:nil];
@@ -46,19 +48,18 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
+    [self.navigationController.navigationBar.topItem setTitle:@"Sincronização"];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     if(senhaGerada){
         labelSenha.alpha=0;
-        labelSincronizando.alpha=0;
         imageOk.alpha=0;
         labelOk.alpha=0;
         imageCruz.alpha=1;
         buttonSincronizar.alpha=1;
-        self.view.backgroundColor = [UIColor whiteColor];
         click=NO;
+        NSLog(@"APPEAR");
     }
     
 //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -68,6 +69,10 @@
 //        PageViewController *pvc = [[PageViewController alloc] init];
 //        [self presentViewController:pvc animated:YES completion:nil];
 //    }
+    
+    [self.navigationController.navigationBar.topItem setTitle:@"Sincronização"];
+    
+
 }
 
 - (void)pedirPermissao {
@@ -116,14 +121,10 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-    
-    
-    
+
     UITouch *toque = [[event allTouches]anyObject];
     
     if([toque view] == imageCruz){
@@ -145,10 +146,9 @@
             dadosOk = YES;
         
         if(click == NO && dadosOk) {
-            [self tremblingButton];
-            [self scaleImageReverse];
             [self rotateImageView];
             [self enviarDadosPraNuvem];
+            click=YES;
         }
         
     }
@@ -166,33 +166,6 @@
                              [self rotateImageView];
                          }
                      }];
-}
-
-- (void)tremblingButton{
-    //[imageCruz setEnabled:YES];
-    
-    CAKeyframeAnimation * anim = [CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
-    anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-4.0f, -1.0f, 0.0f) ],[ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(4.0f, 1.0f, 0.0f) ] ] ;
-    anim.autoreverses = YES ;
-    anim.repeatCount = 100;
-    anim.duration = 0.1f ;
-    
-    [buttonSincronizar.layer addAnimation:anim forKey:nil ] ;
-
-}
-
--(void)scaleImageReverse{
-    [labelSincronizando setHidden:NO];
-    
-    [UIView animateWithDuration:1.0
-                          delay:0
-                        options: UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction
-                     animations:^{
-                         buttonSincronizar.transform = CGAffineTransformMakeScale(1.1, 1.1);
-                     }
-                     completion:nil
-                     ];
-
 }
 
 -(void)sincronizar:(id)sender{
@@ -215,8 +188,6 @@
     
     
     if(click == NO && dadosOk) {
-        [self tremblingButton];
-        [self scaleImageReverse];
         [self rotateImageView];
         [self enviarDadosPraNuvem];
         click = YES;
@@ -226,10 +197,8 @@
 }
 
 - (void)stopAnimation{
-    imageCruz = nil;
-    buttonSincronizar = nil;
-    [labelSincronizando setHidden:YES];
-    labelSincronizando = nil;
+    [imageCruz.layer removeAllAnimations];
+    [buttonSincronizar.imageView.layer removeAllAnimations];
 }
 
 - (void)enviarDadosPraNuvem {
@@ -245,8 +214,6 @@
     [UIView animateWithDuration:2.0 animations:^{
         imageCruz.alpha = 1.0;
         buttonSincronizar.alpha = 1.0;
-        labelSincronizando.alpha = 1.0;
-        labelSincronizando.alpha = 0.0;
         
     }];
     
@@ -255,7 +222,6 @@
         self.view.backgroundColor = Rgb2UIColor(58, 191, 151);
         imageCruz.alpha = 0.0;
         buttonSincronizar.alpha = 0.0;
-        labelSincronizando.alpha = 0.0;
     }];
     
     [UIView animateWithDuration:2.0 animations:^{
@@ -273,14 +239,5 @@
     senhaGerada = YES;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

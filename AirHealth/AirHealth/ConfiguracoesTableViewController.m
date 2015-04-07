@@ -34,6 +34,13 @@
     persistencia = [Persistencia sharedInstance];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    
+
+    [self.navigationController.navigationBar.topItem setTitle:@"Configurações"];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

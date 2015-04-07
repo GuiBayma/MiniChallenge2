@@ -87,6 +87,8 @@
     dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd/MM/yyyy"];
     
+    
+    
 }
 
 - (void)tocouNaView {
@@ -162,6 +164,8 @@
         [selecionaFotoBotao setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
     }
     
+    [self.navigationController.navigationBar.topItem setTitle:@"Dados Pessoais"];
+        
 }
 
 - (IBAction)selecionaFoto:(UIButton *)sender {

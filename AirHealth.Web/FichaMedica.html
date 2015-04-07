@@ -76,7 +76,10 @@
         success: function(resultUsuario) {
           
           var arquivoImg = resultUsuario.get("imagem");
-          usuarioImg.src = arquivoImg.url();
+          
+          if (arquivoImg != null)
+            usuarioImg.src = arquivoImg.url();
+          
           inputNome.value = resultUsuario.get("nome");
           inputCPF.value = resultUsuario.get("cpf");
           inputRG.value = resultUsuario.get("rg");
